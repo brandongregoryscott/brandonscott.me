@@ -1,6 +1,7 @@
 backend:
   name: git-gateway
-  branch: main
+  branch: "feature/resume"
+publish_mode: editorial_workflow
 media_folder: "assets/uploads"
 collections:
   - name: "blog"
@@ -21,7 +22,7 @@ collections:
     editor:
       preview: false
     files:
-      - label: "About Page"
+      - label: "About"
         name: "about"
         file: "about.md"
         fields:
@@ -36,6 +37,29 @@ collections:
               name: "layout",
               widget: "hidden",
               default: "about",
+            }
+          - {
+              label: "Show header",
+              name: "show_header",
+              widget: "boolean",
+              default: false,
+            }
+          - { label: "Body", name: "body", widget: "markdown" }
+      - label: "Resume"
+        name: "resume"
+        file: "resume.md"
+        fields:
+          - {
+              label: "Title",
+              name: "title",
+              widget: "hidden",
+              default: "resume",
+            }
+          - {
+              label: "Layout",
+              name: "layout",
+              widget: "hidden",
+              default: "resume",
             }
           - {
               label: "Show header",
