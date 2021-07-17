@@ -49,7 +49,7 @@ Technical Experience
 
 * .NET Framework, Entity Framework, JavaScript
 
-## EDUCATION
+## **EDUCATION**
 
 Kutztown University of Pennsylvania – Kutztown, PA
 
