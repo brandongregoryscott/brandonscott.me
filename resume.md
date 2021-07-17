@@ -7,7 +7,9 @@ show_header: false
 # **Brandon Scott**
 
 Lancaster, PA
+
 brandon@brandonscott.me
+
 www.brandonscott.me
 
 - - -
@@ -51,4 +53,4 @@ Technical Experience
 
 Kutztown University of Pennsylvania – Kutztown, PA
 
-_B.S., Computer Science_, May 2017
+*B.S., Computer Science*, May 2017
