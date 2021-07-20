@@ -3,11 +3,11 @@ layout: post
 title: Improving Developer Productivity by Building a CLI
 date: 2020-10-20T16:00:05.114Z
 ---
-## Necessary repetitive interactions don't need to take as much time to type or brain space to remember
+Necessary repetitive interactions don't need to take as much time to type or brain space to remember
 
 ![laptop with code editor](/assets/uploads/laptop-with-code-editor.jpeg)
 
-##### Photo by [Christopher Gower](https://unsplash.com/@cgower) on [Unsplash](https://unsplash.com)
+Photo by [Christopher Gower](https://unsplash.com/@cgower) on [Unsplash](https://unsplash.com)
 
 As an engineer, one of the most powerful tools you likely use in a day is your favorite command-line shell — this includes building, running, and testing projects, committing code, writing scripts, configuring environments, etc. These monotonous, repetitive interactions are necessary to our day-to-day work — but they don't need to take as much time to type or brain space to remember. Building a custom CLI that wraps common commands or even something more sophisticated like a build script can be a huge productivity booster for your team.
 
@@ -17,17 +17,17 @@ A CLI, or command-line interface, describes the process of interacting with a pr
 
 ![Terminal window with output from CLI commands](/assets/uploads/terminal.png)
 
-##### A screenshot of a terminal window running CLI commands
+A screenshot of a terminal window running CLI commands
 
 Nowadays, CLIs are often forgot about in favor of programs with GUIs, or graphical user interfaces. GUIs are a more visual way to interact with an application, usually built with buttons, sliders, dropdown menus, context menus, etc. What you may not know is that many applications with GUIs are also powered by a CLI, or at least offer a CLI with feature parity. Take Amazon Web Services for example — they offer a suite of web applications for spinning up cloud infrastructure in what they call the **_AWS Management Console._**
 
 ![Screenshot of the AWS Management Console landing page.](/assets/uploads/aws-management-console.png)
 
-##### Screenshot of the AWS Management Console landing page. Source: https://aws.amazon.com/about-aws/whats-new/2018/12/usability-improvements-for-aws-management-console/
+Screenshot of the AWS Management Console landing page. Source: https://aws.amazon.com/about-aws/whats-new/2018/12/usability-improvements-for-aws-management-console/
 
 ![Screenshot of the AWS Application Discovery service with a settings modal open](/assets/uploads/aws-application-discovery-modal.png)
 
-##### Screenshot of the AWS Application Discovery service with a settings modal open. Source: https://aws.amazon.com/blogs/aws/category/aws-management-console/
+Screenshot of the AWS Application Discovery service with a settings modal open. Source: https://aws.amazon.com/blogs/aws/category/aws-management-console/
 
 While many users will prefer to configure their services this way, others will prefer a simpler interface, one that can also be used to automate their workflows (such as powering down and spinning up new environments.) Amazon offers a CLI to interact with their services as well, which is [well documented.](https://aws.amazon.com/cli/)
 
@@ -67,7 +67,7 @@ This doesn't seem too complicated, but it isn't taking any arguments for input. 
 
 <script src="https://gist.github.com/brandongregoryscott/5be136b7b89ef42610b2d72144b60602.js"></script>
 
-##### Note: I don't use bash scripts for advanced tasks, so take this example with a grain of salt.
+Note: I don't use bash scripts for advanced tasks, so take this example with a grain of salt.
 
 This new function, `findDotnetSolution`, is responsible for finding a dotnet solution file (in the form of `filename.sln`) under the current directory. It uses the [`ls`](http://man7.org/linux/man-pages/man1/ls.1.html) command to list the directory contents of the given path and checks the exit status of that command to determine whether or not matching files were found.
 
@@ -100,7 +100,7 @@ Take, for example, the command we created above that wraps `dotnet restore`.
 
 <script src="https://gist.github.com/brandongregoryscott/f72d6cbe2b7890f78ab47662ed01953f.js"></script>
 
-##### Note: There is another file not shown called 'main.js' (arbitrary) which acts as the entrypoint and calls restoreDotnetSolution().
+Note: There is another file not shown called 'main.js' (arbitrary) which acts as the entrypoint and calls restoreDotnetSolution().
 
 This program is broken up in a very similar way to the Bash script:
 
@@ -112,7 +112,7 @@ While at first glance this example looks longer and more complex, it does have s
 
 <script src="https://gist.github.com/brandongregoryscott/0f3ebab254f7a46607943b68e61a0a64.js"></script>
 
-##### We are using [Jest](https://www.npmjs.com/package/jest) as our JS testing framework
+We are using [Jest](https://www.npmjs.com/package/jest) as our JS testing framework
 
 Secondly, because this is just another module, you can import it elsewhere in your project to reuse the same code. Take this short example that restores the dotnet solution dependencies using the above code, and then builds the solution.
 
