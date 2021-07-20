@@ -1,9 +1,10 @@
 ---
 layout: post
 title: Writing and Publishing Your First Visual Studio Code Extension
-date: 2021-07-19T16:00:53.231Z
+date: 2021-07-20T16:00:53.231Z
 ---
-If you use Visual Studio Code on a daily basis for your development, you likely already have a set of favorite extensions that improve your productivity. You’ve also probably run into a situation where you keep repeating a certain action, text transformation, etc. 
+
+If you use Visual Studio Code on a daily basis for your development, you likely already have a set of favorite extensions that improve your productivity. You’ve also probably run into a situation where you keep repeating a certain action, text transformation, etc.
 
 If I have to do the same action more than 3 or so times, I’ll usually go searching for an extension that fits my use case. Sometimes, I’ll find the right extension the first time — it has all the features I need, it’s well documented, and seems to be actively supported. Awesome — time to move on with my work.
 
@@ -11,9 +12,9 @@ But there have also been many instances where the extension I found didn’t qui
 
 ### The Problem
 
-Recently, my team was tasked with setting up our React application to support multiple languages. Seeing as this was over a year into development, there were lots of areas where English copy needed to be extracted, tokenized and translated. At a minimum, 3 files needed to be updated to add a key, the English copy, and for the first pass, a placeholder Spanish translation using Google Translate. 
+Recently, my team was tasked with setting up our React application to support multiple languages. Seeing as this was over a year into development, there were lots of areas where English copy needed to be extracted, tokenized and translated. At a minimum, 3 files needed to be updated to add a key, the English copy, and for the first pass, a placeholder Spanish translation using Google Translate.
 
-Naturally, I first looked for an extension that would send my English copy to the Google Translate API and replace it. I found one, and it worked for a while, but eventually broke without support from the developer. I found another one that worked, but I eventually became frustrated with the tedium of the whole process, with or without the Google Translate extension: 
+Naturally, I first looked for an extension that would send my English copy to the Google Translate API and replace it. I found one, and it worked for a while, but eventually broke without support from the developer. I found another one that worked, but I eventually became frustrated with the tedium of the whole process, with or without the Google Translate extension:
 
 1. Open the interface that defines keys which each language file must "implement" (or provide a translated value for)
 2. Insert the new key in the correct alphabetical position
@@ -23,11 +24,11 @@ Naturally, I first looked for an extension that would send my English copy to th
 6. Add the new key and its English copy in alphabetical position
 7. Highlight the English copy and translate it using an extension wrapping the Google Translate API
 
-I didn’t find any extensions that quite fit this workflow for managing keys and translations in TypeScript. I had been curious about VS Code extension development for a while, so I decided this was the perfect opportunity to get my feet wet. The goal for this extension was to automate the process of adding keys and copy to various translation files, using the Google Translate API for placeholders. After a few Friday afternoons and weekends, I proudly presented the *[kazoo](https://github.com/brandongregoryscott/kazoo)* extension to my team.
+I didn’t find any extensions that quite fit this workflow for managing keys and translations in TypeScript. I had been curious about VS Code extension development for a while, so I decided this was the perfect opportunity to get my feet wet. The goal for this extension was to automate the process of adding keys and copy to various translation files, using the Google Translate API for placeholders. After a few Friday afternoons and weekends, I proudly presented the _[kazoo](https://github.com/brandongregoryscott/kazoo)_ extension to my team.
 
 In this article, I’ll be giving an overview of how to get started building a VS Code extension. While I would encourage you to look for existing extensions or contributing to existing extensions before creating your own, it can be a valuable learning experience and a powerful tool to keep in your back pocket.
 
-*This article assumes the reader has a baseline level of knowledge on git, npm, NodeJS, and of course, VS Code.*
+_This article assumes the reader has a baseline level of knowledge on git, npm, NodeJS, and of course, VS Code._
 
 ### Getting Started
 
@@ -45,7 +46,7 @@ Once both have been successfully installed, you should be able to run Yeoman to 
 
 Screenshot of the interactive prompt that Yeoman opens with
 
-If you have *any* experience with [TypeScript](https://www.typescriptlang.org/), I would highly recommend setting up the project with it from the start — I won’t gush over the benefits that TypeScript gives for modern JavaScript development here, but you should still be able to reasonably follow along with this article even without TypeScript experience.
+If you have _any_ experience with [TypeScript](https://www.typescriptlang.org/), I would highly recommend setting up the project with it from the start — I won’t gush over the benefits that TypeScript gives for modern JavaScript development here, but you should still be able to reasonably follow along with this article even without TypeScript experience.
 
 As far as configuration goes, give your extension a name, identifier and description. The name is the “pretty” name that users will primarily see, while the identifier is used for… uniquely identifying your extension along with your marketplace organization, ie `brandongregoryscott.kazoo`.
 
@@ -93,7 +94,7 @@ Command palette filtered down by “hello”
 
 Informational toast by running the default ‘Hello World’ command
 
-*Note: while the launch task runs the ‘watch’ script to rebuild on changes, the extension development host will not automatically pick up the new code — you will need to restart it by stopping & starting it or using the green ‘Restart’ icon.*
+_Note: while the launch task runs the ‘watch’ script to rebuild on changes, the extension development host will not automatically pick up the new code — you will need to restart it by stopping & starting it or using the green ‘Restart’ icon._
 
 ![Restart the development instance of VS Code to ensure your extension’s latest code is running](/assets/uploads/vscode-restart-debugger.png)
 
@@ -103,7 +104,7 @@ Restart the development instance of VS Code to ensure your extension’s latest 
 
 #### Activation Events
 
-An activation event is an event that VS Code will listen for before the extension is activated (i.e., your `activate` function runs, your commands are registered, etc!) These are specified in a JSON array in your `package.json`. While you *can* activate your extension when VS Code starts up, in most cases, this is probably unnecessary. You certainly don’t want to slow down the boot time for your users by prematurely activating your extension. In [kazoo](https://github.com/brandongregoryscott/kazoo)’s case, the extension is only activated when one of its commands are requested:
+An activation event is an event that VS Code will listen for before the extension is activated (i.e., your `activate` function runs, your commands are registered, etc!) These are specified in a JSON array in your `package.json`. While you _can_ activate your extension when VS Code starts up, in most cases, this is probably unnecessary. You certainly don’t want to slow down the boot time for your users by prematurely activating your extension. In [kazoo](https://github.com/brandongregoryscott/kazoo)’s case, the extension is only activated when one of its commands are requested:
 
 A full list of activation events can be found [here](https://code.visualstudio.com/api/references/activation-events). I would recommend starting with a narrow activation event scope such as `onCommand` or `onLanguage`, depending on your extension’s purpose, and evaluating whether the extension requires activation earlier.
 
@@ -121,33 +122,33 @@ An example of commands grouped by ‘kazoo’ in the Command Palette
 
 The `command` value is also used for reference in Activation Events, for example: `onCommand:myExtension.updateText`. For more advanced configuration and use-cases, you can view the official documentation [here](https://code.visualstudio.com/api/references/contribution-points#contributes.commands).
 
-*Note: While commands need to be defined in the* `package.json` *file, they will also need to be registered/bound to functions from the extension code. A code snippet will be provided in the “Examples” section later in the article.*
+_Note: While commands need to be defined in the_ `package.json` _file, they will also need to be registered/bound to functions from the extension code. A code snippet will be provided in the “Examples” section later in the article._
 
 #### Configuration
 
-Oftentimes, you will want to provide settings to change the behavior of your extension. From the `package.json`, you can define settings, their types, as well as any default or possible values. The `title` property in the `configuration` field should match your extension name and acts as the highest level “grouping” of settings. 
+Oftentimes, you will want to provide settings to change the behavior of your extension. From the `package.json`, you can define settings, their types, as well as any default or possible values. The `title` property in the `configuration` field should match your extension name and acts as the highest level “grouping” of settings.
 
 ![Example of the settings panel for kazoo](/assets/uploads/vscode-settings.png)
 
 Example of the settings panel for kazoo
 
-A setting should have a `description` and a `type` filled in to help guide users. Settings that are `number`, `string` or `boolean` types can be edited directly in the UI, while `object` and `array` types need to be edited in the JSON directly. 
+A setting should have a `description` and a `type` filled in to help guide users. Settings that are `number`, `string` or `boolean` types can be edited directly in the UI, while `object` and `array` types need to be edited in the JSON directly.
 
 Optionally, you can provide a default value for a setting with the `default` property. For more advanced configuration and use-cases, you can view the official documentation [here](https://code.visualstudio.com/api/references/contribution-points#contributes.configuration).
 
-*Note: while configuration settings need to be defined in the* `package.json` *file, your extension might require (or at least benefit) from some additional interfaces and utilities for reading values. A code snippet will be provided in the “Examples” section later in the article.*
+_Note: while configuration settings need to be defined in the_ `package.json` _file, your extension might require (or at least benefit) from some additional interfaces and utilities for reading values. A code snippet will be provided in the “Examples” section later in the article._
 
-### import * as vscode from “vscode”;
+### import \* as vscode from “vscode”;
 
-It’s time to tie it all together. The VS Code API provides pretty much all of the building blocks you need to start writing your extension, such as asking for user input, opening files, editing the current selection, etc. I won’t go over every single namespace and function they provide — pulling the `@types/vscode` package into your project should provide helpful hints for the API as you’re developing, in addition to the web based documentation found [here](https://code.visualstudio.com/api/references/vscode-api). I *will* provide snippets of very common functions that I needed to build [kazoo](https://github.com/brandongregoryscott/kazoo).
+It’s time to tie it all together. The VS Code API provides pretty much all of the building blocks you need to start writing your extension, such as asking for user input, opening files, editing the current selection, etc. I won’t go over every single namespace and function they provide — pulling the `@types/vscode` package into your project should provide helpful hints for the API as you’re developing, in addition to the web based documentation found [here](https://code.visualstudio.com/api/references/vscode-api). I _will_ provide snippets of very common functions that I needed to build [kazoo](https://github.com/brandongregoryscott/kazoo).
 
-*Note: most of the VS Code API is asynchronous — meaning you will need to leverage* `async` *and* `await` *or use the* `Promise` *API to properly handle responses. For something like a toast message, it may not be mission critical that your extension waits for the message to appear before continuing. As a best practice, I would recommend* `await`*\-ing anything in the VS Code API that returns a* `Thenable` *(a custom type that essentially represents a* `Promise`*, agnostic of its implementation/library) to avoid potential bugs or nondeterministic behavior.*
+_Note: most of the VS Code API is asynchronous — meaning you will need to leverage_ `async` _and_ `await` _or use the_ `Promise` _API to properly handle responses. For something like a toast message, it may not be mission critical that your extension waits for the message to appear before continuing. As a best practice, I would recommend_ `await`_\-ing anything in the VS Code API that returns a_ `Thenable` _(a custom type that essentially represents a_ `Promise`_, agnostic of its implementation/library) to avoid potential bugs or nondeterministic behavior._
 
 #### Examples
 
 ### Packaging & Publishing
 
-While your extension’s project looks and *feels* a lot like a standard npm package, it requires some extra work for it to be published and distributed on the [Visual Studio Marketplace](https://marketplace.visualstudio.com/) and show up in the Extensions tab in VS Code.
+While your extension’s project looks and _feels_ a lot like a standard npm package, it requires some extra work for it to be published and distributed on the [Visual Studio Marketplace](https://marketplace.visualstudio.com/) and show up in the Extensions tab in VS Code.
 
 For one, you’ll want `vsce` installed, which is the Visual Studio Extension Manager. This is a command line tool that manages the packaging and publishing of your extension assets.
 
@@ -155,7 +156,7 @@ For one, you’ll want `vsce` installed, which is the Visual Studio Extension Ma
 npm install --global vsce
 ```
 
-*Note: While you technically don’t need to install* `vsce` *as a global package, it automatically adds the executable to your path so you can type* `vsce` *directly. If you save it as a development dependency, for example, you’d need to run it relative to your* `node_modules` *directory:* `./node_modules/vsce/out/vsce`
+_Note: While you technically don’t need to install_ `vsce` _as a global package, it automatically adds the executable to your path so you can type_ `vsce` _directly. If you save it as a development dependency, for example, you’d need to run it relative to your_ `node_modules` *directory:* `./node_modules/vsce/out/vsce`
 
 To test out how your extension would work once packaged and distributed, you can run `vsce package`. This should generate a `.vsix` file of your extension name in the current directory, which can be installed through the VS Code UI or sent to a friend for beta testing. Note that this should only be run after you’ve completed you’ve compiled/bundled your code — packaging up `.ts` files won’t be of much use to a consumer.
 
@@ -238,7 +239,7 @@ With the steps and examples provided in this article, you should have everything
 
 #### Resources and more examples
 
-* View the source code for the [kazoo](https://github.com/brandongregoryscott/kazoo) extension mentioned throughout
-* [TypeScript](https://www.typescriptlang.org/) website
-* [Yo](https://www.npmjs.com/package/yo) (Yeoman) on npm
-* [generator-code](https://www.npmjs.com/package/generator-code) (VS Code extension generator) on npm
+- View the source code for the [kazoo](https://github.com/brandongregoryscott/kazoo) extension mentioned throughout
+- [TypeScript](https://www.typescriptlang.org/) website
+- [Yo](https://www.npmjs.com/package/yo) (Yeoman) on npm
+- [generator-code](https://www.npmjs.com/package/generator-code) (VS Code extension generator) on npm
