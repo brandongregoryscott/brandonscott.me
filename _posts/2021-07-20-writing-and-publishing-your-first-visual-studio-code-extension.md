@@ -3,10 +3,6 @@ layout: post
 title: Writing and Publishing Your First Visual Studio Code Extension
 date: 2021-07-20T16:00:53.231Z
 ---
-![laptop with code editor](/assets/uploads/laptop-with-code-editor-2.jpg)
-
-Photo by [AltumCode](https://unsplash.com/@altumcode) on [Unsplash](https://unsplash.com)
-
 If you use Visual Studio Code on a daily basis for your development, you likely already have a set of favorite extensions that improve your productivity. You’ve also probably run into a situation where you keep repeating a certain action, text transformation, etc.
 
 If I have to do the same action more than 3 or so times, I’ll usually go searching for an extension that fits my use case. Sometimes, I’ll find the right extension the first time — it has all the features I need, it’s well documented, and seems to be actively supported. Awesome — time to move on with my work.
