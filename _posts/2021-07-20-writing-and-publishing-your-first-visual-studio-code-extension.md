@@ -246,3 +246,5 @@ With the steps and examples provided in this article, you should have everything
 * [TypeScript](https://www.typescriptlang.org/) website
 * [Yo](https://www.npmjs.com/package/yo) (Yeoman) on npm
 * [generator-code](https://www.npmjs.com/package/generator-code) (VS Code extension generator) on npm
+
+*Originally posted on the [andculture blog](https://andculture.com/blog/writing-and-publishing-your-first-visual-studio-code-extension/).*
