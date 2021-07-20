@@ -5,7 +5,7 @@ date: 2021-07-20T16:00:53.231Z
 ---
 ![laptop with code editor](/assets/uploads/laptop-with-code-editor-2.jpg)
 
-Photo by [AltumCode](https://unsplash.com/@altumcode)</a> on [Unsplash](https://unsplash.com)
+Photo by [AltumCode](https://unsplash.com/@altumcode) on [Unsplash](https://unsplash.com)
 
 If you use Visual Studio Code on a daily basis for your development, you likely already have a set of favorite extensions that improve your productivity. You’ve also probably run into a situation where you keep repeating a certain action, text transformation, etc.
 
