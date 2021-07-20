@@ -163,3 +163,5 @@ With that piece covered, you should have everything you need to get started buil
 - [ShellJS](https://www.npmjs.com/package/shelljs) on npm
 - [Commander](https://www.npmjs.com/package/commander) on npm
 - [Jest](https://www.npmjs.com/package/jest) on npm
+
+_Originally posted on [Medium](https://medium.com/and-next/building-a-cli-to-improve-developer-productivity-1791b001d9b5) for [andnext](https://medium.com/and-next)._
