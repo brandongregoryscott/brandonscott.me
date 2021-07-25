@@ -1,28 +1,26 @@
-import React, { useRef, useEffect } from 'react';
-import styles from './Page.module.scss';
+import React, { useRef, useEffect, PropsWithChildren } from "react";
+import styles from "./Page.module.scss";
 
 type Props = {
-  title?: string,
-  children: React.Node
+    title?: string;
 };
 
-const Page = ({ title, children }: Props) => {
-  const pageRef = useRef();
+const Page = (props: PropsWithChildren<Props>) => {
+    const { title, children } = props;
+    const pageRef = useRef();
 
-  useEffect(() => {
-    pageRef.current.scrollIntoView();
-  });
+    useEffect(() => {
+        pageRef.current.scrollIntoView();
+    });
 
-  return (
-    <div ref={pageRef} className={styles['page']}>
-      <div className={styles['page__inner']}>
-        { title && <h1 className={styles['page__title']}>{title}</h1>}
-        <div className={styles['page__body']}>
-          {children}
+    return (
+        <div ref={pageRef} className={styles["page"]}>
+            <div className={styles["page__inner"]}>
+                {title && <h1 className={styles["page__title"]}>{title}</h1>}
+                <div className={styles["page__body"]}>{children}</div>
+            </div>
         </div>
-      </div>
-    </div>
-  );
+    );
 };
 
 export default Page;
