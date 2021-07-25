@@ -1,5 +1,9 @@
-_site
-.sass-cache
-.jekyll-cache
-.jekyll-metadata
-vendor
+node_modules/
+.cache/
+.DS_Store
+public/
+npm-debug.log
+.eslintcache
+.gatsby-context.js
+.idea
+gatsby-starter-lumen.iml
