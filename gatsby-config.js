@@ -134,6 +134,7 @@ module.exports = {
                         resolve: "gatsby-remark-responsive-iframe",
                         options: { wrapperStyle: "margin-bottom: 1.0725rem" },
                     },
+                    "gatsby-remark-embed-gist",
                     "gatsby-remark-autolink-headers",
                     "gatsby-remark-prismjs",
                     "gatsby-remark-copy-linked-files",
@@ -223,12 +224,14 @@ module.exports = {
                         },
                         {
                             // Add runtime caching of various other page resources
-                            urlPattern: /^https?:.*\.(png|jpg|jpeg|webp|svg|gif|tiff|js|woff|woff2|json|css)$/,
+                            urlPattern:
+                                /^https?:.*\.(png|jpg|jpeg|webp|svg|gif|tiff|js|woff|woff2|json|css)$/,
                             handler: "StaleWhileRevalidate",
                         },
                         {
                             // Google Fonts CSS (doesn't end in .css so we need to specify it)
-                            urlPattern: /^https?:\/\/fonts\.googleapis\.com\/css/,
+                            urlPattern:
+                                /^https?:\/\/fonts\.googleapis\.com\/css/,
                             handler: "StaleWhileRevalidate",
                         },
                     ],

@@ -120,11 +120,15 @@ Restart the development instance of VS Code to ensure your extension's latest co
 
 An activation event is an event that VS Code will listen for before the extension is activated (i.e., your `activate` function runs, your commands are registered, etc!) These are specified in a JSON array in your `package.json`. While you _can_ activate your extension when VS Code starts up, in most cases, this is probably unnecessary. You certainly don't want to slow down the boot time for your users by prematurely activating your extension. In [kazoo](https://github.com/brandongregoryscott/kazoo)'s case, the extension is only activated when one of its commands are requested:
 
+`gist:brandongregoryscott/1455ce094915764685b0d369ad4c38ff`
+
 A full list of activation events can be found [here](https://code.visualstudio.com/api/references/activation-events). I would recommend starting with a narrow activation event scope such as `onCommand` or `onLanguage`, depending on your extension's purpose, and evaluating whether the extension requires activation earlier.
 
 ### Contribution Points
 
 A contribution point is a general term for declarations in the `package.json` file that tell VS Code how your project is extending its functionality. At the bare minimum, you will likely be defining `commands` and `configuration` values if your extension requires user settings. Depending on your extension's complexity and required functionality, you may define `menus`, `keybindings`, `themes`, etc. A full list of contribution points and their purposes can be found [here](https://code.visualstudio.com/api/references/contribution-points). For the [kazoo](https://github.com/brandongregoryscott/kazoo) extension, I only needed to define commands and configuration settings.
+
+`gist:brandongregoryscott/132413ce886cee2c92258bb31b2fd770`
 
 #### Commands
 
@@ -160,7 +164,7 @@ _Note: most of the VS Code API is asynchronous — meaning you will need to 
 
 #### Examples
 
-<script src="https://gist.github.com/brandongregoryscott/a99b9a83478ce37145cdf978a9b81a51.js"></script>
+`gist:brandongregoryscott/a99b9a83478ce37145cdf978a9b81a51`
 
 ### Packaging & Publishing
 
@@ -178,7 +182,11 @@ To test out how your extension would work once packaged and distributed, you can
 
 For example, [kazoo](https://github.com/brandongregoryscott/kazoo) has an npm script for building the extension and a prepublish script that ensures the build runs before `vsce package` and `vsce publish`:
 
+`gist:brandongregoryscott/8303184477d27c9d4712fb07ecf38670`
+
 One thing to note is that the VS Code extension is packed up differently than what would normally be packed by `npm` — you'll pretty much get every file in your current directory unless you intentionally filter them out in the `.vscodeignore` file, which I highly recommend. You shouldn't need any `.ts` files, anything in `node_modules`, any markdown files, etc. An example file might look this:
+
+`gist:brandongregoryscott/ac21d45afeac2d26a7967b1f4b361b58`
 
 Common files/folders that should be ignored from a VS Code extension's packing/publishing process
 
@@ -222,6 +230,8 @@ Personal Access Token for publisher 'publisherId':
 ```
 
 Make sure your `publisherId` is defined in your `package.json` file (via the `publisher` property):
+
+`gist:brandongregoryscott/d5230d086ed1a8ac0b9f441a21c60cbd`
 
 Your extension will be uniquely identified on the marketplace in the format of "publisher.name"
 

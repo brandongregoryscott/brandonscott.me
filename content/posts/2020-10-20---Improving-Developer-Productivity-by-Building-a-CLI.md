@@ -71,11 +71,11 @@ For building command-line applications, most people tend to use [Bash](<https://
 
 Consider the following function which wraps the `dotnet restore` command and provides some additional output.
 
-<script src="https://gist.github.com/brandongregoryscott/134f20c521cc964aadd21fe5d7acd20b.js"></script>
+`gist:brandongregoryscott/134f20c521cc964aadd21fe5d7acd20b`
 
 This doesn't seem too complicated, but it isn't taking any arguments for input. The only variable is `DOTNET_SOLUTION_FILE_PATH` which is defined manually in the same file. We could pull that out into another function that looks for a common .NET Core project structure under the current directory so it is a bit more dynamic.
 
-<script src="https://gist.github.com/brandongregoryscott/5be136b7b89ef42610b2d72144b60602.js"></script>
+`gist:brandongregoryscott/5be136b7b89ef42610b2d72144b60602`
 
 Note: I don't use bash scripts for advanced tasks, so take this example with a grain of salt.
 
@@ -83,7 +83,7 @@ This new function, `findDotnetSolution`, is responsible for finding a dotnet sol
 
 This solution removes some of the static configuration necessary for the script to work, but it's still pretty ugly because it's mostly duplicated code. Of course, Bash has a for loop concept like most other scripting and programming languages, so let's rewrite it to loop over the paths where we expect a dotnet solution to be found.
 
-<script src="https://gist.github.com/brandongregoryscott/22c8106629669bafd9a67a38527b5778.js"></script>
+`gist:brandongregoryscott/22c8106629669bafd9a67a38527b5778`
 
 This solution is better — it removes the duplicated code above, but it will still likely confuse developers who do not regularly write Bash scripts. For one, what does `$?` mean? Why does the first if block use `[` and `]`, whereas the second block uses `[[` and `]]`? Why can't we just return the actual path from `findDotnetSolution`?
 
@@ -108,7 +108,7 @@ The examples up to this point are included in the [phase1](https://github.com/br
 
 Take, for example, the command we created above that wraps `dotnet restore`.
 
-<script src="https://gist.github.com/brandongregoryscott/f72d6cbe2b7890f78ab47662ed01953f.js"></script>
+`gist:brandongregoryscott/f72d6cbe2b7890f78ab47662ed01953f`
 
 Note: There is another file not shown called 'main.js' (arbitrary) which acts as the entrypoint and calls restoreDotnetSolution().
 
@@ -120,13 +120,13 @@ This program is broken up in a very similar way to the Bash script:
 
 While at first glance this example looks longer and more complex, it does have some advantages over Bash. For one, you can easily write unit tests to prove this functionality works.
 
-<script src="https://gist.github.com/brandongregoryscott/0f3ebab254f7a46607943b68e61a0a64.js"></script>
+`gist:brandongregoryscott/0f3ebab254f7a46607943b68e61a0a64`
 
 We are using [Jest](https://www.npmjs.com/package/jest) as our JS testing framework
 
 Secondly, because this is just another module, you can import it elsewhere in your project to reuse the same code. Take this short example that restores the dotnet solution dependencies using the above code, and then builds the solution.
 
-<script src="https://gist.github.com/brandongregoryscott/4f473d3cb34ed8723ac50a6a191cf862.js"></script>
+`gist:brandongregoryscott/4f473d3cb34ed8723ac50a6a191cf862`
 
 Note that while this code works, it would probably make more logical sense to break out some of the common functions (`getFirstFile`, `getSolutionPath`, and `solutionPathOrExit`) into their own module, since they aren't directly tied to _just restoring_ or _just building_ the dotnet solution. By pulling them out into their own module, they are logically separated and can be tested independently.
 
@@ -146,19 +146,19 @@ cli dotnet --clean --restore --build
 
 Using the [Commander](https://www.npmjs.com/package/commander) package, we will write a main entrypoint for our CLI program, as well as a sub-command file for running dotnet-related actions.
 
-<script src="https://gist.github.com/brandongregoryscott/af92aa668c87804cfc722409ecd462f8.js"></script>
+`gist:brandongregoryscott/af92aa668c87804cfc722409ecd462f8`
 
 Right now, we only have one sub-command which is `dotnet`. If you had other sub-commands for interacting with Jest, Webpack, etc., you'd register them here. The second argument to `command` is the description of the command, which should be short but useful to a new user navigating the interface of your program. Next, you'd create a file prefixed with entrypoint name, ending with your command name, i.e. `cli-dotnet.js`. All sub-commands of your CLI program will follow this pattern, and its consistent structure makes it easy to find, add or update commands.
 
 This new sub-command file, `cli-dotnet.js`, will be responsible for parsing arguments from the user and deferring execution to what we declared as "modules" earlier. Generally speaking, it is cleaner and easier to test business logic for these CLI commands when their functions are broken out and the CLI file acts as the layer of "glue" to pull them together.
 
-<script src="https://gist.github.com/brandongregoryscott/d2fb166ff005ce5aaf349ca820fed121.js"></script>
+`gist:brandongregoryscott/d2fb166ff005ce5aaf349ca820fed121`
 
 As you can see, this file follows a similar structure to the main entrypoint, `cli.js`. Arguments from the user are registered as "options" with a "flag" string and an optional description (though it is recommended.) You can specify short flags (such as `-b` ), verbose flags (such as `--build`), or both (`-b, --build`) as valid ways to "call" the commands. The presence of those options from the user will set a boolean flag on the `program` object itself, where you can conditionally call the modules you've written and imported.
 
 There's some additional logic at the end of the file to check when "no arguments" are passed in (such as just typing `cli dotnet`), which will present the user with the help menu. (The user might not know to use the `-h` or `--help` flags to display the same information, which is a 'self-documenting' feature of Commander.)
 
-<script src="https://gist.github.com/brandongregoryscott/35e5b9e50ce7fa275346b60a4d30a4a5.js"></script>
+`gist:brandongregoryscott/35e5b9e50ce7fa275346b60a4d30a4a5`
 
 The examples up to this point are included in the [phase3](https://github.com/brandongregoryscott/medium-example-cli/tree/master/phase3) directory of the [example repository](https://github.com/brandongregoryscott/medium-example-cli).
 
