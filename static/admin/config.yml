@@ -25,7 +25,12 @@ collections:
             }
           - { label: "Title", name: "title", widget: "string" }
           - { label: "Slug", name: "slug", widget: "string" }
-          - { label: "Social Image", name: "socialImage", widget: "image" }
+          - {
+                label: "Social Image",
+                name: "socialImage",
+                optional: true,
+                widget: "image",
+            }
           - { label: "Draft", name: "draft", widget: "boolean", default: true }
           - { label: "Publish Date", name: "date", widget: "datetime" }
           - { label: "Description", name: "description", widget: "text" }
@@ -45,8 +50,13 @@ collections:
                 widget: "hidden",
                 default: "page",
             }
-          - { label: "Title", name: "title", widget: "string" }
+          - { label: "Title", name: "title", optional: true, widget: "string" }
           - { label: "Slug", name: "slug", widget: "string" }
-          - { label: "Social Image", name: "socialImage", widget: "image" }
+          - {
+                label: "Social Image",
+                name: "socialImage",
+                optional: true,
+                widget: "image",
+            }
           - { label: "Draft", name: "draft", widget: "boolean", default: true }
           - { label: "Body", name: "body", widget: "markdown" }
