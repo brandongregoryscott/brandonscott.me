@@ -4,9 +4,9 @@
     "description": "Brandon Scott's personal site built using gatsby-starter-lumen",
     "main": "n/a",
     "scripts": {
-        "develop": "npm clean && gatsby develop",
-        "build": "npm clean && gatsby build",
-        "deploy": "npm clean && gatsby build --prefix-paths && gh-pages -d public",
+        "develop": "npm run clean && gatsby develop",
+        "build": "npm run clean && gatsby build",
+        "deploy": "npm run clean && gatsby build --prefix-paths && gh-pages -d public",
         "clean": "rimraf .cache public",
         "lint:js": "eslint --cache --ext .js,.jsx .",
         "lint:scss": "stylelint \"src/**/*.scss\"",
