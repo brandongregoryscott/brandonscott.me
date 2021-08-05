@@ -6,7 +6,7 @@ template: "page"
 
 Lancaster, PA
 
-brandon@brandonscott.me
+contact@brandonscott.me
 
 www.brandonscott.me
 
