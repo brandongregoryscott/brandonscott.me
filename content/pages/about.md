@@ -1,5 +1,8 @@
 ---
-template: "page"
+template: page
+title: About
+showTitle: false
+slug: about
 ---
 
 ### Hi there 👋
