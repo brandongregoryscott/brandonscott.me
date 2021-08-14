@@ -1,6 +1,6 @@
 backend:
     name: git-gateway
-    branch: main
+    branch: development
 
 media_folder: "static/media"
 public_folder: "/media"
@@ -28,10 +28,16 @@ collections:
           - {
                 label: "Social Image",
                 name: "socialImage",
-                optional: true,
+                required: false,
                 widget: "image",
             }
-          - { label: "Draft", name: "draft", widget: "boolean", default: true }
+          - {
+                label: "Draft",
+                name: "draft",
+                widget: "boolean",
+                required: false,
+                default: true,
+            }
           - { label: "Publish Date", name: "date", widget: "datetime" }
           - { label: "Description", name: "description", widget: "text" }
           - { label: "Category", name: "category", widget: "string" }
@@ -50,13 +56,26 @@ collections:
                 widget: "hidden",
                 default: "page",
             }
-          - { label: "Title", name: "title", optional: true, widget: "string" }
+          - { label: "Title", name: "title", required: false, widget: "string" }
+          - {
+                label: "Show title",
+                name: "showTitle",
+                widget: "boolean",
+                required: false,
+                default: false,
+            }
           - { label: "Slug", name: "slug", widget: "string" }
           - {
                 label: "Social Image",
                 name: "socialImage",
-                optional: true,
+                required: false,
                 widget: "image",
             }
-          - { label: "Draft", name: "draft", widget: "boolean", default: true }
+          - {
+                label: "Draft",
+                name: "draft",
+                widget: "boolean",
+                required: false,
+                default: true,
+            }
           - { label: "Body", name: "body", widget: "markdown" }
