@@ -1,5 +1,8 @@
 ---
-template: "page"
+template: page
+title: Resume
+showTitle: false
+slug: resume
 ---
 
 # **Brandon Scott**
