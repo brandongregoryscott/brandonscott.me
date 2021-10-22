@@ -1,32 +1,50 @@
+import _ from "lodash";
 import React from "react";
+import { useAnalytics } from "../../../hooks/use-analytics";
 import { getContactHref, getIcon } from "../../../utils";
 import Icon from "../../Icon";
 import styles from "./Contacts.module.scss";
 
-type Props = {
+interface ContactsProps {
     contacts: {
-        [string]: string;
+        [name: string]: string;
     };
-};
+}
 
-const Contacts = ({ contacts }: Props) => (
-    <div className={styles["contacts"]}>
-        <ul className={styles["contacts__list"]}>
-            {Object.keys(contacts).map((name) =>
-                !contacts[name] ? null : (
-                    <li className={styles["contacts__list-item"]} key={name}>
-                        <a
-                            className={styles["contacts__list-item-link"]}
-                            href={getContactHref(name, contacts[name])}
-                            rel="noopener noreferrer"
-                            target="_blank">
-                            <Icon name={name} icon={getIcon(name)} />
-                        </a>
-                    </li>
-                )
-            )}
-        </ul>
-    </div>
-);
+const Contacts = (props: ContactsProps) => {
+    const { contacts } = props;
+    const analytics = useAnalytics();
+    const links = Object.entries(contacts).filter(
+        ([_name, contact]) => !_.isEmpty(contact)
+    );
+    return (
+        <div className={styles["contacts"]}>
+            <ul className={styles["contacts__list"]}>
+                {links.map(([name, contact]) => {
+                    const href = getContactHref(name, contact);
+                    const onClick = () =>
+                        analytics.track("Clicked Social Link", {
+                            name: name,
+                            url: href,
+                        });
+                    return (
+                        <li
+                            className={styles["contacts__list-item"]}
+                            key={name}>
+                            <a
+                                className={styles["contacts__list-item-link"]}
+                                href={href}
+                                onClick={onClick}
+                                rel="noopener noreferrer"
+                                target="_blank">
+                                <Icon name={name} icon={getIcon(name)} />
+                            </a>
+                        </li>
+                    );
+                })}
+            </ul>
+        </div>
+    );
+};
 
 export default Contacts;
