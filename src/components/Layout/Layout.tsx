@@ -1,8 +1,10 @@
-import React, { PropsWithChildren } from "react";
+import React, { PropsWithChildren, useEffect, useState } from "react";
 import Helmet from "react-helmet";
 import type { ReactNode } from "react";
 import { useSiteMetadata } from "../../hooks";
 import styles from "./Layout.module.scss";
+import { Analytics, AnalyticsBrowser } from "@segment/analytics-next";
+import { useAnalytics } from "../../hooks/use-analytics";
 
 type Props = {
     children: ReactNode;
@@ -14,6 +16,12 @@ type Props = {
 const Layout = (props: PropsWithChildren<Props>) => {
     const { children, description, socialImage, title } = props;
     const { author, url } = useSiteMetadata();
+    const analytics = useAnalytics();
+
+    useEffect(() => {
+        analytics?.page();
+    }, [analytics]);
+
     const metaImage = socialImage ?? author.photo;
     const metaImageUrl = url + metaImage;
 

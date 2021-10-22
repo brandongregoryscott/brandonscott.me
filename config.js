@@ -9,6 +9,7 @@ module.exports = {
     disqusShortname: "",
     postsPerPage: 4,
     googleAnalyticsId: "G-VHHBZ8V9P5",
+    segmentWriteKey: "LtEMzwf9WyDaF5xAHjUbOZ9lPPObaRhx",
     useKatex: false,
     menu: [
         {

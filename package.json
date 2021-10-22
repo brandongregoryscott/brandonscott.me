@@ -37,6 +37,7 @@
         "disqus"
     ],
     "dependencies": {
+        "@segment/analytics-next": "^1.30.0",
         "@sentry/gatsby": "6.10.0",
         "@sentry/tracing": "6.10.0",
         "bluebird": "3.7.2",
