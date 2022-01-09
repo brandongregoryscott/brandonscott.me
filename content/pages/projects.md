@@ -5,7 +5,7 @@ showTitle: true
 slug: projects
 draft: false
 ---
-### beets
+## beets
 
 [site](https://beets.studio) | [repo](https://github.com/brandongregoryscott/beets)
 
@@ -17,13 +17,13 @@ Web-based DAW (Digital Audio Workstation) written in React for making music. Uti
 * [Jotai](https://jotai.org/), a state management library for React
 * [Supabase](https://supabase.com/), an open-source backend/cloud hosting alternative to Firebase
 
-### collation
+## collation
 
 [site](https://brandongregoryscott.github.io/collation/) | [repo](https://github.com/brandongregoryscott/collation)
 
 CLI tool to make your TypeScript code easier to read. Uses [ts-morph](https://ts-morph.com/) to read and manipulate the TypeScript AST (Abstract Syntax Tree) to reorganize and enforce a consistent code style.
 
-### kazoo
+## kazoo
 
 [site](https://brandongregoryscott.github.io/kazoo) | [repo](https://github.com/brandongregoryscott/kazoo)
 
