@@ -3,7 +3,7 @@ template: page
 title: Projects
 showTitle: true
 slug: projects
-draft: true
+draft: false
 ---
 ### beets
 
