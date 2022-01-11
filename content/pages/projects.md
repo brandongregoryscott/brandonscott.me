@@ -21,7 +21,7 @@ Web-based DAW (Digital Audio Workstation) written in React for making music. Uti
 
 [site](https://brandongregoryscott.github.io/collation/) | [repo](https://github.com/brandongregoryscott/collation)
 
-CLI tool to make your TypeScript code easier to read. Uses [ts-morph](https://ts-morph.com/) to read and manipulate the TypeScript AST (Abstract Syntax Tree) to reorganize and enforce a consistent code style.
+Command-line tool to make your TypeScript code easier to read. Uses [ts-morph](https://ts-morph.com/) to read and manipulate the TypeScript AST (Abstract Syntax Tree) to reorganize and enforce a consistent code style.
 
 ## kazoo
 
