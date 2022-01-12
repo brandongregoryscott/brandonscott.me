@@ -29,7 +29,7 @@ const createPages = async ({ graphql, actions }) => {
 
     createPage({
         path: "/projects",
-        component: path.resolve("./src/templates/projects-list-template.tsx"),
+        component: path.resolve("./src/templates/projects-page-template.tsx"),
     });
 
     // Posts and pages from markdown

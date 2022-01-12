@@ -1,13 +1,22 @@
 import { useStaticQuery, graphql } from "gatsby";
 import { Project } from "../interfaces/project";
+import { sortBy } from "lodash";
+
+interface ProjectsListQueryResult {
+    allMarkdownRemark: {
+        edges: Array<{
+            node: ProjectNode;
+        }>;
+    };
+}
 
 interface ProjectNode {
     html: string;
-    frontmatter: Pick<Project, "url" | "repo" | "title" | "template">;
+    frontmatter: Pick<Project, "url" | "repo" | "title" | "position">;
 }
 
 const useProjectsList = (): Project[] => {
-    const { allMarkdownRemark } = useStaticQuery(
+    const { allMarkdownRemark } = useStaticQuery<ProjectsListQueryResult>(
         graphql`
             query ProjectsListQuery {
                 allMarkdownRemark(
@@ -20,6 +29,7 @@ const useProjectsList = (): Project[] => {
                                 title
                                 repo
                                 url
+                                position
                             }
                         }
                     }
@@ -28,7 +38,10 @@ const useProjectsList = (): Project[] => {
         `
     );
 
-    return allMarkdownRemark.edges.map((edge) => mapNodeToProject(edge.node));
+    return sortBy(
+        allMarkdownRemark.edges.map((edge) => mapNodeToProject(edge.node)),
+        (project) => project.position
+    );
 };
 
 const mapNodeToProject = (node: ProjectNode): Project => ({

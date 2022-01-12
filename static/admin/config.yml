@@ -96,6 +96,7 @@ collections:
                 default: "project",
             }
           - { label: "Title", name: "title", widget: "string" }
+          - { label: "Position", name: "position", widget: "number" }
           - { label: "Repo", name: "repo", widget: "string" }
           - { label: "URL", name: "url", required: false, widget: "string" }
           - { label: "Body", name: "body", widget: "markdown" }
