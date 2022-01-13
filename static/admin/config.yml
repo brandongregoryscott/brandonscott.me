@@ -1,10 +1,10 @@
 # backend:
-#     name: git-gateway
-#     branch: main
+    name: git-gateway
+    branch: main
 
 # Uncomment for local development
-backend:
-    name: test-repo
+# backend:
+#     name: test-repo
 
 media_folder: "static/media"
 public_folder: "/media"
