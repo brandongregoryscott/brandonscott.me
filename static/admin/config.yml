@@ -1,6 +1,10 @@
-backend:
+# backend:
     name: git-gateway
     branch: main
+
+# Uncomment for local development
+# backend:
+#     name: test-repo
 
 media_folder: "static/media"
 public_folder: "/media"
@@ -78,4 +82,21 @@ collections:
                 required: false,
                 default: true,
             }
+          - { label: "Body", name: "body", widget: "markdown" }
+
+    - name: "projects"
+      label: "Projects"
+      folder: "content/projects"
+      create: true
+      fields:
+          - {
+                label: "Template",
+                name: "template",
+                widget: "hidden",
+                default: "project",
+            }
+          - { label: "Title", name: "title", widget: "string" }
+          - { label: "Position", name: "position", widget: "number" }
+          - { label: "Repo", name: "repo", widget: "string" }
+          - { label: "URL", name: "url", required: false, widget: "string" }
           - { label: "Body", name: "body", widget: "markdown" }

@@ -1,0 +1,22 @@
+@import "../../assets/scss/variables";
+@import "../../assets/scss/mixins";
+
+.title {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+
+    h2 {
+        @include margin-right(0.5);
+        @include margin-top(0);
+        @include margin-bottom(0);
+    }
+
+    a {
+        @include margin-right(0.5);
+    }
+}
+
+.content {
+    @include margin-bottom(1.5);
+}

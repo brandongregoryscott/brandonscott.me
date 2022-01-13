@@ -13,7 +13,7 @@ interface ContactsProps {
 
 const Contacts = (props: ContactsProps) => {
     const { contacts } = props;
-    const analytics = useAnalytics();
+    const { projectLinkClicked } = useAnalytics();
     const links = Object.entries(contacts).filter(
         ([_name, contact]) => !_.isEmpty(contact)
     );
@@ -22,11 +22,6 @@ const Contacts = (props: ContactsProps) => {
             <ul className={styles["contacts__list"]}>
                 {links.map(([name, contact]) => {
                     const href = getContactHref(name, contact);
-                    const onClick = () =>
-                        analytics.track("Clicked Social Link", {
-                            name: name,
-                            url: href,
-                        });
                     return (
                         <li
                             className={styles["contacts__list-item"]}
@@ -34,7 +29,10 @@ const Contacts = (props: ContactsProps) => {
                             <a
                                 className={styles["contacts__list-item-link"]}
                                 href={href}
-                                onClick={onClick}
+                                onClick={projectLinkClicked({
+                                    name: name,
+                                    url: href,
+                                })}
                                 rel="noopener noreferrer"
                                 target="_blank">
                                 <Icon name={name} icon={getIcon(name)} />

@@ -1,16 +1,25 @@
 import { Analytics, AnalyticsBrowser } from "@segment/analytics-next";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import useSiteMetadata from "./use-site-metadata";
 
-const useAnalytics = (): Analytics | undefined => {
+interface LinkClickedProperties {
+    name: string;
+    url: string;
+}
+
+interface UseAnalyticsResult {
+    analytics?: Analytics;
+    projectLinkClicked: (properties: LinkClickedProperties) => () => void;
+    socialLinkClicked: (properties: LinkClickedProperties) => () => void;
+}
+
+const useAnalytics = (): UseAnalyticsResult => {
     const { segmentWriteKey: writeKey } = useSiteMetadata();
-    const [analytics, setAnalytics] = useState<Analytics>(undefined);
+    const [analytics, setAnalytics] = useState<Analytics | undefined>(
+        undefined
+    );
 
     useEffect(() => {
-        if (writeKey == null) {
-            return;
-        }
-
         const loadAnalytics = async () => {
             const [response] = await AnalyticsBrowser.load({
                 writeKey,
@@ -19,9 +28,27 @@ const useAnalytics = (): Analytics | undefined => {
             setAnalytics(response);
         };
         loadAnalytics();
-    }, [writeKey]);
+    }, []);
 
-    return analytics;
+    const projectLinkClicked = useCallback(
+        (properties: LinkClickedProperties) => () => {
+            analytics?.track("Project Link Clicked", properties);
+        },
+        [analytics]
+    );
+
+    const socialLinkClicked = useCallback(
+        (properties: LinkClickedProperties) => () => {
+            analytics?.track("Social Link Clicked", properties);
+        },
+        [analytics]
+    );
+
+    return {
+        analytics,
+        projectLinkClicked,
+        socialLinkClicked,
+    };
 };
 
 export { useAnalytics };

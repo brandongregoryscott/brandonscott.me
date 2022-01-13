@@ -3,7 +3,6 @@ import Helmet from "react-helmet";
 import type { ReactNode } from "react";
 import { useSiteMetadata } from "../../hooks";
 import styles from "./Layout.module.scss";
-import { Analytics, AnalyticsBrowser } from "@segment/analytics-next";
 import { useAnalytics } from "../../hooks/use-analytics";
 
 type Props = {
@@ -16,7 +15,7 @@ type Props = {
 const Layout = (props: PropsWithChildren<Props>) => {
     const { children, description, socialImage, title } = props;
     const { author, url } = useSiteMetadata();
-    const analytics = useAnalytics();
+    const { analytics } = useAnalytics();
 
     useEffect(() => {
         analytics?.page();

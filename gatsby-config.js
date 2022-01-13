@@ -259,5 +259,6 @@ module.exports = {
             },
         },
         "gatsby-plugin-optimize-svgs",
+        "gatsby-plugin-anchor-links",
     ],
 };

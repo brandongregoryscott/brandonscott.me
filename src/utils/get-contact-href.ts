@@ -1,5 +1,5 @@
-const getContactHref = (name: string, contact: string) => {
-    let href;
+const getContactHref = (name: string, contact: string): string => {
+    let href: string = "";
 
     switch (name) {
         case "twitter":
