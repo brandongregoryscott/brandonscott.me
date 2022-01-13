@@ -7,7 +7,7 @@
     align-items: center;
 
     h2 {
-        @include margin-right(1);
+        @include margin-right(0.5);
         @include margin-top(0);
         @include margin-bottom(0);
     }

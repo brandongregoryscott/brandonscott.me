@@ -1,5 +1,5 @@
 import { Analytics, AnalyticsBrowser } from "@segment/analytics-next";
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import useSiteMetadata from "./use-site-metadata";
 
 interface LinkClickedProperties {
@@ -15,13 +15,11 @@ interface UseAnalyticsResult {
 
 const useAnalytics = (): UseAnalyticsResult => {
     const { segmentWriteKey: writeKey } = useSiteMetadata();
-    const [analytics, setAnalytics] = useState<Analytics>(undefined);
+    const [analytics, setAnalytics] = useState<Analytics | undefined>(
+        undefined
+    );
 
     useEffect(() => {
-        if (writeKey == null) {
-            return;
-        }
-
         const loadAnalytics = async () => {
             const [response] = await AnalyticsBrowser.load({
                 writeKey,
@@ -30,7 +28,7 @@ const useAnalytics = (): UseAnalyticsResult => {
             setAnalytics(response);
         };
         loadAnalytics();
-    }, [writeKey]);
+    }, []);
 
     const projectLinkClicked = useCallback(
         (properties: LinkClickedProperties) => () => {
@@ -46,7 +44,11 @@ const useAnalytics = (): UseAnalyticsResult => {
         [analytics]
     );
 
-    return { analytics, projectLinkClicked, socialLinkClicked };
+    return {
+        analytics,
+        projectLinkClicked,
+        socialLinkClicked,
+    };
 };
 
 export { useAnalytics };
