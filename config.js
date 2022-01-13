@@ -22,7 +22,7 @@ module.exports = {
         },
         {
             label: "Projects",
-            path: "/pages/projects",
+            path: "/projects",
         },
         {
             label: "Resume",
