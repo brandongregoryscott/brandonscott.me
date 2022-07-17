@@ -22,14 +22,14 @@ ESLint has become the defacto standard in lint tooling for the JavaScript ecosys
 
 Before diving too deep into the implementation details, it's important to understand some of the terms that will be referenced throughout.
 
-| Term      | AKA                  | Description                                                                                                                                                                                                                                 |
-| --------- | -------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Plugin    |                      | A package that extends the base functionality of ESLint. In most cases, it contains one or more custom rules, but it can also contain custom processors.                                                                                    |
-| Rule      |                      | A module that analyzes source code and reports errors on the incorrect lines of code. ESLint ships with a set of core rules, and custom rules can be implemented in a plugin or defined at runtime.                                         |
-| AST       | Abstract Syntax Tree | A syntax tree representing the structure of your source code. The AST is constructed by ESLint allows for more complex code analysis than attempting to report errors based on regular expression patterns.                                 |
-| Node      |                      | A model representing a specific instance of syntax from the source code. An example might be an `ImportDeclaration` or a `VariableDeclaration`.                                                                                             |
-| Parser    |                      | A module that constructors an AST from source code. Common examples are [@babel/eslint-parser](https://www.npmjs.com/package/@babel/eslint-parser) and [@typescript-eslint/parser](https://www.npmjs.com/package/@typescript-eslint/parser) |
-| Processor |                      | A module that can extract JavaScript code from non-JavaScript files (such as `.md`) to be passed on for ESLint for handling. In most cases, you won't need to specify or write a custom processor.                                          |
+| Term      | AKA                  | Description                                                                                                                                                                                                                                                                                                                                                                                                         |
+| --------- | -------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Plugin    |                      | A package that extends the base functionality of ESLint. In most cases, it contains one or more custom rules, but it can also contain custom processors, which won't be covered in this article.                                                                                                                                                                                                                    |
+| Rule      |                      | A module that analyzes source code and reports errors on the incorrect lines of code. ESLint ships with a set of core rules, and custom rules can be implemented in a plugin or defined at runtime.                                                                                                                                                                                                                 |
+| AST       | Abstract Syntax Tree | A syntax tree representing the structure of your source code. The AST is constructed by ESLint allows for more complex code analysis than attempting to report errors based on regular expression patterns.                                                                                                                                                                                                         |
+| Node      |                      | A model representing a specific instance of syntax from the source code. An example might be an `ImportDeclaration` (`import { isEmpty } from "lodash";`) or a `VariableDeclaration` (`const foo = 5;`).                                                                                                                                                                                                            |
+| Parser    |                      | A module that constructors an AST from source code. In addition to the default parser ESLint ships with ([Espree](https://github.com/eslint/espree)), popular choices are [@babel/eslint-parser](https://www.npmjs.com/package/@babel/eslint-parser) which parses newer JavaScript syntax, and [@typescript-eslint/parser](https://www.npmjs.com/package/@typescript-eslint/parser) which parses TypeScript syntax. |
+| Processor |                      | A module that can extract JavaScript code from non-JavaScript files (such as `.md`) to be passed on for ESLint for handling. In most cases, you won't need to specify or write a custom processor.                                                                                                                                                                                                                  |
 
 ### Getting Started
 
@@ -72,22 +72,73 @@ Once the plugin has been scaffolded out, we can run an additional generator for 
 ### Project Structure
 
 ```
-├── README.md
+├── README.md                           # Plugin overview and documentation
 ├── docs
 │   └── rules
-│       └── no-underscore-var.md
+│       └── no-underscore-var.md        # Documentation for the no-underscore-var rule
 ├── lib
-│   ├── index.js
+│   ├── index.js                        # Index file to export all of the rules in ./rules
 │   └── rules
-│       └── no-underscore-var.js
+│       └── no-underscore-var.js        # Implementation of the no-underscore-var rule
 ├── package-lock.json
 ├── package.json
 └── tests
     └── lib
         └── rules
-            └── no-underscore-var.js
+            └── no-underscore-var.js    # Tests for the no-underscore-var rule
 ```
 
+The project structure is fairly easy to follow and prescribes only the basics needed to keep rules, tests and documentation in a logical place. `docs/rules`, `lib/rules` and `tests/lib/rules` should all contain 1 file per rule, with the docs file ending in `.md`, not `.js`. Each file name should be lowercase and separated by dashes, just as the rule names are defined.
+
 ### Anatomy of a Rule
+
+```js
+module.exports = {
+    meta: {
+        type: null, // `problem`, `suggestion`, or `layout`
+        docs: {
+            description:
+                "Prevents variables from being named with an underscore prefix",
+            recommended: false,
+            url: null, // URL to the documentation page for this rule
+        },
+        fixable: null, // Or `code` or `whitespace`
+        schema: [], // Add a schema if the rule has options
+    },
+
+    create(context) {
+        // variables should be defined here
+
+        //----------------------------------------------------------------------
+        // Helpers
+        //----------------------------------------------------------------------
+
+        // any helper functions should go here or else delete this section
+
+        //----------------------------------------------------------------------
+        // Public
+        //----------------------------------------------------------------------
+
+        return {
+            // visitor functions for different types of nodes
+        };
+    },
+};
+```
+
+A rule is a module that exports a `create` function, which does the node visitation and error reporting work, and a `meta` object that provides additional information about what the rule does, how to find its documentation, and any configuration options that it should accept.
+
+#### `create(context)`
+
+#### `meta`
+
+| Key              | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              |
+| ---------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| type             | Indicates the general purpose of the rule and the type of errors it will report. Most rules will likely fall into the `suggestion` category, which indicates that the code can be written in a better way, but won't necessarily cause any issues if left untouched. The other types are `problem`, which is used to indicate an actual bug or lead to unintended behavior if left untouched, and `layout` which is for rules that are primarily concerned about formatting rather than the code itself. |
+| docs.description | Short description of what the rule is used for, which should have been filled in by the generator.                                                                                                                                                                                                                                                                                                                                                                                                       |
+| docs.recommended | Internally used by ESLint for denoting core rules that are included in the `recommended` config. This should be safe to omit for plugin-based rules.                                                                                                                                                                                                                                                                                                                                                     |
+| docs.url         | Link to a documentation page for the rule. Usually this is a link to a doc site or at least a markdown file in the `docs` folder outlining what the rule does and examples of correct and incorrect code. The ESLint VS Code extension shows this link when hovering over an error reported by the rule.                                                                                                                                                                                                 |
+| fixable          | Denotes the rule can be auto-fixed. If you implement a `fix` function when reporting an error, this needs to be set. (usually to `code`)                                                                                                                                                                                                                                                                                                                                                                 |
+| schema           | [JsonSchema](https://json-schema.org/) formatted object defining configuration options the rule supports. For simple rules, you might not need to implement any configurable behavior.                                                                                                                                                                                                                                                                                                                   |
 
 ### Unit Tests
