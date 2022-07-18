@@ -147,7 +147,7 @@ create(context) {
         // Visit any VariableDeclaration node and report an error if we determine the node is in violation
         VariableDeclaration: (node) => {
             if (startsWithUnderscore(node)) {
-                // report() is the function from the context to call for specifying errors found in code
+                // report() is the main function from the context and is used for specifying errors found in code
                 context.report({
                     node,
                     message: "Variable names cannot begin with an underscore.",
@@ -194,4 +194,23 @@ ruleTester.run("no-underscore-var", rule, {
         },
     ],
 });
+```
+
+Test cases in the `valid` array should not specify an `errors` property, while it is required for test cases in the `invalid` array. The `message` or `messageId` properties are used to ensure a specific error from your rule is reported, and the `type` property is also used to ensure the reported `node` is of the expected type. For example, if we had actually meant to report the error on the `VariableDeclarator` node instead of `VariableDeclaration`, the test would fail.
+
+The object in the `errors` array can also specify additional pieces of data to validate, such as the `line`, `column`, `endLine` and `endColumn` or even the `suggestions` that are reported by the rule.
+
+If your rule can fix the invalid code, you should specify what the corrected code should look like in the `output` property, i.e.
+
+```js
+{
+    code: "var _foo = 5;",
+    output: "var foo = 5;",
+    errors: [
+        {
+            message: "Variable names cannot begin with an underscore.",
+            type: "VariableDeclaration",
+        }
+    ],
+}
 ```
