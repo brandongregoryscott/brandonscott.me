@@ -92,6 +92,8 @@ The project structure is fairly easy to follow and prescribes only the basics ne
 
 ### Anatomy of a Rule
 
+A rule is a module that exports a `create` function, which does the node visitation and error reporting work, and a `meta` object that provides additional information about what the rule does, how to find its documentation, and any configuration options that it should accept.
+
 ```js
 module.exports = {
     meta: {
@@ -126,9 +128,35 @@ module.exports = {
 };
 ```
 
-A rule is a module that exports a `create` function, which does the node visitation and error reporting work, and a `meta` object that provides additional information about what the rule does, how to find its documentation, and any configuration options that it should accept.
+#### `create`
 
-#### `create(context)`
+This function is where the logic for your rule will live. It will be run on each source file specified _at least_ once (it might be automatically run on the same file multiple times if an auto-fix operation results in new errors reported). The function should return an object of visitor functions that get called when the specified node is seen in a source file. From each visitor function, you can inspect the node, save some information about it, report errors or move on.
+
+For example, a simple `create` implementation for the `no-underscore-var` rule might look like this:
+
+```js
+create(context) {
+    // Utility function that accepts a VariableDeclaration node and returns true if it contains any
+    // VariableDeclarators (node.declarations) that have an Identifier (declarator.id) with a name
+    // starting with an underscore
+    const startsWithUnderscore = (node) =>
+        node.declarations.some((declarator) =>
+            declarator.id.name.startsWith("_")
+        );
+    return {
+        // Visit any VariableDeclaration node and report an error if we determine the node is in violation
+        VariableDeclaration: (node) => {
+            if (startsWithUnderscore(node)) {
+                // report() is the function from the context to call for specifying errors found in code
+                context.report({
+                    node,
+                    message: "Variable names cannot begin with an underscore.",
+                });
+            }
+        },
+    };
+}
+```
 
 #### `meta`
 
@@ -142,3 +170,28 @@ A rule is a module that exports a `create` function, which does the node visitat
 | schema           | [JsonSchema](https://json-schema.org/) formatted object defining configuration options the rule supports. For simple rules, you might not need to implement any configurable behavior.                                                                                                                                                                                                                                                                                                                   |
 
 ### Unit Tests
+
+Unit tests are a critical piece of ESLint rules, for both validating that your rule is functioning as intended but also to aid the development process. ESLint ships with a module aptly named `RuleTester` that provides a simple interface for writing tests for valid and invalid code examples. It wraps up all of the boilerplate involved for arranging, acting and asserting test cases - all you need to do is provide the code snippet and what error should be expected.
+
+For example, a simple set of tests for the `no-underscore-var` rule might look like this:
+
+```js
+const rule = require("../../../lib/rules/no-underscore-var");
+const { RuleTester } = require("eslint");
+
+const ruleTester = new RuleTester();
+ruleTester.run("no-underscore-var", rule, {
+    valid: [{ code: "var foo = 5;" }],
+    invalid: [
+        {
+            code: "var _foo = 5;",
+            errors: [
+                {
+                    message: "Variable names cannot begin with an underscore.",
+                    type: "VariableDeclaration",
+                },
+            ],
+        },
+    ],
+});
+```
