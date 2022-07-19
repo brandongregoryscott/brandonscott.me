@@ -173,7 +173,15 @@ create(context) {
 
 Unit tests are a critical piece of ESLint rules, for both validating that your rule is functioning as intended but also to aid the development process. ESLint ships with a module aptly named `RuleTester` that provides a simple interface for writing tests for valid and invalid code examples. It wraps up all of the boilerplate involved for arranging, acting and asserting test cases - all you need to do is provide the code snippet and what error should be expected.
 
-For example, a simple set of tests for the `no-underscore-var` rule might look like this:
+Tests can be run in your terminal with the standard `test` command:
+
+```sh
+npm run test
+# or the shorthand
+npm t
+```
+
+A simple set of tests for the `no-underscore-var` rule might look like this:
 
 ```js
 const rule = require("../../../lib/rules/no-underscore-var");
@@ -181,7 +189,9 @@ const { RuleTester } = require("eslint");
 
 const ruleTester = new RuleTester();
 ruleTester.run("no-underscore-var", rule, {
+    // Test cases that SHOULD NOT report any errors from the rule
     valid: [{ code: "var foo = 5;" }],
+    // Test cases that SHOULD report errors from the rule
     invalid: [
         {
             code: "var _foo = 5;",
@@ -214,3 +224,9 @@ If your rule can fix the invalid code, you should specify what the corrected cod
     ],
 }
 ```
+
+### AST Viewer
+
+One of the most useful tools I've found while developing my own ESLint plugin is the [AST Explorer](https://astexplorer.net/). Until you're more familiar with the different nodes that are parsed from JavaScript or TypeScript syntax, you simply won't know what nodes you need to visit to implement your rule logic. It provides a text area for pasting in code and an interactive tree on the right for inspecting what types of nodes are represented by the code.
+
+![astexplorer.net](/media/astexplorer.png)
