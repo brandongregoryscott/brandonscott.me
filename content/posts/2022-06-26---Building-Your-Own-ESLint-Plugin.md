@@ -14,6 +14,8 @@ tags:
     - javascript
 ---
 
+![ESLint Exhaustive Deps Warning](/media/eslint-exhaustive-deps-warning.png)
+
 If you've stumbled upon this article, you are likely already familiar with ESLint and might be looking to start writing custom rules for your own project or team. If not, I would recommend taking a look at [eslint.org](https://eslint.org/) for an overview before reading on. In short, it's a tool to help enforce consistent code style and reduce development errors when writing JavaScript (and TypeScript!) code.
 
 ESLint has become the defacto standard in lint tooling for the JavaScript ecosystem in recent years, garnering over 20,000 stars on [GitHub](https://github.com/eslint/eslint) at the time of writing. A number of big-name projects like [React](https://github.com/facebook/react), [Vue](https://github.com/vuejs/core), [Bootstrap](https://github.com/twbs/bootstrap), and [Node](https://github.com/nodejs/node) use it to ensure their codebases are stylistically consistent, patterns are followed, and bugs are prevented.
@@ -22,14 +24,14 @@ ESLint has become the defacto standard in lint tooling for the JavaScript ecosys
 
 Before diving too deep into the implementation details, it's important to understand some of the terms that will be referenced throughout.
 
-| Term      | AKA                  | Description                                                                                                                                                                                                                                                                                                                                                                                                         |
-| --------- | -------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Plugin    |                      | A package that extends the base functionality of ESLint. In most cases, it contains one or more custom rules, but it can also contain custom processors, which won't be covered in this article.                                                                                                                                                                                                                    |
-| Rule      |                      | A module that analyzes source code and reports errors on the incorrect lines of code. ESLint ships with a set of core rules, and custom rules can be implemented in a plugin or defined at runtime.                                                                                                                                                                                                                 |
-| AST       | Abstract Syntax Tree | A syntax tree representing the structure of your source code. The AST is constructed by ESLint allows for more complex code analysis than attempting to report errors based on regular expression patterns.                                                                                                                                                                                                         |
-| Node      |                      | A model representing a specific instance of syntax from the source code. An example might be an `ImportDeclaration` (`import { isEmpty } from "lodash";`) or a `VariableDeclaration` (`const foo = 5;`).                                                                                                                                                                                                            |
-| Parser    |                      | A module that constructors an AST from source code. In addition to the default parser ESLint ships with ([Espree](https://github.com/eslint/espree)), popular choices are [@babel/eslint-parser](https://www.npmjs.com/package/@babel/eslint-parser) which parses newer JavaScript syntax, and [@typescript-eslint/parser](https://www.npmjs.com/package/@typescript-eslint/parser) which parses TypeScript syntax. |
-| Processor |                      | A module that can extract JavaScript code from non-JavaScript files (such as `.md`) to be passed on for ESLint for handling. In most cases, you won't need to specify or write a custom processor.                                                                                                                                                                                                                  |
+| Term                       | Description                                                                                                                                                                                                                                                                                                                                                                                                         |
+| -------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Plugin                     | A package that extends the base functionality of ESLint. In most cases, it contains one or more custom rules, but it can also contain custom processors, which won't be covered in this article.                                                                                                                                                                                                                    |
+| Rule                       | A module that analyzes source code and reports errors on the incorrect lines of code. ESLint ships with a set of core rules, and custom rules can be implemented in a plugin or defined at runtime.                                                                                                                                                                                                                 |
+| AST (Abstract Syntax Tree) | A syntax tree representing the structure of your source code. The AST is constructed by ESLint allows for more complex code analysis than attempting to report errors based on regular expression patterns.                                                                                                                                                                                                         |
+| Node                       | A model representing a specific instance of syntax from the source code. An example might be an `ImportDeclaration` (`import { isEmpty } from "lodash";`) or a `VariableDeclaration` (`const foo = 5;`).                                                                                                                                                                                                            |
+| Parser                     | A module that constructors an AST from source code. In addition to the default parser ESLint ships with ([Espree](https://github.com/eslint/espree)), popular choices are [@babel/eslint-parser](https://www.npmjs.com/package/@babel/eslint-parser) which parses newer JavaScript syntax, and [@typescript-eslint/parser](https://www.npmjs.com/package/@typescript-eslint/parser) which parses TypeScript syntax. |
+| Processor                  | A module that can extract JavaScript code from non-JavaScript files (such as `.md`) to be passed on for ESLint for handling. In most cases, you won't need to specify or write a custom processor.                                                                                                                                                                                                                  |
 
 ### Getting Started
 
@@ -94,39 +96,41 @@ The project structure is fairly easy to follow and prescribes only the basics ne
 
 A rule is a module that exports a `create` function, which does the node visitation and error reporting work, and a `meta` object that provides additional information about what the rule does, how to find its documentation, and any configuration options that it should accept.
 
+<!-- prettier-ignore-start -->
 ```js
 module.exports = {
-    meta: {
-        type: null, // `problem`, `suggestion`, or `layout`
-        docs: {
-            description:
-                "Prevents variables from being named with an underscore prefix",
-            recommended: false,
-            url: null, // URL to the documentation page for this rule
-        },
-        fixable: null, // Or `code` or `whitespace`
-        schema: [], // Add a schema if the rule has options
+  meta: {
+    type: null, // `problem`, `suggestion`, or `layout`
+    docs: {
+      description:
+        "Prevents variables from being named with an underscore prefix",
+      recommended: false,
+      url: null, // URL to the documentation page for this rule
     },
+    fixable: null, // Or `code` or `whitespace`
+    schema: [], // Add a schema if the rule has options
+  },
 
-    create(context) {
-        // variables should be defined here
+  create(context) {
+    // variables should be defined here
 
-        //----------------------------------------------------------------------
-        // Helpers
-        //----------------------------------------------------------------------
+    //----------------------------------------------------------------------
+    // Helpers
+    //----------------------------------------------------------------------
 
-        // any helper functions should go here or else delete this section
+    // any helper functions should go here or else delete this section
 
-        //----------------------------------------------------------------------
-        // Public
-        //----------------------------------------------------------------------
+    //----------------------------------------------------------------------
+    // Public
+    //----------------------------------------------------------------------
 
-        return {
-            // visitor functions for different types of nodes
-        };
-    },
+    return {
+      // visitor functions for different types of nodes
+    };
+  },
 };
 ```
+<!-- prettier-ignore-end -->
 
 #### `create`
 
@@ -134,29 +138,30 @@ This function is where the logic for your rule will live. It will be run on each
 
 For example, a simple `create` implementation for the `no-underscore-var` rule might look like this:
 
+<!-- prettier-ignore-start -->
 ```js
 create(context) {
-    // Utility function that accepts a VariableDeclaration node and returns true if it contains any
-    // VariableDeclarators (node.declarations) that have an Identifier (declarator.id) with a name
-    // starting with an underscore
-    const startsWithUnderscore = (node) =>
-        node.declarations.some((declarator) =>
-            declarator.id.name.startsWith("_")
-        );
-    return {
-        // Visit any VariableDeclaration node and report an error if we determine the node is in violation
-        VariableDeclaration: (node) => {
-            if (startsWithUnderscore(node)) {
-                // report() is the main function from the context and is used for specifying errors found in code
-                context.report({
-                    node,
-                    message: "Variable names cannot begin with an underscore.",
-                });
-            }
-        },
-    };
+  // Utility function that accepts a VariableDeclaration node and returns true if it contains any
+  // VariableDeclarators (node.declarations) that have an Identifier (declarator.id) with a name
+  // starting with an underscore
+  const startsWithUnderscore = (node) =>
+    node.declarations.some((declarator) => declarator.id.name.startsWith("_"));
+  return {
+    // Visit any VariableDeclaration node and report an error if we determine the node is in violation
+    VariableDeclaration: (node) => {
+      if (startsWithUnderscore(node)) {
+        // report() is the main function from the context and is used for specifying errors found in code
+        context.report({
+          node,
+          message: "Variable names cannot begin with an underscore.",
+        });
+      }
+    },
+  };
 }
+
 ```
+<!-- prettier-ignore-end -->
 
 #### `meta`
 
@@ -183,28 +188,30 @@ npm t
 
 A simple set of tests for the `no-underscore-var` rule might look like this:
 
+<!-- prettier-ignore-start -->
 ```js
 const rule = require("../../../lib/rules/no-underscore-var");
 const { RuleTester } = require("eslint");
 
 const ruleTester = new RuleTester();
 ruleTester.run("no-underscore-var", rule, {
-    // Test cases that SHOULD NOT report any errors from the rule
-    valid: [{ code: "var foo = 5;" }],
-    // Test cases that SHOULD report errors from the rule
-    invalid: [
+  // Test cases that SHOULD NOT report any errors from the rule
+  valid: [{ code: "var foo = 5;" }],
+  // Test cases that SHOULD report errors from the rule
+  invalid: [
+    {
+      code: "var _foo = 5;",
+      errors: [
         {
-            code: "var _foo = 5;",
-            errors: [
-                {
-                    message: "Variable names cannot begin with an underscore.",
-                    type: "VariableDeclaration",
-                },
-            ],
+          message: "Variable names cannot begin with an underscore.",
+          type: "VariableDeclaration",
         },
-    ],
+      ],
+    },
+  ],
 });
 ```
+<!-- prettier-ignore-end -->
 
 Test cases in the `valid` array should not specify an `errors` property, while it is required for test cases in the `invalid` array. The `message` or `messageId` properties are used to ensure a specific error from your rule is reported, and the `type` property is also used to ensure the reported `node` is of the expected type. For example, if we had actually meant to report the error on the `VariableDeclarator` node instead of `VariableDeclaration`, the test would fail.
 
@@ -212,18 +219,20 @@ The object in the `errors` array can also specify additional pieces of data to v
 
 If your rule can fix the invalid code, you should specify what the corrected code should look like in the `output` property, i.e.
 
+<!-- prettier-ignore-start -->
 ```js
 {
-    code: "var _foo = 5;",
-    output: "var foo = 5;",
-    errors: [
-        {
-            message: "Variable names cannot begin with an underscore.",
-            type: "VariableDeclaration",
-        }
-    ],
-}
+  code: "var _foo = 5;",
+  output: "var foo = 5;",
+  errors: [
+    {
+      message: "Variable names cannot begin with an underscore.",
+      type: "VariableDeclaration",
+    },
+  ],
+};
 ```
+<!-- prettier-ignore-end -->
 
 ### AST Explorer
 
