@@ -16,9 +16,9 @@ tags:
 
 ![ESLint Exhaustive Deps Warning](/media/eslint-exhaustive-deps-warning.png)
 
-If you've stumbled upon this article, you are likely already familiar with ESLint and might be looking to start writing custom rules for your own project or team. If not, I would recommend taking a look at [eslint.org](https://eslint.org/) for an overview before reading on. In short, it's a tool to help enforce consistent code style and reduce development errors when writing JavaScript (and TypeScript!) code.
-
 ESLint has become the defacto standard in lint tooling for the JavaScript ecosystem in recent years, garnering over 20,000 stars on [GitHub](https://github.com/eslint/eslint) at the time of writing. A number of big-name projects like [React](https://github.com/facebook/react), [Vue](https://github.com/vuejs/core), [Bootstrap](https://github.com/twbs/bootstrap), and [Node](https://github.com/nodejs/node) use it to ensure their codebases are stylistically consistent, patterns are followed, and bugs are prevented.
+
+If you've stumbled upon this article, you are likely already familiar with ESLint and might be looking to start writing custom rules for your own project or team. If not, I would recommend taking a look at [eslint.org](https://eslint.org/) for an overview before reading on. In short, it's a tool to help enforce consistent code style and reduce development errors when writing JavaScript (and TypeScript!) code.
 
 ### Glossary
 
@@ -60,7 +60,7 @@ Your final configuration should look something like this:
 
 ![yo eslint plugin configuration](/media/yo-eslint-plugin-configuration.png)
 
-Once the plugin has been scaffolded out, we can run an additional generator for scaffolding out a rule:
+Once the plugin has been scaffolded out, we can run an additional generator for scaffolding out a rule, which will present another interactive prompt for basic information about the rule:
 
 `yo eslint:rule`
 
@@ -74,20 +74,20 @@ Once the plugin has been scaffolded out, we can run an additional generator for 
 ### Project Structure
 
 ```
-├── README.md                           # Plugin overview and documentation
+├── README.md                         # Plugin overview and documentation
 ├── docs
 │   └── rules
-│       └── no-underscore-var.md        # Documentation for the no-underscore-var rule
+│       └── no-underscore-var.md      # Documentation for the no-underscore-var rule
 ├── lib
-│   ├── index.js                        # Index file to export all of the rules in ./rules
+│   ├── index.js                      # Index file to export all of the rules in ./rules
 │   └── rules
-│       └── no-underscore-var.js        # Implementation of the no-underscore-var rule
+│       └── no-underscore-var.js      # Implementation of the no-underscore-var rule
 ├── package-lock.json
 ├── package.json
 └── tests
     └── lib
         └── rules
-            └── no-underscore-var.js    # Tests for the no-underscore-var rule
+            └── no-underscore-var.js  # Tests for the no-underscore-var rule
 ```
 
 The project structure is fairly easy to follow and prescribes only the basics needed to keep rules, tests and documentation in a logical place. `docs/rules`, `lib/rules` and `tests/lib/rules` should all contain 1 file per rule, with the docs file ending in `.md`, not `.js`. Each file name should be lowercase and separated by dashes, just as the rule names are defined.
