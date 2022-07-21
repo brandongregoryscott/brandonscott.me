@@ -1,11 +1,11 @@
 ---
 template: post
 title: Building Your Own ESLint Plugin
-slug: Building Your Own ESLint Plugin
-socialImage: /media/laptop-with-code-editor-2.jpg
-draft: true
-date: 2021-06-26T16:00:00.000Z
-description: TODO
+slug: building-your-own-eslint-plugin
+socialImage: /media/eslint-exhaustive-deps-warning.png
+draft: false
+date: 2022-06-26T16:00:00.000Z
+description: ESLint has become the defacto standard in lint tooling for the JavaScript ecosystem in recent years. A number of big-name projects like React, Vue, Bootstrap and Node use it to ensure their codebases are stylistically consistent, patterns are followed, and bugs are prevented. Read on if you're looking to start writing custom rules for your own project or team.
 category: Engineering
 tags:
     - productivity
@@ -16,7 +16,7 @@ tags:
 
 If you've stumbled upon this article, you are likely already familiar with ESLint and might be looking to start writing custom rules for your own project or team. If not, I would recommend taking a look at [eslint.org](https://eslint.org/) for an overview before reading on. In short, it's a tool to help enforce consistent code style and reduce development errors when writing JavaScript (and TypeScript!) code.
 
-ESLint has become the defacto standard in lint tooling for the JavaScript ecosystem in recent years, garnering over 20,000 stars on [GitHub](https://github.com/eslint/eslint) at the time of writing. A number of big-name projects like [React](https://github.com/facebook/react), [Vue](https://github.com/vuejs/core), [Bootstrap](https://github.com/twbs/bootstrap), and [Node](https://github.com/nodejs/node) use it to ensure their codebases are stylistically consistent and patterns are followed.
+ESLint has become the defacto standard in lint tooling for the JavaScript ecosystem in recent years, garnering over 20,000 stars on [GitHub](https://github.com/eslint/eslint) at the time of writing. A number of big-name projects like [React](https://github.com/facebook/react), [Vue](https://github.com/vuejs/core), [Bootstrap](https://github.com/twbs/bootstrap), and [Node](https://github.com/nodejs/node) use it to ensure their codebases are stylistically consistent, patterns are followed, and bugs are prevented.
 
 ### Glossary
 
@@ -225,7 +225,7 @@ If your rule can fix the invalid code, you should specify what the corrected cod
 }
 ```
 
-### AST Viewer
+### AST Explorer
 
 One of the most useful tools I've found while developing my own ESLint plugin is the [AST Explorer](https://astexplorer.net/). Until you're more familiar with the different nodes that are parsed from JavaScript or TypeScript syntax, you simply won't know what nodes you need to visit to implement your rule logic. It provides a text area for pasting in code and an interactive tree on the right for inspecting what types of nodes are represented by the code.
 
