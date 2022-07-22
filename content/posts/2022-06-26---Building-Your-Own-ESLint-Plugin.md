@@ -28,7 +28,7 @@ Before diving too deep into the implementation details, it's important to unders
 | -------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | Plugin                     | A package that extends the base functionality of ESLint. In most cases, it contains one or more custom rules, but it can also contain custom processors, which won't be covered in this article.                                                                                                                                                                                                                    |
 | Rule                       | A module that analyzes source code and reports errors on the incorrect lines of code. ESLint ships with a set of core rules, and custom rules can be implemented in a plugin or defined at runtime.                                                                                                                                                                                                                 |
-| AST (Abstract Syntax Tree) | A syntax tree representing the structure of your source code. The AST is constructed by ESLint allows for more complex code analysis than attempting to report errors based on regular expression patterns.                                                                                                                                                                                                         |
+| AST (Abstract Syntax Tree) | A tree representing the structure of your source code. The AST constructed by ESLint allows for more complex analysis than attempting to report errors based on regular expression patterns on the source code.                                                                                                                                                                                                     |
 | Node                       | A model representing a specific instance of syntax from the source code. An example might be an `ImportDeclaration` (`import { isEmpty } from "lodash";`) or a `VariableDeclaration` (`const foo = 5;`).                                                                                                                                                                                                            |
 | Parser                     | A module that constructors an AST from source code. In addition to the default parser ESLint ships with ([Espree](https://github.com/eslint/espree)), popular choices are [@babel/eslint-parser](https://www.npmjs.com/package/@babel/eslint-parser) which parses newer JavaScript syntax, and [@typescript-eslint/parser](https://www.npmjs.com/package/@typescript-eslint/parser) which parses TypeScript syntax. |
 | Processor                  | A module that can extract JavaScript code from non-JavaScript files (such as `.md`) to be passed on for ESLint for handling. In most cases, you won't need to specify or write a custom processor.                                                                                                                                                                                                                  |
@@ -67,7 +67,7 @@ Once the plugin has been scaffolded out, we can run an additional generator for 
 -   **Your name:** Used for authoring information at the top of the rule source file.
 -   **Publishing:** Unless you're contributing a new rule to the core [ESLint](https://github.com/eslint/eslint) repository, select the plugin option.
 -   **Rule ID:** Unique name for your rule, which should be all lowercase and separated by dashes. If your rule is disallowing something, prefix the rule with `no-`.
--   **Example failing code:** A short snippet of code that will be used to scaffold out a unit test.
+-   **Example failing code:** A short snippet of code that will be used to scaffold out a unit test. This code should report an error when your rule is implemented.
 
 ![yo eslint rule configuration](/media/yo-eslint-rule-configuration.png)
 
@@ -90,11 +90,13 @@ Once the plugin has been scaffolded out, we can run an additional generator for 
             └── no-underscore-var.js  # Tests for the no-underscore-var rule
 ```
 
-The project structure is fairly easy to follow and prescribes only the basics needed to keep rules, tests and documentation in a logical place. `docs/rules`, `lib/rules` and `tests/lib/rules` should all contain 1 file per rule, with the docs file ending in `.md`, not `.js`. Each file name should be lowercase and separated by dashes, just as the rule names are defined.
+The project structure is fairly easy to follow and prescribes only the basics needed to keep rules, tests and documentation in a logical place. `docs/rules`, `lib/rules` and `tests/lib/rules` should all contain 1 file per rule, with the docs file ending in `.md`, not `.js`. Each file name should be lowercase and separated by dashes, just as the rule name was defined.
 
 ### Anatomy of a Rule
 
 A rule is a module that exports a `create` function, which does the node visitation and error reporting work, and a `meta` object that provides additional information about what the rule does, how to find its documentation, and any configuration options that it should accept.
+
+A new rule from the [Yeoman generator](https://github.com/eslint/generator-eslint) should have this structure:
 
 <!-- prettier-ignore-start -->
 ```js
@@ -130,11 +132,28 @@ module.exports = {
   },
 };
 ```
+
+
+#### `meta`
+
+As the name suggests, the `meta` object provides additional data about the rule that is used both internally by ESLint and by extensions in your code editor.
+
+| Key              | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              |
+| ---------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| type             | Indicates the general purpose of the rule and the type of errors it will report. Most rules will likely fall into the `suggestion` category, which indicates that the code can be written in a better way, but won't necessarily cause any issues if left untouched. The other types are `problem`, which is used to indicate an actual bug or lead to unintended behavior if left untouched, and `layout` which is for rules that are primarily concerned about formatting rather than the code itself. |
+| docs.description | Short description of what the rule is used for, which should have been filled in by the generator.                                                                                                                                                                                                                                                                                                                                                                                                       |
+| docs.recommended | Internally used by ESLint for denoting core rules that are included in the `recommended` config. This should be safe to omit for plugin-based rules.                                                                                                                                                                                                                                                                                                                                                     |
+| docs.url         | Link to a documentation page for the rule. Usually this is a link to a doc site or a markdown file in the `docs` folder outlining what the rule does and examples of correct and incorrect code. The ESLint VS Code extension shows this link when hovering over an error reported by the rule.                                                                                                                                                                                                          |
+| fixable          | Denotes the rule can be auto-fixed. If you implement a `fix` function when reporting an error, this needs to be set. (usually to `code`)                                                                                                                                                                                                                                                                                                                                                                 |
+| schema           | [JSONSchema](https://json-schema.org/) formatted object defining configuration options the rule supports. For simple rules, you might not need to implement any configurable behavior. Additional documentation on the `schema` key can be found on the [ESLint Developer Guide](https://eslint.org/docs/latest/developer-guide/working-with-rules#options-schemas).                                                                                                                                     |
+
 <!-- prettier-ignore-end -->
 
 #### `create`
 
-This function is where the logic for your rule will live. It will be run on each source file specified _at least_ once (it might be automatically run on the same file multiple times if an auto-fix operation results in new errors reported). The function should return an object of visitor functions that get called when the specified node is seen in a source file. From each visitor function, you can inspect the node, save some information about it, report errors or move on.
+This function is where the logic for your rule will live. It will be run on each source file provided to ESLint _at least_ once (it might be automatically run on the same file multiple times if an auto-fix operation results in new errors reported).
+
+The function should return an object of visitor functions that get called when the specified node is seen in a source file. From each visitor function, you can inspect the node, save some information about it, report errors or move on.
 
 For example, a simple `create` implementation for the `no-underscore-var` rule might look like this:
 
@@ -163,16 +182,13 @@ create(context) {
 ```
 <!-- prettier-ignore-end -->
 
-#### `meta`
+In this example implementation, we are only visiting a single node (`VariableDeclaration`) and reporting an error on it if contains any `Identifier` nodes that start with an underscore. In more advanced cases, you might need to store a reference to nodes you visit and cross reference them in other visitor functions to determine whether the code is invalid.
 
-| Key              | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              |
-| ---------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| type             | Indicates the general purpose of the rule and the type of errors it will report. Most rules will likely fall into the `suggestion` category, which indicates that the code can be written in a better way, but won't necessarily cause any issues if left untouched. The other types are `problem`, which is used to indicate an actual bug or lead to unintended behavior if left untouched, and `layout` which is for rules that are primarily concerned about formatting rather than the code itself. |
-| docs.description | Short description of what the rule is used for, which should have been filled in by the generator.                                                                                                                                                                                                                                                                                                                                                                                                       |
-| docs.recommended | Internally used by ESLint for denoting core rules that are included in the `recommended` config. This should be safe to omit for plugin-based rules.                                                                                                                                                                                                                                                                                                                                                     |
-| docs.url         | Link to a documentation page for the rule. Usually this is a link to a doc site or at least a markdown file in the `docs` folder outlining what the rule does and examples of correct and incorrect code. The ESLint VS Code extension shows this link when hovering over an error reported by the rule.                                                                                                                                                                                                 |
-| fixable          | Denotes the rule can be auto-fixed. If you implement a `fix` function when reporting an error, this needs to be set. (usually to `code`)                                                                                                                                                                                                                                                                                                                                                                 |
-| schema           | [JsonSchema](https://json-schema.org/) formatted object defining configuration options the rule supports. For simple rules, you might not need to implement any configurable behavior.                                                                                                                                                                                                                                                                                                                   |
+### AST Explorer
+
+One of the most useful tools I've found while developing my own ESLint plugin is the [AST Explorer](https://astexplorer.net/). Until you're more familiar with the different nodes that are parsed from JavaScript or TypeScript syntax, you simply won't know what nodes you need to visit to implement your rule logic. It provides a text area for pasting in code and an interactive tree on the right for inspecting what types of nodes are represented by the code.
+
+![astexplorer.net](/media/astexplorer.png)
 
 ### Unit Tests
 
@@ -182,8 +198,6 @@ Tests can be run in your terminal with the standard `test` command:
 
 ```sh
 npm run test
-# or the shorthand
-npm t
 ```
 
 A simple set of tests for the `no-underscore-var` rule might look like this:
@@ -213,7 +227,9 @@ ruleTester.run("no-underscore-var", rule, {
 ```
 <!-- prettier-ignore-end -->
 
-Test cases in the `valid` array should not specify an `errors` property, while it is required for test cases in the `invalid` array. The `message` or `messageId` properties are used to ensure a specific error from your rule is reported, and the `type` property is also used to ensure the reported `node` is of the expected type. For example, if we had actually meant to report the error on the `VariableDeclarator` node instead of `VariableDeclaration`, the test would fail.
+Test cases in the `valid` array should not specify an `errors` property, while it is required for test cases in the `invalid` array.
+
+The `message` or `messageId` properties are used to ensure a specific error from your rule is reported, and the `type` property is also used to ensure the reported `node` is of the expected type. For example, if we had actually meant to report the error on the `VariableDeclarator` node instead of `VariableDeclaration`, the test would fail.
 
 The object in the `errors` array can also specify additional pieces of data to validate, such as the `line`, `column`, `endLine` and `endColumn` or even the `suggestions` that are reported by the rule.
 
@@ -233,9 +249,3 @@ If your rule can fix the invalid code, you should specify what the corrected cod
 };
 ```
 <!-- prettier-ignore-end -->
-
-### AST Explorer
-
-One of the most useful tools I've found while developing my own ESLint plugin is the [AST Explorer](https://astexplorer.net/). Until you're more familiar with the different nodes that are parsed from JavaScript or TypeScript syntax, you simply won't know what nodes you need to visit to implement your rule logic. It provides a text area for pasting in code and an interactive tree on the right for inspecting what types of nodes are represented by the code.
-
-![astexplorer.net](/media/astexplorer.png)
