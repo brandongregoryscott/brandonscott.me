@@ -1,7 +1,7 @@
 ---
 template: post
-title: Building Your Own ESLint Plugin
-slug: building-your-own-eslint-plugin
+title: Beginner's Guide to Custom ESLint Plugins
+slug: beginners-guide-to-custom-eslint-plugins
 socialImage: /media/eslint-exhaustive-deps-warning.png
 draft: false
 date: 2022-06-26T16:00:00.000Z
@@ -254,7 +254,7 @@ If your rule can fix the invalid code, you should specify what the corrected cod
 
 Once you've written a few unit tests to cover common cases, you're ready to pull it into a project to make sure it runs properly on real world code. You'll often find that there are edge cases in larger codebases that you didn't account for in your unit tests and your rule might need some tweaking.
 
-In order to add your plugin in another project, you'll either have to package it up and publish it via [npm](https://docs.npmjs.com/creating-and-publishing-unscoped-public-packages). If you're not ready to publish your package to the public yet, you can also use a tool like [yalc](https://github.com/wclr/yalc) which easily allows you to create a local package repository to publish and install from.
+In order to add your plugin in another project, you'll have to package it up and publish it via [npm](https://docs.npmjs.com/creating-and-publishing-unscoped-public-packages). If you're not ready to publish your package to the public yet, you can use a tool like [yalc](https://github.com/wclr/yalc) which allows you to create a local package repository to publish and install packages from. I've found it much easier and more reliable to work with than the standard [npm link](https://docs.npmjs.com/cli/v8/commands/npm-link) method.
 
 To install `yalc`, run the following command in your terminal:
 
@@ -276,7 +276,7 @@ yalc add eslint-plugin-example # Replace with your plugin name
 
 It will update your `package.json` file with a link to the local package and create a `yalc.lock` file, which is similar to your `package-lock.json` or `yarn.lock` file.
 
-Once you've installed the package, you need to specify it in your ESLint config and what rule(s) should be run. In your `.eslintrc` file or in the `eslint` section of your `package.json` file, you'll need to add the following:
+Once you've installed the package, you need to specify it in your ESLint config and what rule(s) should be run. In your `.eslintrc` or whatever configuration file you have setup, you'll need to add the following:
 
 ```json
 {
@@ -320,3 +320,41 @@ const startsWithUnderscore = (node) =>
 +    declarator.id.name != null && declarator.id.name.startsWith("_")
   );
 ```
+
+To test new changes for your package, you'll have to run through the same `yalc publish` and `yalc add` commands from earlier.
+
+Now, running the rule on my codebase runs smoothly and returns errors for variables that have been named with an underscore!
+
+```sh
+/Users/Brandon/beets/src/utils/analytics-utils.ts
+  74:1  error  Variable names cannot begin with an underscore  example/no-underscore-var
+  95:1  error  Variable names cannot begin with an underscore  example/no-underscore-var
+  98:1  error  Variable names cannot begin with an underscore  example/no-underscore-var
+
+/Users/Brandon/beets/src/utils/hooks/use-project-state.ts
+  41:5  error  Variable names cannot begin with an underscore  example/no-underscore-var
+
+/Users/Brandon/beets/src/utils/hooks/use-track-section-steps-state.ts
+  27:5  error  Variable names cannot begin with an underscore  example/no-underscore-var
+
+/Users/Brandon/beets/src/utils/hooks/use-track-sections-state.ts
+  34:5  error  Variable names cannot begin with an underscore  example/no-underscore-var
+
+✖ 6 problems (6 errors, 0 warnings)
+```
+
+You can open up your favorite IDE with an ESLint extension to verify this behavior too.
+
+![ESLint no-underscore-var error in VS Code](/media/eslint-no-underscore-var-error.png)
+
+### Conclusion
+
+Writing your own ESLint plugin and custom rules can be a powerful way to enforce a consistent style and prevent common errors in your team's codebase. With tools like the [ESLint Yeoman generator](https://github.com/eslint/generator-eslint) available to scaffold out a new project and rules, it's quick and easy to get started. The contrived rule implemented in this article is just scratching the surface of what you can build with ESLint, and I hope it serves as a good jumping off point for your own plugin!
+
+#### Additional resources
+
+-   View the source code for my own extension, (eslint-plugin-collation)[https://github.com/brandongregoryscott/eslint-plugin-collation]
+-   (Yeoman)[https://yeoman.io/], a code generation tool
+-   (generator-eslint)[https://github.com/eslint/generator-eslint], the Yeoman generator for ESLint plugins and rules
+-   (Yalc)[https://github.com/wclr/yalc], a tool for testing out npm packages locally
+-   (ESLint Developer Guide > Working with Rules)[https://eslint.org/docs/latest/developer-guide/working-with-rules]
