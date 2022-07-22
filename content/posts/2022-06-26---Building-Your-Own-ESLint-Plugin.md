@@ -24,14 +24,14 @@ If you've stumbled upon this article, you are likely already familiar with ESLin
 
 Before diving too deep into the implementation details, it's important to understand some of the terms that will be referenced throughout.
 
-| Term                       | Description                                                                                                                                                                                                                                                                                                                                                                                                         |
-| -------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Plugin                     | A package that extends the base functionality of ESLint. In most cases, it contains one or more custom rules, but it can also contain custom processors, which won't be covered in this article.                                                                                                                                                                                                                    |
-| Rule                       | A module that analyzes source code and reports errors on the incorrect lines of code. ESLint ships with a set of core rules, and custom rules can be implemented in a plugin or defined at runtime.                                                                                                                                                                                                                 |
-| AST (Abstract Syntax Tree) | A tree representing the structure of your source code. The AST constructed by ESLint allows for more complex analysis than attempting to report errors based on regular expression patterns on the source code.                                                                                                                                                                                                     |
-| Node                       | A model representing a specific instance of syntax from the source code. An example might be an `ImportDeclaration` (`import { isEmpty } from "lodash";`) or a `VariableDeclaration` (`const foo = 5;`).                                                                                                                                                                                                            |
-| Parser                     | A module that constructors an AST from source code. In addition to the default parser ESLint ships with ([Espree](https://github.com/eslint/espree)), popular choices are [@babel/eslint-parser](https://www.npmjs.com/package/@babel/eslint-parser) which parses newer JavaScript syntax, and [@typescript-eslint/parser](https://www.npmjs.com/package/@typescript-eslint/parser) which parses TypeScript syntax. |
-| Processor                  | A module that can extract JavaScript code from non-JavaScript files (such as `.md`) to be passed on for ESLint for handling. In most cases, you won't need to specify or write a custom processor.                                                                                                                                                                                                                  |
+| Term                       | Description                                                                                                                                                                                                                                                                                                                                                                                                       |
+| -------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Plugin                     | A package that extends the base functionality of ESLint. In most cases, it contains one or more custom rules, but it can also contain custom processors, which won't be covered in this article.                                                                                                                                                                                                                  |
+| Rule                       | A module that analyzes source code and reports errors on the incorrect lines of code. ESLint ships with a set of core rules, and custom rules can be implemented in a plugin or defined at runtime.                                                                                                                                                                                                               |
+| AST (Abstract Syntax Tree) | A tree representing the structure of your source code. The AST constructed by ESLint allows for more complex analysis than attempting to report errors based on regular expression patterns on the source code.                                                                                                                                                                                                   |
+| Node                       | A model representing a specific instance of syntax from the source code. An example might be an `ImportDeclaration` (`import { isEmpty } from "lodash";`) or a `VariableDeclaration` (`const foo = 5;`).                                                                                                                                                                                                          |
+| Parser                     | A module that constructs an AST from source code. In addition to the default parser ESLint ships with ([Espree](https://github.com/eslint/espree)), popular choices are [@babel/eslint-parser](https://www.npmjs.com/package/@babel/eslint-parser) which parses newer JavaScript syntax, and [@typescript-eslint/parser](https://www.npmjs.com/package/@typescript-eslint/parser) which parses TypeScript syntax. |
+| Processor                  | A module that can extract JavaScript code from non-JavaScript files (such as `.md`) to be passed on for ESLint for handling. In most cases, you won't need to specify or write a custom processor.                                                                                                                                                                                                                |
 
 ### Getting Started
 
@@ -249,3 +249,74 @@ If your rule can fix the invalid code, you should specify what the corrected cod
 };
 ```
 <!-- prettier-ignore-end -->
+
+### Manual Testing
+
+Once you've written a few unit tests to cover common cases, you're ready to pull it into a project to make sure it runs properly on real world code. You'll often find that there are edge cases in larger codebases that you didn't account for in your unit tests and your rule might need some tweaking.
+
+In order to add your plugin in another project, you'll either have to package it up and publish it via [npm](https://docs.npmjs.com/creating-and-publishing-unscoped-public-packages). If you're not ready to publish your package to the public yet, you can also use a tool like [yalc](https://github.com/wclr/yalc) which easily allows you to create a local package repository to publish and install from.
+
+To install `yalc`, run the following command in your terminal:
+
+```sh
+npm install -g yalc
+```
+
+To publish your plugin to your local package repository, run the following command from your ESLint plugin directory:
+
+```sh
+yalc publish
+```
+
+To install your plugin in a project that you want to test it with, run the following command from that project directory:
+
+```sh
+yalc add eslint-plugin-example # Replace with your plugin name
+```
+
+It will update your `package.json` file with a link to the local package and create a `yalc.lock` file, which is similar to your `package-lock.json` or `yarn.lock` file.
+
+Once you've installed the package, you need to specify it in your ESLint config and what rule(s) should be run. In your `.eslintrc` file or in the `eslint` section of your `package.json` file, you'll need to add the following:
+
+```json
+{
+    // Replace with your plugin name - the eslint-plugin- prefix isn't required
+    "plugins": ["example"],
+    "rules": {
+        // Specify the rule from your plugin and the level you want issues to be reported at, i.e. warn or error
+        "example/no-underscore-var": "warn"
+    }
+}
+```
+
+You're all set! You can run ESLint from the command line or restart the ESLint server in your code editor to pick up the new configuration, which should start linting with your rule.
+
+To run ESLint from the command line, you can run the following command:
+
+```sh
+npx eslint 'src/**/*.js' # Adjust to your file/directory structure. The quotes prevent automatic path expansion by your shell.
+```
+
+If there are errors from the source code that was linted, you'll receive output with the rule, file, and line number of the error.
+
+If ESLint encounters an error running your rule, you'll receive a message that looks like this with the rule that threw an exception and the underlying error message:
+
+```sh
+Oops! Something went wrong! :(
+
+ESLint: 8.18.0
+
+TypeError: Cannot read property 'startsWith' of undefined
+Occurred while linting /Users/Brandon/beets/src/generated/hooks/domain/files/use-create-or-update-file.ts:19
+Rule: "example/no-underscore-var"
+```
+
+It looks like my original implementation might have been making some assumptions about the structure of the `VariableDeclarator` node we were checking. Let's add a safe guard to check for `declarator.id.name` being non-null before accessing functions on it:
+
+```diff
+const startsWithUnderscore = (node) =>
+  node.declarations.some((declarator) =>
+-    declarator.id.name.startsWith("_")
++    declarator.id.name != null && declarator.id.name.startsWith("_")
+  );
+```
