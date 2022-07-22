@@ -353,8 +353,8 @@ Writing your own ESLint plugin and custom rules can be a powerful way to enforce
 
 #### Additional resources
 
--   View the source code for my own extension, (eslint-plugin-collation)[https://github.com/brandongregoryscott/eslint-plugin-collation]
--   (Yeoman)[https://yeoman.io/], a code generation tool
--   (generator-eslint)[https://github.com/eslint/generator-eslint], the Yeoman generator for ESLint plugins and rules
--   (Yalc)[https://github.com/wclr/yalc], a tool for testing out npm packages locally
--   (ESLint Developer Guide > Working with Rules)[https://eslint.org/docs/latest/developer-guide/working-with-rules]
+-   View the source code for my own extension, [eslint-plugin-collation](https://github.com/brandongregoryscott/eslint-plugin-collation)
+-   [Yeoman](https://yeoman.io/), a code generation tool
+-   [generator-eslint](https://github.com/eslint/generator-eslint), the Yeoman generator for ESLint plugins and rules
+-   [Yalc](https://github.com/wclr/yalc), a tool for testing out npm packages locally
+-   [ESLint Developer Guide > Working with Rules](https://eslint.org/docs/latest/developer-guide/working-with-rules)
