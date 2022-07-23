@@ -20,7 +20,7 @@ ESLint has become the defacto standard in lint tooling for the JavaScript ecosys
 
 If you've stumbled upon this article, you are likely already familiar with ESLint and might be looking to start writing custom rules for your own project or team. If not, I would recommend taking a look at [eslint.org](https://eslint.org/) for an overview before reading on. In short, it's a tool to help enforce consistent code style and reduce development errors when writing JavaScript (and TypeScript!) code.
 
-In this article, I'll walk through the process of writing a custom ESLint plugin, starting with common terms, how to scaffold a new project, the anatomy of a rule, and testing. As an example, we'll implement a very simple rule that prevents variables from being prefixed with an underscore, i.e. `_foo`.
+In this article, I'll walk through the process of writing a custom ESLint plugin, starting with common terms, how to scaffold a new project, the anatomy of a rule, and testing. As an example, we'll implement a very simple rule that prevents variables from being prefixed with an underscore, such as `_foo`.
 
 ### Glossary
 
@@ -76,20 +76,20 @@ Once the plugin has been scaffolded out, we can run an additional generator for 
 ### Project Structure
 
 ```
-├── README.md                         # Plugin overview and documentation
+├── README.md                        # Plugin overview and documentation
 ├── docs
 │   └── rules
-│       └── no-underscore-var.md      # Documentation for the no-underscore-var rule
+│       └── no-underscore-var.md     # Documentation for the no-underscore-var rule
 ├── lib
-│   ├── index.js                      # Index file to export all of the rules in ./rules
+│   ├── index.js                     # Index file to export all of the rules in ./rules
 │   └── rules
-│       └── no-underscore-var.js      # Implementation of the no-underscore-var rule
+│       └── no-underscore-var.js     # Implementation of the no-underscore-var rule
 ├── package-lock.json
 ├── package.json
 └── tests
     └── lib
         └── rules
-            └── no-underscore-var.js  # Tests for the no-underscore-var rule
+            └── no-underscore-var.js # Tests for the no-underscore-var rule
 ```
 
 The project structure is fairly easy to follow and prescribes only the basics needed to keep rules, tests and documentation in a logical place. `docs/rules`, `lib/rules` and `tests/lib/rules` should all contain 1 file per rule, with the docs file ending in `.md`, not `.js`. Each file name should be lowercase and separated by dashes, just as the rule name was defined.
@@ -202,9 +202,7 @@ Unit tests are a critical piece of ESLint rules, for both validating that your r
 
 Tests can be run in your terminal with the standard `test` command:
 
-```sh
-npm run test
-```
+`npm run test`
 
 A simple set of tests for the `no-underscore-var` rule might look like this:
 
@@ -264,22 +262,15 @@ In order to add your plugin in another project, you'll have to package it up and
 
 To install `yalc`, run the following command in your terminal:
 
-```sh
-npm install -g yalc
-```
+`npm install -g yalc`
 
 To publish your plugin to your local package repository, run the following command from your ESLint plugin directory:
 
-```sh
-yalc publish
-```
+`yalc publish`
 
 To install your plugin in a project that you want to test it with, run the following command from that project directory:
 
-```sh
-# Replace with your plugin name
-yalc add eslint-plugin-example
-```
+`yalc add eslint-plugin-example`
 
 It will update your `package.json` file with a link to the local package and create a `yalc.lock` file, which is similar to your `package-lock.json` or `yarn.lock` file.
 
@@ -302,11 +293,9 @@ You're all set! You can run ESLint from the command line or restart the ESLint s
 
 To run ESLint from the command line, you can run the following command:
 
-```sh
-# Adjust to your file/directory structure.
-# The quotes prevent automatic path expansion by your shell.
-npx eslint 'src/**/*.js'
-```
+`npx eslint 'src/**/*.js'`
+
+> Adjust to your file/directory structure. The quotes prevent automatic expansion by your shell.
 
 If there are errors from the source code that was linted, you'll receive output with the rule, file, and line number of the error.
 

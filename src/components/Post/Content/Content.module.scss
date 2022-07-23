@@ -40,6 +40,14 @@
 
     }
 
+    & blockquote {
+      & p {
+        border-left: 4px solid #657b83;
+        padding-left: 16px;
+        text-align: start;
+      }
+    }
+
     & a {
       text-decoration: underline
     }
