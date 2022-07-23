@@ -4,7 +4,7 @@ title: Beginner's Guide to Custom ESLint Plugins
 slug: beginners-guide-to-custom-eslint-plugins
 socialImage: /media/eslint-exhaustive-deps-warning.png
 draft: false
-date: 2022-06-26T16:00:00.000Z
+date: 2022-07-25T00:00:00.000Z
 description: ESLint has become the defacto standard in lint tooling for the JavaScript ecosystem in recent years. A number of big-name projects like React, Vue, Bootstrap and Node use it to ensure their codebases are stylistically consistent, patterns are followed, and bugs are prevented. Read on if you're looking to start writing custom rules for your own project or team.
 category: Engineering
 tags:
