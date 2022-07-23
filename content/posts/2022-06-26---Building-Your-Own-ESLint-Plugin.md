@@ -20,6 +20,8 @@ ESLint has become the defacto standard in lint tooling for the JavaScript ecosys
 
 If you've stumbled upon this article, you are likely already familiar with ESLint and might be looking to start writing custom rules for your own project or team. If not, I would recommend taking a look at [eslint.org](https://eslint.org/) for an overview before reading on. In short, it's a tool to help enforce consistent code style and reduce development errors when writing JavaScript (and TypeScript!) code.
 
+In this article, I'll walk through the process of writing a custom ESLint plugin, starting with common terms, how to scaffold a new project, the anatomy of a rule, and testing. As an example, we'll implement a very simple rule that prevents variables from being prefixed with an underscore, i.e. `_foo`.
+
 ### Glossary
 
 Before diving too deep into the implementation details, it's important to understand some of the terms that will be referenced throughout.
