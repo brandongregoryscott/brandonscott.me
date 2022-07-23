@@ -162,16 +162,20 @@ For example, a simple `create` implementation for the `no-underscore-var` rule m
 <!-- prettier-ignore-start -->
 ```js
 create(context) {
-  // Utility function that accepts a VariableDeclaration node and returns true if it contains any
-  // VariableDeclarators (node.declarations) that have an Identifier (declarator.id) with a name
+  // Utility function that accepts a VariableDeclaration node and
+  // returns true if it contains any VariableDeclarators (node.declarations)
+  // that have an Identifier (declarator.id) with a name
   // starting with an underscore
   const startsWithUnderscore = (node) =>
-    node.declarations.some((declarator) => declarator.id.name.startsWith("_"));
+    node.declarations.some((declarator) =>
+      declarator.id.name.startsWith("_"));
   return {
-    // Visit any VariableDeclaration node and report an error if we determine the node is in violation
+    // Visit any VariableDeclaration node and report an error
+    // if we determine the node is in violation
     VariableDeclaration: (node) => {
       if (startsWithUnderscore(node)) {
-        // report() is the main function from the context and is used for specifying errors found in code
+        // report() is the main function from the context and
+        // is used for specifying errors found in code
         context.report({
           node,
           message: "Variable names cannot begin with an underscore.",
@@ -273,7 +277,8 @@ yalc publish
 To install your plugin in a project that you want to test it with, run the following command from that project directory:
 
 ```sh
-yalc add eslint-plugin-example # Replace with your plugin name
+# Replace with your plugin name
+yalc add eslint-plugin-example
 ```
 
 It will update your `package.json` file with a link to the local package and create a `yalc.lock` file, which is similar to your `package-lock.json` or `yarn.lock` file.
@@ -282,10 +287,12 @@ Once you've installed the package, you need to specify it in your ESLint config 
 
 ```json
 {
-    // Replace with your plugin name - the eslint-plugin- prefix isn't required
+    // Replace with your plugin name
+    // The eslint-plugin- prefix isn't required
     "plugins": ["example"],
     "rules": {
-        // Specify the rule from your plugin and the level you want issues to be reported at, i.e. warn or error
+        // Specify the rule from your plugin and the level you want
+        // issues to be reported at, i.e. warn or error
         "example/no-underscore-var": "warn"
     }
 }
@@ -296,7 +303,9 @@ You're all set! You can run ESLint from the command line or restart the ESLint s
 To run ESLint from the command line, you can run the following command:
 
 ```sh
-npx eslint 'src/**/*.js' # Adjust to your file/directory structure. The quotes prevent automatic path expansion by your shell.
+# Adjust to your file/directory structure.
+# The quotes prevent automatic path expansion by your shell.
+npx eslint 'src/**/*.js'
 ```
 
 If there are errors from the source code that was linted, you'll receive output with the rule, file, and line number of the error.
