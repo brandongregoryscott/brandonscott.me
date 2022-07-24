@@ -16,7 +16,7 @@ tags:
 
 ![ESLint Exhaustive Deps Warning](/media/eslint-exhaustive-deps-warning.png)
 
-ESLint has become the defacto standard in lint tooling for the JavaScript ecosystem in recent years, garnering over 20,000 stars on [GitHub](https://github.com/eslint/eslint) at the time of writing. A number of big-name projects like [React](https://github.com/facebook/react), [Vue](https://github.com/vuejs/core), [Bootstrap](https://github.com/twbs/bootstrap), and [Node](https://github.com/nodejs/node) use it to ensure their codebases are stylistically consistent, patterns are followed, and bugs are prevented.
+ESLint has become the de facto standard in lint tooling for the JavaScript ecosystem in recent years, garnering over 20,000 stars on [GitHub](https://github.com/eslint/eslint) at the time of writing. A number of big-name projects like [React](https://github.com/facebook/react), [Vue](https://github.com/vuejs/core), [Bootstrap](https://github.com/twbs/bootstrap), and [Node](https://github.com/nodejs/node) use it to ensure their codebases are stylistically consistent, patterns are followed, and bugs are prevented.
 
 If you've stumbled upon this article, you are likely already familiar with ESLint and might be looking to start writing custom rules for your own project or team. If not, I would recommend taking a look at [eslint.org](https://eslint.org/) for an overview before reading on. In short, it's a tool to help enforce consistent code style and reduce development errors when writing JavaScript (and TypeScript!) code.
 
@@ -190,7 +190,7 @@ create(context) {
 
 In this example implementation, we are only visiting a single node (`VariableDeclaration`) and reporting an error on it if contains any `Identifier` nodes that start with an underscore. In more advanced cases, you might need to store a reference to nodes you visit and cross reference them in other visitor functions to determine whether the code is invalid.
 
-### AST Explorer
+#### AST Explorer
 
 One of the most useful tools I've found while developing my own ESLint plugin is the [AST Explorer](https://astexplorer.net/). Until you're more familiar with the different nodes that are parsed from JavaScript or TypeScript syntax, you simply won't know what nodes you need to visit to implement your rule logic. It provides a text area for pasting in code and an interactive tree on the right for inspecting what types of nodes are represented by the code.
 
