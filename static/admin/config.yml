@@ -1,6 +1,6 @@
 backend:
     name: git-gateway
-    branch: eslint-plugin-post
+    branch: main
 
 # Uncomment for local development
 # backend:
