@@ -81,11 +81,14 @@ Example configuration/output from Yeoman
 
 A high-level overview of the generated project — files that you will be primarily editing or are specific to VS Code extensions.
 
-├─ 📁`.vscode`— Holds various VS Code configuration files, most notably a set of launch tasks for running and debugging your extension.├─ 📁`src` — Source folder for the extension's TypeScript files\
-│ ├─ 📁 `test` — Generated extension test suite\
-│ └─ 📜 `extension.ts` — Entrypoint for the extension, defines activate/deactivate functions\
-├─ 📜 `.vscodeignore` — Configuration file to exclude files/directories from the packaged extension\
-├─ 📜 `package.json` — Package manifest file defining its name, author, dependencies, as well as extension-specific configurations: commands, activation events, and settings.
+```
+├── .vscode          # Holds various VS Code configuration files, most notably a set of launch tasks for running and debugging your extension.
+├── src              # Source folder for the extension's TypeScript files
+│   ├── test         # Generated extension test suite
+│   └── extension.ts # Entrypoint for the extension, defines activate/deactivate functions
+├── .vscodeignore    # Configuration file to exclude files/directories from the packaged extension
+├── package.json     # Package manifest file defining its name, author, dependencies, as well as extension-specific configurations: commands, activation events, and settings.
+```
 
 While most (if not all) of your extension's business logic can live in `extension.ts`, you are free to break out functions, variables, etc. into other files to be structured to your liking. Since we're using webpack to bundle the extension for distribution, there's no drawback to doing so — I would encourage it to improve maintainability and code reuse.
 
@@ -175,9 +178,7 @@ While your extension's project looks and _feels_ a lot like a standard npm packa
 
 For one, you'll want `vsce` installed, which is the Visual Studio Extension Manager. This is a command line tool that manages the packaging and publishing of your extension assets.
 
-```
-npm install --global vsce
-```
+`npm install --global vsce`
 
 _Note: While you technically don't need to install_ `vsce` _as a global package, it automatically adds the executable to your path so you can type_ `vsce` _directly. If you save it as a development dependency, for example, you'd need to run it relative to your_ `node_modules` _directory:_ `./node_modules/vsce/out/vsce`
 
@@ -240,26 +241,24 @@ Your extension will be uniquely identified on the marketplace in the format of "
 
 You're all set to publish your extension now!
 
-```
-npm run build
-vsce package
-vsce publish
-```
+`npm run build && vsce package && vsce publish`
 
 ### Recommended structure and best practices
 
 While you can choose to structure your project in many different ways, I'll explain the structure of [kazoo](https://github.com/brandongregoryscott/kazoo) and some of the reasoning behind it.
 
-├─ 📁`src` \
-│ ├─ 📁 `commands` — Command handler functions\
-│ │ └─ `add-key-to-interface.ts` — Single function exported for handling the ‘addKeyToInterface' command\
-│ ├─ 📁 `enums` — Enumerations representing states/values\
-│ ├─ 📁 `interfaces` — Typed interfaces representing objects\
-│ │ └─ `extension-configuration.ts` — Strongly typed interface representing the object returned from `vscode.workspace.getConfiguration().get<T>("extension");`\
-│ ├─ 📁 `types` — Custom types (such as aliases, unions, etc.)\
-│ ├─ 📁 `utilities` — Modules containing common utility functions to promote code-reuse and to be tested in isolation (for example, `ConfigUtils`\
-for retrieving the user's config or a default version of the object)\
-│ └─ 📜 `extension.ts` — Entrypoint that registers all commands, executes any necessarily setup on activation
+```sh
+├── src
+│   ├── commands                        # Command handler functions
+│   │   └── add-key-to-interface.ts     # Single function exported for handling the ‘addKeyToInterface' command
+│   ├── enums                           # Enumerations representing states/values
+│   ├── extension.ts                    # Entrypoint that registers all commands, executes any necessarily setup on activation
+│   ├── interfaces                      # Typed interfaces representing objects
+│   │   └── extension-configuration.ts  # Strongly typed interface representing the object returned from vscode.workspace.getConfiguration().get<T>("extension");
+│   ├── types                           # Custom types (such as aliases, unions, etc.)
+│   └── utilities                       # Modules containing common utility functions to promote code-reuse and to be tested in isolation
+│       └── config-utils.ts             # Functions for retrieving the user's config or a default version of the object
+```
 
 My biggest piece of advice is to pull out as much shared logic as possible into utility/shared functions which can be called from the context of each command handler function. Each command handler function should live in its own file with a single export, and be easily located by conventional naming (`kazoo.addKeyToInterface` contribution point → `src/commands/add-key-to-interface.ts` → exports single named function `addKeyToInterface`)
 
