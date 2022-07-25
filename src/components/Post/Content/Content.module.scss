@@ -40,6 +40,14 @@
 
     }
 
+    & blockquote {
+      & p {
+        border-left: 4px solid #657b83;
+        padding-left: 16px;
+        text-align: start;
+      }
+    }
+
     & a {
       text-decoration: underline
     }
@@ -54,6 +62,29 @@
       max-width: 100%;
     }
 
+    & pre {
+      max-width: 100%;
+    }
+
+    & code {
+      max-width: 100%;
+    }
+
+    & table {
+      max-width: $layout-post-width * 1.4;
+      border-spacing: 0;
+    }
+
+    & tr:nth-child(2n) {
+      background-color: #fdf6e3;
+    }
+
+    & tr {
+      > td {
+        text-align: center;
+        padding: 24px;
+      }
+    }
   }
 
 }

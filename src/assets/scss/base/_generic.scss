@@ -157,6 +157,10 @@ figcaption {
     padding-right: 14px !important;
 }
 
+.gatsby-highlight {
+    max-width: $layout-post-width * 1.4 !important;
+}
+
 @include breakpoint-sm {
     figure.float-left,
     figure.float-right {
