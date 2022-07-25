@@ -12,14 +12,32 @@
     }
 }
 
+@mixin breakpoint-sm-max {
+    @media screen and (max-width: $layout-breakpoint-sm) {
+        @content;
+    }
+}
+
 @mixin breakpoint-md {
     @media screen and (min-width: $layout-breakpoint-md) {
         @content;
     }
 }
 
+@mixin breakpoint-md-max {
+    @media screen and (max-width: $layout-breakpoint-md) {
+        @content;
+    }
+}
+
 @mixin breakpoint-lg {
     @media screen and (min-width: $layout-breakpoint-lg) {
+        @content;
+    }
+}
+
+@mixin breakpoint-lg-max {
+    @media screen and (max-width: $layout-breakpoint-lg) {
         @content
     }
 }

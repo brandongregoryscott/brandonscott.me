@@ -80,7 +80,7 @@
     }
 
     & tr {
-      > td {
+      & td {
         text-align: center;
         padding: 24px;
       }
@@ -115,4 +115,26 @@
 
   }
 
+}
+
+@include breakpoint-md-max() {
+  .content {
+    &__body {
+      & code {
+        word-break: normal;
+        white-space: normal;
+      }
+
+      & pre code {
+        word-break: normal;
+        white-space: pre;
+      }
+
+      & tr {
+        & td {
+          padding: 8px;
+        }
+      }
+    }
+  }
 }
