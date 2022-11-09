@@ -1,5 +1,5 @@
-import { isArray, isBoolean, isNumber, isString } from "lodash";
-import React, { AnchorHTMLAttributes, HTMLAttributes } from "react";
+import { isArray, isBoolean, isError, isNumber, isString } from "lodash";
+import React, { AnchorHTMLAttributes } from "react";
 import { useAnalytics } from "../hooks/use-analytics";
 
 interface TrackedLinkProps extends AnchorHTMLAttributes<HTMLAnchorElement> {}
@@ -32,7 +32,17 @@ const getChildrenAsString = (children: React.ReactNode): string => {
         return children.map(getChildrenAsString).join("");
     }
 
-    return `Unhandled children: ${JSON.stringify(children)}`;
+    let stringifiedObject = "";
+    try {
+        return JSON.stringify(children);
+    } catch (error) {
+        stringifiedObject = "Unable to serialize object";
+        if (isError(error)) {
+            stringifiedObject = `${stringifiedObject} ${error.message}`;
+        }
+    }
+
+    return stringifiedObject;
 };
 
 export { TrackedLink };

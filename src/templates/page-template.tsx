@@ -6,6 +6,7 @@ import Page from "../components/Page";
 import { useSiteMetadata } from "../hooks";
 import type { MarkdownRemark } from "../types";
 import { AnalyticsProvider } from "../components/AnalyticsProvider";
+import { renderAst } from "../utils/react-rehype";
 
 type Props = {
     data: {
@@ -15,7 +16,7 @@ type Props = {
 
 const PageTemplate = ({ data }: Props) => {
     const { title: siteTitle, subtitle: siteSubtitle } = useSiteMetadata();
-    const { html: pageBody } = data.markdownRemark;
+    const { htmlAst: pageBody } = data.markdownRemark;
     const { frontmatter } = data.markdownRemark;
     const {
         title: pageTitle,
@@ -32,9 +33,7 @@ const PageTemplate = ({ data }: Props) => {
                 description={metaDescription}
                 socialImage={socialImageUrl}>
                 <Sidebar />
-                <Page title={pageTitle}>
-                    <div dangerouslySetInnerHTML={{ __html: pageBody }} />
-                </Page>
+                <Page title={pageTitle}>{renderAst(pageBody)}</Page>
             </Layout>
         </AnalyticsProvider>
     );
@@ -45,6 +44,7 @@ export const query = graphql`
         markdownRemark(fields: { slug: { eq: $slug } }) {
             id
             html
+            htmlAst
             frontmatter {
                 title
                 date
