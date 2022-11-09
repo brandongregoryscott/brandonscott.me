@@ -1,8 +1,6 @@
-import { Analytics, AnalyticsBrowser } from "@segment/analytics-next";
-import { useAtomValue, useSetAtom } from "jotai";
-import { useCallback, useEffect } from "react";
-import { AnalyticsAtom } from "../utils/analytics-atom";
-import useSiteMetadata from "./use-site-metadata";
+import { AnalyticsBrowser } from "@segment/analytics-next";
+import { useCallback, useContext } from "react";
+import { AnalyticsContext } from "../contexts/analytics-context";
 
 interface LinkClickedProperties {
     name: string;
@@ -10,30 +8,13 @@ interface LinkClickedProperties {
 }
 
 interface UseAnalyticsResult {
-    analytics?: Analytics;
+    analytics: AnalyticsBrowser;
     projectLinkClicked: (properties: LinkClickedProperties) => () => void;
     socialLinkClicked: (properties: LinkClickedProperties) => () => void;
 }
 
 const useAnalytics = (): UseAnalyticsResult => {
-    const { segmentWriteKey: writeKey } = useSiteMetadata();
-    const analytics = useAtomValue(AnalyticsAtom);
-    const setAnalytics = useSetAtom(AnalyticsAtom);
-
-    useEffect(() => {
-        if (analytics != null) {
-            return;
-        }
-
-        const loadAnalytics = async () => {
-            const [response] = await AnalyticsBrowser.load({
-                writeKey,
-            });
-
-            setAnalytics(response);
-        };
-        loadAnalytics();
-    }, [analytics]);
+    const analytics = useContext(AnalyticsContext);
 
     const projectLinkClicked = useCallback(
         (properties: LinkClickedProperties) => () => {

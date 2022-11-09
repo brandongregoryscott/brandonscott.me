@@ -5,11 +5,12 @@ import Sidebar from "../components/Sidebar";
 import Page from "../components/Page";
 import { useSiteMetadata } from "../hooks";
 import type { MarkdownRemark } from "../types";
+import { AnalyticsProvider } from "../components/AnalyticsProvider";
 
 type Props = {
     data: {
-        markdownRemark: MarkdownRemark,
-    },
+        markdownRemark: MarkdownRemark;
+    };
 };
 
 const PageTemplate = ({ data }: Props) => {
@@ -25,15 +26,17 @@ const PageTemplate = ({ data }: Props) => {
     const socialImageUrl = socialImage?.publicURL;
 
     return (
-        <Layout
-            title={`${pageTitle} - ${siteTitle}`}
-            description={metaDescription}
-            socialImage={socialImageUrl}>
-            <Sidebar />
-            <Page title={pageTitle}>
-                <div dangerouslySetInnerHTML={{ __html: pageBody }} />
-            </Page>
-        </Layout>
+        <AnalyticsProvider>
+            <Layout
+                title={`${pageTitle} - ${siteTitle}`}
+                description={metaDescription}
+                socialImage={socialImageUrl}>
+                <Sidebar />
+                <Page title={pageTitle}>
+                    <div dangerouslySetInnerHTML={{ __html: pageBody }} />
+                </Page>
+            </Layout>
+        </AnalyticsProvider>
     );
 };
 
