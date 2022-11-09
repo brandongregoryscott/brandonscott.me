@@ -1,6 +1,7 @@
 import { useStaticQuery, graphql } from "gatsby";
 import { Project } from "../interfaces/project";
 import { sortBy } from "lodash";
+import { Root } from "rehype-react/lib";
 
 interface ProjectsListQueryResult {
     allMarkdownRemark: {
@@ -12,6 +13,7 @@ interface ProjectsListQueryResult {
 
 interface ProjectNode {
     html: string;
+    htmlAst: Root;
     frontmatter: Pick<Project, "url" | "repo" | "title" | "position">;
 }
 
@@ -25,6 +27,7 @@ const useProjectsList = (): Project[] => {
                     edges {
                         node {
                             html
+                            htmlAst
                             frontmatter {
                                 title
                                 repo
@@ -46,6 +49,7 @@ const useProjectsList = (): Project[] => {
 
 const mapNodeToProject = (node: ProjectNode): Project => ({
     body: node.html,
+    htmlAst: node.htmlAst,
     ...node.frontmatter,
 });
 

@@ -9,31 +9,22 @@ interface LinkClickedProperties {
 
 interface UseAnalyticsResult {
     analytics: AnalyticsBrowser;
-    projectLinkClicked: (properties: LinkClickedProperties) => () => void;
-    socialLinkClicked: (properties: LinkClickedProperties) => () => void;
+    linkClicked: (properties: LinkClickedProperties) => () => void;
 }
 
 const useAnalytics = (): UseAnalyticsResult => {
     const analytics = useContext(AnalyticsContext);
 
-    const projectLinkClicked = useCallback(
+    const linkClicked = useCallback(
         (properties: LinkClickedProperties) => () => {
-            analytics?.track("Project Link Clicked", properties);
-        },
-        [analytics]
-    );
-
-    const socialLinkClicked = useCallback(
-        (properties: LinkClickedProperties) => () => {
-            analytics?.track("Social Link Clicked", properties);
+            analytics?.track("Link Clicked", properties);
         },
         [analytics]
     );
 
     return {
         analytics,
-        projectLinkClicked,
-        socialLinkClicked,
+        linkClicked,
     };
 };
 

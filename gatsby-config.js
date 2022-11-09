@@ -135,6 +135,12 @@ module.exports = {
                         resolve: "gatsby-remark-responsive-iframe",
                         options: { wrapperStyle: "margin-bottom: 1.0725rem" },
                     },
+                    {
+                        resolve: "gatsby-remark-component",
+                        options: {
+                            components: ["TrackedLink"],
+                        },
+                    },
                     "gatsby-remark-embed-gist",
                     "gatsby-remark-autolink-headers",
                     "gatsby-remark-prismjs",
