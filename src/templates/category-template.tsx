@@ -7,7 +7,6 @@ import Page from "../components/Page";
 import Pagination from "../components/Pagination";
 import { useSiteMetadata } from "../hooks";
 import type { PageContext, AllMarkdownRemark } from "../types";
-import { AnalyticsProvider } from "../components/AnalyticsProvider";
 
 type Props = {
     data: AllMarkdownRemark;
@@ -33,20 +32,18 @@ const CategoryTemplate = ({ data, pageContext }: Props) => {
             : `${category} - ${siteTitle}`;
 
     return (
-        <AnalyticsProvider>
-            <Layout title={pageTitle} description={siteSubtitle}>
-                <Sidebar />
-                <Page title={category}>
-                    <Feed edges={edges} />
-                    <Pagination
-                        prevPagePath={prevPagePath}
-                        nextPagePath={nextPagePath}
-                        hasPrevPage={hasPrevPage}
-                        hasNextPage={hasNextPage}
-                    />
-                </Page>
-            </Layout>
-        </AnalyticsProvider>
+        <Layout title={pageTitle} description={siteSubtitle}>
+            <Sidebar />
+            <Page title={category}>
+                <Feed edges={edges} />
+                <Pagination
+                    prevPagePath={prevPagePath}
+                    nextPagePath={nextPagePath}
+                    hasPrevPage={hasPrevPage}
+                    hasNextPage={hasNextPage}
+                />
+            </Page>
+        </Layout>
     );
 };
 

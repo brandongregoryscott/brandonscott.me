@@ -5,7 +5,6 @@ import Sidebar from "../components/Sidebar";
 import Page from "../components/Page";
 import { useSiteMetadata } from "../hooks";
 import type { MarkdownRemark } from "../types";
-import { AnalyticsProvider } from "../components/AnalyticsProvider";
 import { renderAst } from "../utils/react-rehype";
 
 type Props = {
@@ -27,15 +26,13 @@ const PageTemplate = ({ data }: Props) => {
     const socialImageUrl = socialImage?.publicURL;
 
     return (
-        <AnalyticsProvider>
-            <Layout
-                title={`${pageTitle} - ${siteTitle}`}
-                description={metaDescription}
-                socialImage={socialImageUrl}>
-                <Sidebar />
-                <Page title={pageTitle}>{renderAst(pageBody)}</Page>
-            </Layout>
-        </AnalyticsProvider>
+        <Layout
+            title={`${pageTitle} - ${siteTitle}`}
+            description={metaDescription}
+            socialImage={socialImageUrl}>
+            <Sidebar />
+            <Page title={pageTitle}>{renderAst(pageBody)}</Page>
+        </Layout>
     );
 };
 

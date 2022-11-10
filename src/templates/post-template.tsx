@@ -4,7 +4,6 @@ import Layout from "../components/Layout";
 import Post from "../components/Post";
 import { useSiteMetadata } from "../hooks";
 import type { MarkdownRemark } from "../types";
-import { AnalyticsProvider } from "../components/AnalyticsProvider";
 
 type Props = {
     data: {
@@ -24,14 +23,12 @@ const PostTemplate = ({ data }: Props) => {
     const socialImageUrl = socialImage?.publicURL;
 
     return (
-        <AnalyticsProvider>
-            <Layout
-                title={`${postTitle} - ${siteTitle}`}
-                description={metaDescription}
-                socialImage={socialImageUrl}>
-                <Post post={data.markdownRemark} />
-            </Layout>
-        </AnalyticsProvider>
+        <Layout
+            title={`${postTitle} - ${siteTitle}`}
+            description={metaDescription}
+            socialImage={socialImageUrl}>
+            <Post post={data.markdownRemark} />
+        </Layout>
     );
 };
 

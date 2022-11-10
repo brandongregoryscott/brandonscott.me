@@ -3,6 +3,7 @@
 const siteConfig = require("./config.js");
 const postCssPlugins = require("./postcss-config.js");
 
+/** @type {import("gatsby").GatsbyConfig} */
 module.exports = {
     pathPrefix: siteConfig.pathPrefix,
     siteMetadata: {
