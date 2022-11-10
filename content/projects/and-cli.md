@@ -2,7 +2,7 @@
 template: project
 title: and-cli
 repo: https://github.com/AndcultureCode/AndcultureCode.Cli
-position: 4
+position: 5
 ---
 
 Command line tool created to standardize daily development and CI processes at [andculture](https://andculture.com/).

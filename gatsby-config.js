@@ -3,6 +3,7 @@
 const siteConfig = require("./config.js");
 const postCssPlugins = require("./postcss-config.js");
 
+/** @type {import("gatsby").GatsbyConfig} */
 module.exports = {
     pathPrefix: siteConfig.pathPrefix,
     siteMetadata: {
@@ -134,6 +135,12 @@ module.exports = {
                     {
                         resolve: "gatsby-remark-responsive-iframe",
                         options: { wrapperStyle: "margin-bottom: 1.0725rem" },
+                    },
+                    {
+                        resolve: "gatsby-remark-component",
+                        options: {
+                            components: ["TrackedLink"],
+                        },
                     },
                     "gatsby-remark-embed-gist",
                     "gatsby-remark-autolink-headers",

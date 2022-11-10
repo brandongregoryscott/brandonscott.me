@@ -1,8 +1,6 @@
-import { Analytics, AnalyticsBrowser } from "@segment/analytics-next";
-import { useAtomValue, useSetAtom } from "jotai";
-import { useCallback, useEffect } from "react";
-import { AnalyticsAtom } from "../utils/analytics-atom";
-import useSiteMetadata from "./use-site-metadata";
+import { AnalyticsBrowser } from "@segment/analytics-next";
+import { useCallback, useContext } from "react";
+import { AnalyticsContext } from "../contexts/analytics-context";
 
 interface LinkClickedProperties {
     name: string;
@@ -10,49 +8,23 @@ interface LinkClickedProperties {
 }
 
 interface UseAnalyticsResult {
-    analytics?: Analytics;
-    projectLinkClicked: (properties: LinkClickedProperties) => () => void;
-    socialLinkClicked: (properties: LinkClickedProperties) => () => void;
+    analytics: AnalyticsBrowser;
+    linkClicked: (properties: LinkClickedProperties) => () => void;
 }
 
 const useAnalytics = (): UseAnalyticsResult => {
-    const { segmentWriteKey: writeKey } = useSiteMetadata();
-    const analytics = useAtomValue(AnalyticsAtom);
-    const setAnalytics = useSetAtom(AnalyticsAtom);
+    const analytics = useContext(AnalyticsContext);
 
-    useEffect(() => {
-        if (analytics != null) {
-            return;
-        }
-
-        const loadAnalytics = async () => {
-            const [response] = await AnalyticsBrowser.load({
-                writeKey,
-            });
-
-            setAnalytics(response);
-        };
-        loadAnalytics();
-    }, [analytics]);
-
-    const projectLinkClicked = useCallback(
+    const linkClicked = useCallback(
         (properties: LinkClickedProperties) => () => {
-            analytics?.track("Project Link Clicked", properties);
-        },
-        [analytics]
-    );
-
-    const socialLinkClicked = useCallback(
-        (properties: LinkClickedProperties) => () => {
-            analytics?.track("Social Link Clicked", properties);
+            analytics?.track("Link Clicked", properties);
         },
         [analytics]
     );
 
     return {
         analytics,
-        projectLinkClicked,
-        socialLinkClicked,
+        linkClicked,
     };
 };
 

@@ -1,4 +1,4 @@
-import _ from "lodash";
+import { isEmpty } from "lodash";
 import React from "react";
 import { useAnalytics } from "../../../hooks/use-analytics";
 import { getContactHref, getIcon } from "../../../utils";
@@ -13,9 +13,9 @@ interface ContactsProps {
 
 const Contacts = (props: ContactsProps) => {
     const { contacts } = props;
-    const { socialLinkClicked } = useAnalytics();
+    const { linkClicked } = useAnalytics();
     const links = Object.entries(contacts).filter(
-        ([_name, contact]) => !_.isEmpty(contact)
+        ([_name, contact]) => !isEmpty(contact)
     );
     return (
         <div className={styles["contacts"]}>
@@ -29,8 +29,8 @@ const Contacts = (props: ContactsProps) => {
                             <a
                                 className={styles["contacts__list-item-link"]}
                                 href={href}
-                                onClick={socialLinkClicked({
-                                    name: name,
+                                onClick={linkClicked({
+                                    name,
                                     url: href,
                                 })}
                                 rel="noopener noreferrer"

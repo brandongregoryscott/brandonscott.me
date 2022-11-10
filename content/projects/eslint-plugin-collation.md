@@ -1,7 +1,7 @@
 ---
 template: project
 title: eslint-plugin-collation
-position: 2
+position: 3
 repo: https://github.com/brandongregoryscott/eslint-plugin-collation
 url: https://eslint-plugin-collation.brandonscott.me
 ---

@@ -9,8 +9,8 @@ import { useSiteMetadata } from "../hooks";
 import type { AllMarkdownRemark, PageContext } from "../types";
 
 type Props = {
-    data: AllMarkdownRemark,
-    pageContext: PageContext,
+    data: AllMarkdownRemark;
+    pageContext: PageContext;
 };
 
 const TagTemplate = ({ data, pageContext }: Props) => {

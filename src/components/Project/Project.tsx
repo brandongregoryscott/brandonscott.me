@@ -2,8 +2,8 @@ import React from "react";
 import { Project as ProjectNode } from "../../interfaces/project";
 import { Title } from "./Title";
 import styles from "./Project.module.scss";
-import { useCallback } from "react";
 import { useAnalytics } from "../../hooks/use-analytics";
+import { renderAst } from "../../utils/react-rehype";
 
 interface ProjectProps {
     project: ProjectNode;
@@ -11,8 +11,8 @@ interface ProjectProps {
 
 const Project: React.FC<ProjectProps> = (props: ProjectProps) => {
     const { project } = props;
-    const { title, url, body, repo } = project;
-    const { projectLinkClicked } = useAnalytics();
+    const { title, url, repo, htmlAst } = project;
+    const { linkClicked } = useAnalytics();
 
     return (
         <div className={styles["content"]}>
@@ -21,7 +21,7 @@ const Project: React.FC<ProjectProps> = (props: ProjectProps) => {
                 {url != null && (
                     <a
                         href={url}
-                        onClick={projectLinkClicked({
+                        onClick={linkClicked({
                             name: `${title} site`,
                             url,
                         })}
@@ -31,7 +31,7 @@ const Project: React.FC<ProjectProps> = (props: ProjectProps) => {
                 )}
                 <a
                     href={repo}
-                    onClick={projectLinkClicked({
+                    onClick={linkClicked({
                         name: `${title} repo`,
                         url: repo,
                     })}
@@ -39,7 +39,7 @@ const Project: React.FC<ProjectProps> = (props: ProjectProps) => {
                     repo
                 </a>
             </div>
-            <div dangerouslySetInnerHTML={{ __html: body }} />
+            {renderAst(htmlAst)}
         </div>
     );
 };

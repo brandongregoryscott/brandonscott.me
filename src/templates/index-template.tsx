@@ -9,8 +9,8 @@ import { useSiteMetadata } from "../hooks";
 import type { PageContext, AllMarkdownRemark } from "../types";
 
 type Props = {
-    data: AllMarkdownRemark,
-    pageContext: PageContext,
+    data: AllMarkdownRemark;
+    pageContext: PageContext;
 };
 
 const IndexTemplate = ({ data, pageContext }: Props) => {

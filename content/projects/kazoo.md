@@ -1,7 +1,7 @@
 ---
 template: project
 title: kazoo
-position: 3
+position: 4
 repo: https://github.com/brandongregoryscott/kazoo
 url: https://kazoo.brandonscott.me
 ---

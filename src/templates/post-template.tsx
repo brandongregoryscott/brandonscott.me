@@ -7,8 +7,8 @@ import type { MarkdownRemark } from "../types";
 
 type Props = {
     data: {
-        markdownRemark: MarkdownRemark,
-    },
+        markdownRemark: MarkdownRemark;
+    };
 };
 
 const PostTemplate = ({ data }: Props) => {
@@ -37,6 +37,7 @@ export const query = graphql`
         markdownRemark(fields: { slug: { eq: $slug } }) {
             id
             html
+            htmlAst
             fields {
                 slug
                 tagSlugs
