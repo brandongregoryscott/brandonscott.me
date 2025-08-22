@@ -7,6 +7,60 @@ const Projects = () => {
         <>
             <div class="flex-column row-gap-xl">
                 <ProjectDetail
+                    name="walledgarden"
+                    siteUrl="https://walledgarden.club"
+                    repoUrl="https://github.com/brandongregoryscott/walledgarden"
+                    description={
+                        <p>
+                            A small virtual desktop web application with a media
+                            player for my musical project,
+                            <i>
+                                <Link
+                                    inline={true}
+                                    href="https://walledgarden.bandcamp.com"
+                                    externalIcon={<IconArrowTopRight />}>
+                                    walled garden
+                                </Link>
+                            </i>
+                            . Built using
+                            <Link
+                                inline={true}
+                                href=" https://jdan.github.io/98.css"
+                                externalIcon={<IconArrowTopRight />}>
+                                98.css
+                            </Link>
+                            with some slight modifications and additions to get
+                            close to the Windows 98 desktop look and feel.
+                        </p>
+                    }
+                />
+                <ProjectDetail
+                    name="arthistory"
+                    siteUrl="https://arthistory.brandonscott.me"
+                    repoUrl="https://github.com/brandongregoryscott/arthistory"
+                    description={
+                        <p>
+                            Simple web application for querying historical
+                            artist data scraped from the Spotify API. The web
+                            application is built with MongoDB's design system
+                            <Link
+                                inline={true}
+                                href="https://www.mongodb.design"
+                                externalIcon={<IconArrowTopRight />}>
+                                LeafyGreen
+                            </Link>
+                            and
+                            <Link
+                                inline={true}
+                                href="https://www.chartjs.org"
+                                externalIcon={<IconArrowTopRight />}>
+                                ChartJS
+                            </Link>
+                            for rendering the chart data.
+                        </p>
+                    }
+                />
+                <ProjectDetail
                     name="evergreen"
                     siteUrl="https://evergreen.segment.com"
                     repoUrl="https://github.com/segmentio/evergreen"

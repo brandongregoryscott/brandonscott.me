@@ -1,3 +1,4 @@
+import { cn } from "../utils";
 import { IconArrowTopRight } from "./icon-arrow-top-right";
 import { Link } from "./link";
 
@@ -11,8 +12,8 @@ interface ProjectDetailProps {
 const ProjectDetail = (props: ProjectDetailProps) => {
     const { name, siteUrl, repoUrl, description } = props;
     return (
-        <div class="flex-column gap-md">
-            <div class="flex-row gap-md align-items-center">
+        <div class={cn("flex-column", "gap-md")}>
+            <div class={cn("flex-row", "gap-md", "align-items-center")}>
                 <h3>{name}</h3>
                 {siteUrl !== undefined && (
                     <Link href={siteUrl} externalIcon={<IconArrowTopRight />}>
