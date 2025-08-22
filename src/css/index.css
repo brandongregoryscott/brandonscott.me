@@ -92,6 +92,11 @@ pre,
     font-family: var(--font-family-monospace);
 }
 
+hr {
+    border: 1px solid var(--color-slate-gray);
+    width: calc(100% - 16px);
+}
+
 .main-layout-content {
     padding: 16px;
     height: calc(100% - var(--header-height));

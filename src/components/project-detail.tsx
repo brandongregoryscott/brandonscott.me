@@ -26,6 +26,7 @@ const ProjectDetail = (props: ProjectDetailProps) => {
                 )}
             </div>
             {description}
+            <hr />
         </div>
     );
 };
