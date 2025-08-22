@@ -1,0 +1,167 @@
+:root {
+    /** https://coolors.co/f7c59f-2a324b-767b91-c7ccdb-e1e5ee */
+    --color-peach: #f7c59f;
+    --color-space-cadet: #2a324b;
+    --color-slate-gray: #767b91;
+    --color-french-gray: #c7ccdb;
+    --color-alice-blue: #e1e5ee;
+    --color-black: #000000;
+    --color-white: #ffffff;
+
+    --color-background: var(--color-alice-blue);
+    --color-text: var(--color-space-cadet);
+    --color-text-link: #97480c;
+    --color-text-link-active: #5e2d08;
+
+    /** https://modernfontstacks.com/ */
+    --font-family-body: Bahnschrift, "DIN Alternate", "Franklin Gothic Medium",
+        "Nimbus Sans Narrow", sans-serif-condensed, sans-serif;
+    --font-family-monospace: "Nimbus Mono PS", "Courier New", monospace;
+
+    --header-height: 40px;
+
+    font-family: var(--font-family-body);
+    scrollbar-color: var(--color-space-cadet) var(--color-slate-gray);
+    scrollbar-width: thin;
+}
+
+@media (prefers-color-scheme: dark) {
+    :root {
+        --color-background: var(--color-space-cadet);
+        --color-text: var(--color-alice-blue);
+        --color-text-link: var(--color-peach);
+        --color-text-link-active: #f4b07b;
+
+        scrollbar-color: var(--color-slate-gray) var(--color-alice-blue);
+    }
+}
+
+/*
+ Custom animation can be defined using keyframes and the ::view-transition pseudo-elements
+ https://developer.mozilla.org/en-US/docs/Web/CSS/@view-transition#examples
+*/
+@view-transition {
+    navigation: auto;
+}
+
+html,
+body {
+    padding: 0;
+    margin: 0 auto;
+    color: var(--color-text);
+    background-color: var(--color-background);
+    height: 100%;
+    width: 100%;
+    overflow: hidden;
+}
+
+a {
+    text-decoration: none;
+}
+
+a[href].current {
+    span {
+        text-decoration-line: underline;
+        text-decoration-style: double;
+    }
+}
+
+a[href] {
+    color: var(--color-text-link);
+    svg {
+        fill: var(--color-text-link);
+    }
+}
+
+a[href]:hover {
+    color: var(--color-text-link-active);
+    svg {
+        fill: var(--color-text-link-active);
+    }
+}
+
+a.inline {
+    display: inline-flex;
+    padding-left: 4px;
+    padding-right: 4px;
+}
+
+code,
+pre,
+.monospace {
+    font-family: var(--font-family-monospace);
+}
+
+.main-layout-content {
+    padding: 16px;
+    height: calc(100% - var(--header-height));
+    width: 100%;
+    overflow-y: auto;
+
+    h3:has(+ p) {
+        margin-bottom: 16px;
+    }
+}
+
+.post-layout-content {
+    padding: 16px;
+    height: calc(100% - var(--header-height));
+    width: 100%;
+    overflow-y: auto;
+
+    p:has(> img) + blockquote:has(> p) {
+        display: flex;
+        justify-content: center;
+    }
+
+    blockquote:has(> p) {
+        padding-top: 8px;
+        padding-bottom: 8px;
+
+        > p {
+            border-left: 4px solid var(--color-slate-gray);
+            font-size: 14px;
+            padding-left: 16px;
+            padding-top: 0px;
+            padding-bottom: 0px;
+        }
+    }
+
+    h1,
+    h2,
+    h3,
+    h4 {
+        margin-top: 16px;
+        margin-bottom: 16px;
+    }
+
+    p {
+        padding-top: 8px;
+        padding-bottom: 8px;
+    }
+
+    pre {
+        overflow-y: auto;
+        background-color: #3b4668;
+        padding: 8px;
+    }
+
+    p:has(> img) {
+        display: flex;
+        justify-content: center;
+        margin: auto;
+        max-width: 80%;
+    }
+}
+
+.header {
+    height: var(--header-height);
+    display: flex;
+    flex-direction: row;
+    position: sticky;
+    top: 0;
+    background-color: var(--color-background);
+    gap: 8px;
+    padding: 16px;
+    box-shadow: var(--color-black) 0px 1px 8px -2px;
+}

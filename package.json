@@ -1,0 +1,25 @@
+{
+    "author": "Brandon Scott <contact@brandonscott.me>",
+    "dependencies": {
+        "@11ty/eleventy": "3.1.2",
+        "jsx-async-runtime": "1.0.3"
+    },
+    "description": "",
+    "devDependencies": {
+        "@types/node": "22.13.14",
+        "chokidar": "4.0.3",
+        "serve": "14.2.4",
+        "tsx": "4.20.3"
+    },
+    "license": "Apache-2.0",
+    "main": "index.js",
+    "name": "11ty-tsx",
+    "scripts": {
+        "build": "tsx node_modules/@11ty/eleventy/cmd.cjs --config=eleventy.config.ts",
+        "clean": "rm -rf _site",
+        "serve": "tsx node_modules/@11ty/eleventy/cmd.cjs --config=eleventy.config.ts --serve",
+        "start": "node server.js"
+    },
+    "type": "module",
+    "version": "1.0.0"
+}
