@@ -7,6 +7,10 @@ const MainLayout = (props: ViewProps): JSX.Element => {
         <html lang="en">
             <head>
                 <title>{title}</title>
+                <meta
+                    name="viewport"
+                    content="width=device-width, initial-scale=1"
+                />
                 <link rel="stylesheet" href="/css/reset.css" />
                 <link rel="stylesheet" href="/css/resume.css" />
                 <link rel="stylesheet" href="/css/utilities.css" />
