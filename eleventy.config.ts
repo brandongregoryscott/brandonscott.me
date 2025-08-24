@@ -45,6 +45,7 @@ export default function (eleventyConfig: any) {
     eleventyConfig.addPassthroughCopy({
         "src/css/*.css": "css",
         "src/media/*.{png,jpeg}": "media",
+        "src/media/favicon.ico": "favicon.ico",
     });
 
     eleventyConfig.addTransform("tsx", async (content: any) => {
