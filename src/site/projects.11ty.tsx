@@ -61,35 +61,46 @@ const Projects = () => {
                     }
                 />
                 <ProjectDetail
-                    name="evergreen"
+                    name="Evergreen"
                     siteUrl="https://evergreen.segment.com"
                     repoUrl="https://github.com/segmentio/evergreen"
                     description={
-                        <p>
-                            Evergreen is Segment's open-source React design
-                            system with over 12,000 stars on Github. I quickly
-                            became one of the
-                            <Link
-                                inline={true}
-                                href="https://github.com/segmentio/evergreen/graphs/contributors"
-                                externalIcon={<IconArrowTopRight />}>
-                                most frequent contributors
-                            </Link>
-                            to the repository with bug fixes, package
-                            maintenance and tests, and new features, including
-                            an all-new
-                            <Link
-                                inline={true}
-                                href="https://evergreen.segment.com/components/file-uploader"
-                                externalIcon={<IconArrowTopRight />}>
-                                File Uploader
-                            </Link>
-                            component. In addition to code contributions, I
-                            acted as a resource to the community - responding to
-                            questions, bug reports, and providing detailed
-                            guidance on some of the more technical parts of the
-                            system, such as theming.
-                        </p>
+                        <>
+                            <p>
+                                Evergreen is
+                                <Link
+                                    inline={true}
+                                    href="https://segment.com/"
+                                    externalIcon={<IconArrowTopRight />}>
+                                    Segment
+                                </Link>
+                                's open-source React design system with over
+                                12,000 stars on Github.
+                            </p>
+                            <p>
+                                I quickly became one of the
+                                <Link
+                                    inline={true}
+                                    href="https://github.com/segmentio/evergreen/graphs/contributors"
+                                    externalIcon={<IconArrowTopRight />}>
+                                    most frequent contributors
+                                </Link>
+                                to the repository with bug fixes, package
+                                maintenance and tests, and new features,
+                                including an all-new
+                                <Link
+                                    inline={true}
+                                    href="https://evergreen.segment.com/components/file-uploader"
+                                    externalIcon={<IconArrowTopRight />}>
+                                    File Uploader
+                                </Link>
+                                component. In addition to code contributions, I
+                                acted as a resource to the community -
+                                responding to questions, bug reports, and
+                                providing detailed guidance on some of the more
+                                technical parts of the system, such as theming.
+                            </p>
+                        </>
                     }
                 />
                 <ProjectDetail
@@ -97,41 +108,54 @@ const Projects = () => {
                     siteUrl="https://beets.studio"
                     repoUrl="https://github.com/brandongregoryscott/beets"
                     description={
-                        <p>
-                            Web-based DAW (Digital Audio Workstation) written in
-                            React for making music. Utilizes a number of open
-                            source libraries and products including:
-                            <ul class="no-margin">
-                                <li>
-                                    <Link
-                                        inline={true}
-                                        href="https://github.com/segmentio/evergreen"
-                                        externalIcon={<IconArrowTopRight />}>
-                                        evergreen
-                                    </Link>
-                                    Design system by Segment
-                                </li>
-                                <li>
-                                    <Link
-                                        inline={true}
-                                        href="https://jotai.org"
-                                        externalIcon={<IconArrowTopRight />}>
-                                        Jotai
-                                    </Link>
-                                    State management library for React
-                                </li>
-                                <li>
-                                    <Link
-                                        inline={true}
-                                        href="https://supabase.com"
-                                        externalIcon={<IconArrowTopRight />}>
-                                        Supabase
-                                    </Link>
-                                    Open-source backend/cloud hosting
-                                    alternative to Firebase
-                                </li>
-                            </ul>
-                        </p>
+                        <>
+                            <p>
+                                Web-based DAW (Digital Audio Workstation)
+                                written in React for making music.
+                            </p>
+                            <p>
+                                I built this application with a few primary
+                                goals in mind. For one, I wanted to learn
+                                <Link
+                                    inline={true}
+                                    href="https://github.com/segmentio/evergreen"
+                                    externalIcon={<IconArrowTopRight />}>
+                                    Evergreen
+                                </Link>
+                                inside and out, since I had recently started at
+                                <Link
+                                    inline={true}
+                                    href="https://segment.com/"
+                                    externalIcon={<IconArrowTopRight />}>
+                                    Segment
+                                </Link>
+                                . I had also recently heard about
+                                <Link
+                                    inline={true}
+                                    href="https://supabase.com"
+                                    externalIcon={<IconArrowTopRight />}>
+                                    Supabase
+                                </Link>
+                                , which was marketed as an open-source
+                                alternative to Firebase and recently opened up
+                                for self-service access. Finally, I wanted to
+                                take what I had learned at
+                                <Link
+                                    inline={true}
+                                    href="https://andculture.com"
+                                    externalIcon={<IconArrowTopRight />}>
+                                    andculture
+                                </Link>
+                                and apply it: standing up the frontend
+                                architecture for a maintainable SaaS application
+                                that could scale if needed, but for something
+                                fun - making music. I never planned to monetize
+                                the application, but Supabase made it really
+                                easy to implement sign-up and login flows, and
+                                it was nice to be able to persist data for each
+                                user account (projects, samples, etc.)
+                            </p>
+                        </>
                     }
                 />
                 <ProjectDetail
@@ -147,7 +171,7 @@ const Projects = () => {
                     description={
                         <p>
                             VS Code extension to ease the process of maintaining
-                            localized copy for an application. Uses{" "}
+                            localized copy for an application. Uses
                             <Link
                                 inline={true}
                                 href="https://ts-morph.com"
@@ -172,7 +196,7 @@ const Projects = () => {
                     description={
                         <p>
                             Command line tool created to standardize daily
-                            development and CI processes at{" "}
+                            development and CI processes at
                             <Link
                                 inline={true}
                                 href="https://andculture.com"
