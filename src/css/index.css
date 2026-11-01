@@ -167,6 +167,35 @@ hr {
     }
 }
 
+.project-list {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+
+    > h3 {
+        display: flex;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 8px;
+    }
+
+    > h3:has(+ p) {
+        margin: 0;
+    }
+
+    > hr + h3 {
+        margin-block-start: 8px;
+    }
+
+    > h3 a {
+        display: inline-flex;
+        align-items: center;
+        font-size: 1rem;
+        font-weight: normal;
+        line-height: 1.5;
+    }
+}
+
 .post-layout-content {
     padding: 16px;
     height: calc(100% - var(--header-height));
