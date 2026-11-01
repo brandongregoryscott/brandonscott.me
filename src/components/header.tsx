@@ -1,5 +1,4 @@
 import { cn } from "../utils";
-import { IconArrowTopRight } from "./icon-arrow-top-right";
 import { IconEmail } from "./icon-email";
 import { Link } from "./link";
 
@@ -35,22 +34,25 @@ const Header = (props: HeaderProps) => {
                 <Link
                     fileSlug={fileSlug}
                     href="/resume"
-                    externalIcon={<IconArrowTopRight />}>
+                    external={true}
+                    openInNewTab={true}>
                     Resume
                 </Link>
                 <Link
                     href="https://www.linkedin.com/in/brandongregoryscott/"
-                    externalIcon={<IconArrowTopRight />}>
+                    external={true}
+                    openInNewTab={true}>
                     LinkedIn
                 </Link>
                 <Link
                     href="https://www.github.com/brandongregoryscott/"
-                    externalIcon={<IconArrowTopRight />}>
+                    external={true}
+                    openInNewTab={true}>
                     GitHub
                 </Link>
                 <Link
                     href="mailto:contact@brandonscott.me"
-                    externalIcon={<IconEmail />}>
+                    icon={<IconEmail />}>
                     Email
                 </Link>
             </div>

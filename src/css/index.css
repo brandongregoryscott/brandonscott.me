@@ -81,6 +81,27 @@ a[href]:hover {
     }
 }
 
+a.link {
+    display: flex;
+    align-items: center;
+
+    > svg {
+        margin-inline-start: 4px;
+    }
+}
+
+a.external::after {
+    content: "";
+    display: inline-block;
+    flex-shrink: 0;
+    width: 1em;
+    height: 1em;
+    margin-inline-start: 4px;
+    vertical-align: -0.125em;
+    background-color: currentColor;
+    mask: url("/media/arrow-top-right.svg") center / contain no-repeat;
+}
+
 a.inline {
     display: inline-flex;
     padding-left: 4px;
@@ -143,18 +164,6 @@ hr {
         overflow-wrap: anywhere;
         text-decoration: underline;
         text-underline-offset: 2px;
-    }
-
-    a.external::after {
-        content: "";
-        display: inline-block;
-        width: 1em;
-        height: 1em;
-        margin-inline-start: 4px;
-        vertical-align: -0.125em;
-        background-color: currentColor;
-        mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill-rule='evenodd' d='M21 3H3.00003V21H21V3ZM16.1317 15.8536L16.1317 7.85356L8.13174 7.85356V9.85356H12.7175L6.47488 16.0962L7.8891 17.5104L14.1317 11.2678V15.8536H16.1317Z'/%3E%3C/svg%3E")
-            center / contain no-repeat;
     }
 }
 

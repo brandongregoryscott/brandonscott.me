@@ -49,7 +49,7 @@ export default function (eleventyConfig: any) {
 
     eleventyConfig.addPassthroughCopy({
         "src/css/*.css": "css",
-        "src/media/*.{png,jpeg,ico}": "media",
+        "src/media/*.{png,jpeg,ico,svg}": "media",
     });
 
     eleventyConfig.addTransform("tsx", async (content: any) => {

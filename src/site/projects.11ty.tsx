@@ -1,4 +1,3 @@
-import { IconArrowTopRight } from "../components/icon-arrow-top-right";
 import { Link } from "../components/link";
 import { ProjectDetail } from "../components/project-detail";
 
@@ -18,15 +17,17 @@ const Projects = () => {
                                 <Link
                                     inline={true}
                                     href="https://walledgarden.bandcamp.com"
-                                    externalIcon={<IconArrowTopRight />}>
+                                    external={true}
+                                    openInNewTab={true}>
                                     walled garden
                                 </Link>
                             </i>
                             . Built using
                             <Link
                                 inline={true}
-                                href=" https://jdan.github.io/98.css"
-                                externalIcon={<IconArrowTopRight />}>
+                                href="https://jdan.github.io/98.css"
+                                external={true}
+                                openInNewTab={true}>
                                 98.css
                             </Link>
                             with some slight modifications and additions to get
@@ -46,14 +47,16 @@ const Projects = () => {
                             <Link
                                 inline={true}
                                 href="https://www.mongodb.design"
-                                externalIcon={<IconArrowTopRight />}>
+                                external={true}
+                                openInNewTab={true}>
                                 LeafyGreen
                             </Link>
                             and
                             <Link
                                 inline={true}
                                 href="https://www.chartjs.org"
-                                externalIcon={<IconArrowTopRight />}>
+                                external={true}
+                                openInNewTab={true}>
                                 ChartJS
                             </Link>
                             for rendering the chart data.
@@ -71,7 +74,8 @@ const Projects = () => {
                                 <Link
                                     inline={true}
                                     href="https://segment.com/"
-                                    externalIcon={<IconArrowTopRight />}>
+                                    external={true}
+                                    openInNewTab={true}>
                                     Segment
                                 </Link>
                                 's open-source React design system with over
@@ -82,7 +86,8 @@ const Projects = () => {
                                 <Link
                                     inline={true}
                                     href="https://github.com/segmentio/evergreen/graphs/contributors"
-                                    externalIcon={<IconArrowTopRight />}>
+                                    external={true}
+                                    openInNewTab={true}>
                                     most frequent contributors
                                 </Link>
                                 to the repository with bug fixes, package
@@ -91,7 +96,8 @@ const Projects = () => {
                                 <Link
                                     inline={true}
                                     href="https://evergreen.segment.com/components/file-uploader"
-                                    externalIcon={<IconArrowTopRight />}>
+                                    external={true}
+                                    openInNewTab={true}>
                                     File Uploader
                                 </Link>
                                 component. In addition to code contributions, I
@@ -119,21 +125,24 @@ const Projects = () => {
                                 <Link
                                     inline={true}
                                     href="https://github.com/segmentio/evergreen"
-                                    externalIcon={<IconArrowTopRight />}>
+                                    external={true}
+                                    openInNewTab={true}>
                                     Evergreen
                                 </Link>
                                 inside and out, since I had recently started at
                                 <Link
                                     inline={true}
                                     href="https://segment.com/"
-                                    externalIcon={<IconArrowTopRight />}>
+                                    external={true}
+                                    openInNewTab={true}>
                                     Segment
                                 </Link>
                                 . I had also recently heard about
                                 <Link
                                     inline={true}
                                     href="https://supabase.com"
-                                    externalIcon={<IconArrowTopRight />}>
+                                    external={true}
+                                    openInNewTab={true}>
                                     Supabase
                                 </Link>
                                 , which was marketed as an open-source
@@ -143,7 +152,8 @@ const Projects = () => {
                                 <Link
                                     inline={true}
                                     href="https://andculture.com"
-                                    externalIcon={<IconArrowTopRight />}>
+                                    external={true}
+                                    openInNewTab={true}>
                                     andculture
                                 </Link>
                                 and apply it: standing up the frontend
@@ -175,14 +185,16 @@ const Projects = () => {
                             <Link
                                 inline={true}
                                 href="https://ts-morph.com"
-                                externalIcon={<IconArrowTopRight />}>
+                                external={true}
+                                openInNewTab={true}>
                                 ts-morph
                             </Link>
                             and
                             <Link
                                 inline={true}
                                 href="https://github.com/vitalets/google-translate-api"
-                                externalIcon={<IconArrowTopRight />}>
+                                external={true}
+                                openInNewTab={true}>
                                 @vitalets/google-translate-api
                             </Link>
                             to insert keys and translated values to a culture
@@ -200,7 +212,8 @@ const Projects = () => {
                             <Link
                                 inline={true}
                                 href="https://andculture.com"
-                                externalIcon={<IconArrowTopRight />}>
+                                external={true}
+                                openInNewTab={true}>
                                 andculture
                             </Link>
                             .

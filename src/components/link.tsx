@@ -5,22 +5,24 @@ type LinkProps = {
     fileSlug?: string;
     href: string;
     children: string;
-    externalIcon?: JSX.Element;
-};
+    openInNewTab?: boolean;
+} & ({ external?: boolean } | { icon?: JSX.Element });
 
 const Link = (props: LinkProps) => {
-    const { href, inline, fileSlug, children, externalIcon } = props;
+    const { href, inline, fileSlug, children, openInNewTab } = props;
 
     return (
         <a
-            class={cn("flex-row", "align-items-center", "gap-sm", {
+            class={cn("link", {
                 inline: inline === true,
                 current: fileSlug === href.replace("/", ""),
+                external: "external" in props && props.external === true,
             })}
-            target={externalIcon !== undefined ? "_blank" : undefined}
+            target={openInNewTab === true ? "_blank" : undefined}
+            rel={openInNewTab === true ? "noopener" : undefined}
             href={href}>
             <span>{children}</span>
-            {externalIcon !== undefined && externalIcon}
+            {"icon" in props && props.icon}
         </a>
     );
 };
