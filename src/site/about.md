@@ -1,4 +1,9 @@
-### Hi there 👋
+---
+title: About Me
+layout: content-layout.11ty.tsx
+---
+
+# Hi there 👋
 
 I'm a software engineer that's passionate about open source software, quality code, new technology, and building things.
 

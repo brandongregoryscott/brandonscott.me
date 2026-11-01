@@ -1,6 +1,11 @@
 import { jsxToString } from "jsx-async-runtime";
+import markdownItAttrs from "markdown-it-attrs";
 
 export default function (eleventyConfig: any) {
+    eleventyConfig.amendLibrary("md", (markdown: any) => {
+        markdown.use(markdownItAttrs, { allowedAttributes: ["class"] });
+    });
+
     eleventyConfig.setServerOptions({
         port: 3000,
     });
