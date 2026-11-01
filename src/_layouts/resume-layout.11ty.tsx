@@ -1,35 +1,20 @@
+import { Document } from "../components/document";
 import { ResumeHeader } from "../components/resume-header";
 import { ViewProps } from "../types";
 
-const MainLayout = (props: ViewProps): JSX.Element => {
-    const { title = "Brandon Scott", content } = props;
+const ResumeLayout = (props: ViewProps) => {
+    const { title, content } = props;
+
     return (
-        <html lang="en">
-            <head>
-                <title>{title}</title>
-                <meta
-                    name="viewport"
-                    content="width=device-width, initial-scale=1"
-                />
-                <link
-                    rel="icon"
-                    type="image/x-icon"
-                    href="/media/favicon.ico"
-                />
-                <link rel="stylesheet" href="/css/reset.css" />
-                <link rel="stylesheet" href="/css/resume.css" />
-                <link rel="stylesheet" href="/css/utilities.css" />
-            </head>
-            <body>
-                <div class="resume-layout-content">
-                    <ResumeHeader />
-                    {content}
-                </div>
-            </body>
-        </html>
+        <Document title={title} stylesheet="/css/resume.css">
+            <div class="resume-layout-content">
+                <ResumeHeader />
+                {content}
+            </div>
+        </Document>
     );
 };
 
-const render = MainLayout;
+const render = ResumeLayout;
 
 export { render };

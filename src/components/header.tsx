@@ -5,16 +5,18 @@ import { Link } from "./link";
 
 interface HeaderProps {
     fileSlug: string;
+    title?: string;
 }
 
 const Header = (props: HeaderProps) => {
-    const { fileSlug } = props;
+    const { fileSlug, title } = props;
     return (
         <div
             class={cn(
                 "header",
                 "padding-md",
                 "flex-row",
+                { "align-items-center": title != null },
                 "justify-content-space-between"
             )}>
             <div class={cn("flex-row", "gap-md")}>
@@ -28,6 +30,7 @@ const Header = (props: HeaderProps) => {
                     Projects
                 </Link>
             </div>
+            {title != null && <h4>{title}</h4>}
             <div class={cn("flex-row", "gap-md")}>
                 <Link
                     fileSlug={fileSlug}
