@@ -99,7 +99,9 @@ a.external::after {
     margin-inline-start: 4px;
     vertical-align: -0.125em;
     background-color: currentColor;
-    mask: url("/media/arrow-top-right.svg") center / contain no-repeat;
+    /* Inline the small mask so it is ready with the stylesheet on navigation. */
+    mask: url("data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%2024%2024'%3E%3Cpath%20fill-rule='evenodd'%20clip-rule='evenodd'%20d='M21%203H3.00003V21H21V3ZM16.1317%2015.8536L16.1317%207.85356L8.13174%207.85356V9.85356H12.7175L6.47488%2016.0962L7.8891%2017.5104L14.1317%2011.2678V15.8536H16.1317Z'%20/%3E%3C/svg%3E")
+        center / contain no-repeat;
 }
 
 a.inline {
