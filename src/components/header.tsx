@@ -28,6 +28,9 @@ const Header = (props: HeaderProps) => {
                 <Link fileSlug={fileSlug} href="/projects">
                     Projects
                 </Link>
+                <Link fileSlug={fileSlug} href="/resources">
+                    Resources
+                </Link>
             </div>
             {title != null && <h4>{title}</h4>}
             <div class={cn("flex-row", "gap-md")}>

@@ -121,6 +121,26 @@ hr {
     width: calc(100% - 16px);
 }
 
+table {
+    border-collapse: collapse;
+}
+
+th {
+    padding: 8px;
+    border-bottom: 1px solid;
+    &:not(:last-of-type) {
+        border-right: 1px solid;
+    }
+}
+
+td {
+    padding: 8px;
+    border-top: 1px solid;
+    &:not(:last-of-type) {
+        border-right: 1px solid;
+    }
+}
+
 .main-layout-content {
     padding: 16px;
     height: calc(100% - var(--header-height));
