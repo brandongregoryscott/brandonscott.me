@@ -8,6 +8,12 @@ contentClass: prose
 
 A list of servers/public APIs I run. Some of these are for personal use and may be password protected, but aside from that, feel free to use them (responsibly!)
 
+## 31
+
+[31.brandonscott.me](https://31.brandonscott.me){.external}
+
+_\*Vibe coded, but should work just fine._
+
 ## Call of Duty: Modern Warfare 2
 
 Requires the [IW4x](https://iw4x.io/){.external} client.
