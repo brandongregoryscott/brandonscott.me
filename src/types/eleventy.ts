@@ -3,6 +3,7 @@ interface ViewProps {
     collections: Record<string, Page[]>;
     title?: string;
     content: string;
+    contentClass?: string;
 }
 
 interface Page {
@@ -16,6 +17,7 @@ interface Page {
 
 interface PageData {
     layout: string;
+    contentClass?: string;
     tags: string[];
     title?: string;
     date?: Date;

@@ -1,6 +1,7 @@
 ---
 title: About Me
-layout: content-layout.11ty.tsx
+layout: main-layout.11ty.tsx
+contentClass: prose
 ---
 
 # Hi there 👋

@@ -1,9 +1,8 @@
 ---
 title: Projects
 layout: main-layout.11ty.tsx
+contentClass: project-list
 ---
-
-<div class="project-list">
 
 ### walledgarden [site](https://walledgarden.club){.external} [repo](https://github.com/brandongregoryscott/walledgarden){.external}
 
@@ -50,5 +49,3 @@ VS Code extension to ease the process of maintaining localized copy for an appli
 Command line tool created to standardize daily development and CI processes at [andculture](https://andculture.com){.external}.
 
 ---
-
-</div>

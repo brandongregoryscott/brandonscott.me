@@ -1,6 +1,7 @@
 ---
 title: Servers
-layout: content-layout.11ty.tsx
+layout: main-layout.11ty.tsx
+contentClass: prose
 ---
 
 # Servers
