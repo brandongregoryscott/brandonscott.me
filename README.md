@@ -86,7 +86,7 @@ The npm lockfile records the dependency tree. After dependency updates, run `npm
 ## Content conventions
 
 - Existing post URLs and `/media/` image paths are preserved.
-- Servers lives at `/resources/servers/`, with Resources highlighted in the header and a link back to its parent page. `/servers/` redirects to the nested page.
+- Servers lives at `/resources/servers/`, with Resources highlighted in the header and a link back to its parent page.
 - Eleventy's layout/data files are replaced by explicit Astro layouts and one posts collection.
 - `{.external}` annotations were replaced with standard Markdown; CSS marks HTTPS links in prose.
 - Custom `gist:owner/id` shorthand was converted to standard HTML script embeds in Markdown. These still depend on GitHub's external script; code fences would remove that dependency.
