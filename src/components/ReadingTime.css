@@ -1,6 +1,6 @@
 .reading-time {
     padding: 24px;
-    border: 1px solid var(--color-slate-gray);
+    border: 1px solid var(--color-border);
     border-radius: 8px;
     margin-block: 24px;
 }
@@ -28,7 +28,7 @@
     padding: 8px;
     background: var(--color-background);
     color: var(--color-text);
-    border: 1px solid var(--color-slate-gray);
+    border: 1px solid var(--color-border);
     border-radius: 4px;
 }
 .calculator-result {

@@ -8,76 +8,59 @@ const links = [
 const pathname = `${Astro.url.pathname.replace(/\/$/, "")}/`;
 ---
 
-<header class="header justify-content-space-between">
-    <nav aria-label="Main navigation" class="flex-row gap-md">
+<header class="site-header">
+    <nav aria-label="Main navigation">
         {links.map(({ href, label }) => {
             const isCurrentPage = pathname === href;
             const isCurrentSection = href !== "/" && pathname.startsWith(href);
-
             return (
-                <a
-                    href={href}
-                    class:list={[
-                        "link",
-                        { current: isCurrentPage || isCurrentSection },
-                    ]}
-                    aria-current={
-                        isCurrentPage
-                            ? "page"
-                            : isCurrentSection
-                              ? "location"
-                              : undefined
-                    }>
-                    <span>{label}</span>
+                <a class="nav-link" href={href}
+                    aria-current={isCurrentPage ? "page" : isCurrentSection ? "location" : undefined}>
+                    {label}
                 </a>
             );
         })}
     </nav>
-    <nav aria-label="Elsewhere" class="flex-row gap-md">
-        <a class="link" href="/resume/">
-            Resume
-        </a>
-        <a
-            class="link external"
-            href="https://www.linkedin.com/in/brandongregoryscott/">
-            LinkedIn
-        </a>
-        <a class="link external" href="https://github.com/brandongregoryscott">
-            GitHub
-        </a>
-        <a class="link" href="mailto:contact@brandonscott.me">
-            Email
-        </a>
+    <nav aria-label="Elsewhere">
+        <a class="nav-link external" href="/resume/" target="_blank" rel="noopener noreferrer">Resume</a>
+        <a class="nav-link external" href="https://www.linkedin.com/in/brandongregoryscott/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+        <a class="nav-link external" href="https://github.com/brandongregoryscott" target="_blank" rel="noopener noreferrer">GitHub</a>
+        <a class="nav-link" href="mailto:contact@brandonscott.me">Email</a>
     </nav>
 </header>
 
 <style>
-    .header {
+    .site-header {
         display: flex;
-        position: sticky;
-        top: 0;
+        flex-wrap: wrap;
+        justify-content: space-between;
         align-items: center;
-        flex-wrap: wrap;
-        gap: 8px;
-        padding: 16px;
-        background-color: var(--color-background);
-        box-shadow: var(--color-black) 0px 1px 8px -2px;
-        z-index: 1;
+        background: #242029;
+        border-bottom: 1px solid #51435f;
+        padding: 17px max(24px, calc((100% - var(--content-max-width)) / 2));
+        gap: 0 22px;
     }
-
-    nav {
-        flex-wrap: wrap;
+    nav { display: flex; flex-wrap: wrap; gap: 14px; align-items: center; }
+    .nav-link {
+        display: inline-flex;
+        align-items: center;
+        position: relative;
+        min-height: 36px;
+        padding: 8px 12px;
+        color: #cdc2d9;
+        font-size: 0.69rem;
+        text-transform: uppercase;
+        letter-spacing: 0.12em;
+        text-decoration: none;
     }
-
-    @media (max-width: 600px) {
-        .header {
-            position: static;
-            gap: 16px;
-        }
-
-        nav {
-            width: 100%;
-            gap: 12px;
-        }
+    .nav-link + .nav-link::before { content: ""; position: absolute; left: -7px; height: 12px; width: 1px; background: #62536f; }
+    .nav-link[aria-current] { color: #d3b5fa; box-shadow: inset 0 -3px #b799e0; }
+    .nav-link:hover { color: #d3b5fa; background: #362d40; }
+    .nav-link:focus-visible { outline-color: #d3b5fa; outline-offset: -5px; }
+    @media (max-width: 760px) {
+        .site-header { padding: 10px 16px; }
+        .nav-link { padding: 8px 9px; font-size: 0.65rem; letter-spacing: 0.07em; }
     }
+    @media (max-width: 600px) { nav { width: 100%; } }
+    @media (max-width: 380px) { .site-header { padding-inline: 10px; } }
 </style>

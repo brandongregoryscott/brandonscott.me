@@ -25,19 +25,47 @@ const { post } = Astro.props;
 
 <style>
     .post-preview {
-        padding-block: 16px;
-        border-bottom: 1px solid var(--color-slate-gray);
+        padding-block: 28px;
+        border-bottom: 1px solid var(--color-border);
+        gap: 14px;
+    }
+    .post-preview:last-child {
+        border-bottom: 0;
+        padding-bottom: 0;
+    }
+    .post-preview + .post-preview {
+        margin-top: 0;
     }
 
     .post-preview-heading {
         flex-wrap: wrap;
+        justify-content: space-between;
+        align-items: baseline;
+        gap: 10px 24px;
     }
 
     h2 {
-        font-size: 1.25rem;
+        max-width: 710px;
+        font-size: 1.55rem;
+        line-height: 1.25;
+        font-weight: 700;
+    }
+    h2 a { color: var(--color-text); text-decoration: none; }
+    h2 a:hover {
+        text-decoration: underline;
+        text-decoration-color: var(--color-text-link);
+        text-underline-offset: 4px;
     }
 
     time {
-        font-size: 0.9rem;
+        font-family: var(--font-family-monospace);
+        color: var(--color-muted);
+        font-size: 0.7rem;
+        white-space: nowrap;
+    }
+    p { max-width: 88ch; font-size: 0.89rem; line-height: 1.85; }
+    @media (max-width: 760px) {
+        h2 { font-size: 1.45rem; }
+        p { font-size: 0.82rem; }
     }
 </style>

@@ -87,11 +87,32 @@ The npm lockfile records the dependency tree. After dependency updates, run `npm
 
 - Images in `public/media/` are served at `/media/`.
 - Servers lives at `/resources/servers/`, with Resources highlighted in the header and a link back to its parent page.
-- Use standard Markdown links; CSS marks HTTPS links in prose.
+- Use standard Markdown links. Prose links have no added arrows; external header links and Resume retain an icon and open in new tabs.
 - Existing gist embeds use HTML script tags in Markdown and depend on GitHub's external scripts. Use code fences for self-contained code examples.
 - Shared styles live in `src/styles/`; component-specific styles live alongside their components.
 - The resume remains Markdown with its own static layout and stylesheet.
 - The React demo lives at `/playground/` and is intentionally omitted from the header navigation.
+
+## Design and components
+
+The default site uses a purple and charcoal palette, monospace body text,
+the original condensed heading font stack, and a CSS background grid.
+`src/styles/index.css` defines the palette, shared 1080px content container,
+reading styles, and responsive layout. The header and article previews keep
+their component styles alongside their markup. The résumé retains its own
+layout and stylesheet.
+
+Light is the base theme. System mode follows the OS preference, including
+without JavaScript. The footer theme selector can override that preference;
+its selection persists under the `site-theme` local storage key and is applied
+before rendering to avoid a flash of the wrong theme.
+
+Run `npm run dev` and visit `/components/` for the component sheet. A footer
+link appears only in development. The route uses `import.meta.env.DEV` in
+`getStaticPaths`, so production builds omit the page and its link entirely.
+The component examples live in `src/components/ComponentExamples.astro` and
+`src/styles/components.css`. Previous design-lab routes and iterations have
+been removed.
 
 ## Deployment
 
