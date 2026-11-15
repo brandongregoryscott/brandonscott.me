@@ -1,8 +1,6 @@
-# Maintaining brandonscott.me
+# Developing brandonscott.me
 
-## Local development
-
-Run these commands from the repository root:
+## Setup
 
 ```sh
 nvm use
@@ -10,114 +8,59 @@ npm ci
 npm run dev
 ```
 
-Open the Local URL printed by Astro (normally http://localhost:4321).
+Open the URL printed by Astro, normally http://localhost:4321. The Node version is pinned in `.nvmrc`.
 
-```sh
-npm run check
-npm run build
-npm run preview
-```
+- `npm run check` checks Astro and TypeScript.
+- `npm run build` generates the static site in `dist/`.
+- `npm run preview` serves that build locally.
 
-`build` produces ordinary static files in `dist/`. No server adapter, React server, CMS, or hosting integration is required. Use the Node version in `.nvmrc`; CI reads the same file.
+## Repository structure
 
-## Where to work
-
-| Task | File or directory |
+| Location | Purpose |
 | --- | --- |
-| Write an article | `src/content/posts/*.md` |
-| Write a standalone page | `src/pages/*.md` |
-| Embed an interactive component in content | `src/pages/playground.mdx` |
-| Write ordinary React | `src/components/ReadingTime.tsx` |
-| Change the document shell | `src/layouts/BaseLayout.astro` |
-| Change navigation | `src/components/Header.astro` |
-| Change the article template | `src/pages/posts/[id].astro` |
-| Define post metadata | `src/content.config.ts` |
-| Customize styling | `src/styles/` |
-| Add static images or downloads | `public/` |
+| `src/pages/` | File-based routes: `.astro`, Markdown, or MDX |
+| `src/content/posts/` | Articles, loaded through the posts collection |
+| `src/content.config.ts` | Collection loader and frontmatter schema |
+| `src/layouts/` | Shared document shells and Markdown layouts |
+| `src/components/` | Astro and React components |
+| `src/styles/` | Shared styles; component styles can also live beside components |
+| `public/` | Files served as-is: `public/media/example.png` becomes `/media/example.png` |
+| `astro.config.mjs` | Site configuration and the React/MDX integrations |
 
-## Add a post
+The résumé uses its own layout and stylesheet. `/components/` is a development-only component sheet; its route and link are excluded from production builds using `import.meta.env.DEV`.
 
-Create `src/content/posts/my-new-post.md`:
+## Content and routing
+
+Add an article at `src/content/posts/my-post.md`:
 
 ```md
 ---
-title: My new post
+title: My post
 description: A short description for the home page.
 date: 2026-11-14
 ---
 
-Write normal Markdown here.
-
-![An image](/media/example.png)
+Write Markdown here.
 ```
 
-Astro validates the metadata, adds the post to the home page, and generates `/posts/my-new-post/`. There is no per-post layout configuration. Dates are displayed in UTC so date-only frontmatter does not shift to the previous day in another time zone.
+The collection validates the frontmatter and includes the article on the home page. `src/pages/posts/[id].astro` uses `getStaticPaths()` to generate an article page for each entry. Dates display in UTC to preserve date-only values.
 
-For a standalone page, put a `.md` file in `src/pages/` with `title` and `layout: ../layouts/MarkdownLayout.astro` in its frontmatter. Its filename becomes its route.
+Standalone pages go in `src/pages/`. For Markdown pages, include `title` and `layout: ../layouts/MarkdownLayout.astro` in the frontmatter. A file such as `src/pages/about.md` becomes `/about/`.
 
-## Add interactivity
+## Astro and React components
 
-Use `.mdx` instead of `.md` only when content needs a component. Both formats are accepted in the posts collection. For an article in `src/content/posts/`:
+- An `.astro` file's `---` section runs during the build. Its template renders HTML, and `<slot />` inserts child content.
+- Astro components can include a `<script>` for browser behavior without loading React. CSS inside `<style>` is scoped to that component by default.
+- React components use `.tsx`. Without a `client:*` directive, Astro renders their HTML but does not activate their event handlers in the browser.
+- Add `client:load` to hydrate React on page load, or `client:visible` to hydrate when the component enters the viewport. Separate islands do not automatically share React context.
+- Use `.mdx` when Markdown needs embedded components. Ordinary articles can stay `.md`.
+
+For example, an MDX article in `src/content/posts/` can include:
 
 ```mdx
 import ReadingTime from '../../components/ReadingTime';
 
-Some ordinary Markdown.
-
 <ReadingTime client:load />
 ```
 
-Keep the same title, description, and date frontmatter as a normal post. The playground page shows this working with React state, events, and accessible form labels.
-
-- `.astro` components handle static layouts, props, imports, and `<slot />` composition.
-- `.tsx` components use real React, including hooks and event handlers.
-- `client:load` makes a React component interactive on page load. `client:visible` defers that work until it enters the viewport.
-- A React component without a client directive renders static HTML without loading React in the browser.
-- Separate interactive islands do not automatically share a React context tree. Keep related interactive UI inside one React component when it needs shared state.
-
-The ordinary pages do not hydrate React. The playground renders its calculator's initial state into the HTML and hydrates only that island.
-
-## Configuration and maintenance
-
-`astro.config.mjs` contains the site URL and two official integrations: `@astrojs/mdx` and `@astrojs/react`. Markdown, routing, content loading, frontmatter validation, CSS bundling, and static generation use Astro's supported APIs. There are no custom Markdown plugins or JSX runtimes.
-
-The npm lockfile records the dependency tree. After dependency updates, run `npm run check` and `npm run build`. Major framework upgrades can still require changes; a minimal configuration reduces the amount of integration code to maintain.
-
-## Content conventions
-
-- Images in `public/media/` are served at `/media/`.
-- Servers lives at `/resources/servers/`, with Resources highlighted in the header and a link back to its parent page.
-- Use standard Markdown links. Prose links have no added arrows; external header links and Resume retain an icon and open in new tabs.
-- Existing gist embeds use HTML script tags in Markdown and depend on GitHub's external scripts. Use code fences for self-contained code examples.
-- Shared styles live in `src/styles/`; component-specific styles live alongside their components.
-- The resume remains Markdown with its own static layout and stylesheet.
-- The React demo lives at `/playground/` and is intentionally omitted from the header navigation.
-
-## Design and components
-
-The default site uses a purple and charcoal palette, monospace body text,
-the original condensed heading font stack, and a CSS background grid.
-`src/styles/index.css` defines the palette, shared 1080px content container,
-reading styles, and responsive layout. The header and article previews keep
-their component styles alongside their markup. The résumé retains its own
-layout and stylesheet.
-
-Light is the base theme. System mode follows the OS preference, including
-without JavaScript. The footer theme selector can override that preference;
-its selection persists under the `site-theme` local storage key and is applied
-before rendering to avoid a flash of the wrong theme.
-
-Run `npm run dev` and visit `/components/` for the component sheet. A footer
-link appears only in development. The route uses `import.meta.env.DEV` in
-`getStaticPaths`, so production builds omit the page and its link entirely.
-The component examples live in `src/components/ComponentExamples.astro` and
-`src/styles/components.css`. Previous design-lab routes and iterations have
-been removed.
-
-## Deployment
-
-GitHub Actions runs type checking and a static build for pull requests. Pushes to `main` also publish `dist/` to GitHub Pages. To deploy, merge into `main` or run the deployment workflow manually.
-
-Edit `.github/workflows/deploy.mts` to change CI/CD. Workflows use TypeScript and `gagen`, following the same build and deploy jobs described above. After editing, run `npm run ci:generate` and commit both the source and `.github/workflows/deploy.generated.yml`. The YAML is generated and should not be edited manually.
-
-Run `npm run ci:check` to type-check the workflow source and verify the generated YAML is current; CI runs this check too. Action references are pinned to commit hashes in the generated YAML. To refresh those pins, run `npm run ci:generate -- --update-pins`.
+`src/pages/playground.mdx` provides a working React example. Theme selection uses an Astro component with a browser script; its saved preference is also applied in the document head before rendering.
