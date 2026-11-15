@@ -1,0 +1,41 @@
+---
+import "../styles/reset.css";
+import "../styles/resume.css";
+import "../styles/utilities.css";
+---
+
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <title>Resume · Brandon Scott</title>
+        <link rel="icon" href="/media/favicon.ico" />
+    </head>
+    <body>
+        <main class="resume-layout-content">
+            <header class="flex-column">
+                <div class="flex-row justify-content-space-between">
+                    <h1>Brandon Scott</h1>
+                    <span>www.brandonscott.me</span>
+                </div>
+                <div class="flex-row justify-content-space-between">
+                    <span>Lancaster, PA</span>
+                    <span>contact@brandonscott.me</span>
+                </div>
+                <hr />
+            </header>
+            <slot />
+        </main>
+    </body>
+</html>
+
+<style>
+    h1 {
+        font-size: 16px;
+    }
+    main {
+        max-width: 900px;
+        margin-inline: auto;
+    }
+</style>

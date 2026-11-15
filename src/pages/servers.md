@@ -1,0 +1,28 @@
+---
+title: Servers
+layout: ../layouts/MarkdownLayout.astro
+contentClass: prose
+---
+
+# Servers
+
+A list of servers/public APIs I run. Some of these are for personal use and may be password protected, but aside from that, feel free to use them (responsibly!)
+
+## 31
+
+[31.brandonscott.me](https://31.brandonscott.me)
+
+_\*Vibe coded, but should work just fine._
+
+## Call of Duty: Modern Warfare 2
+
+Requires the [IW4x](https://iw4x.io/) client.
+
+| Type             | Hostname                                                                                 | Notes         |
+|------------------|------------------------------------------------------------------------------------------|---------------|
+| Domination       | [bscott-mw2-dom.tuns.sh:28960](iw4x://bscott-mw2-dom.tuns.sh:28960)           |               |
+| Domination       | [bscott-mw2-dom-hard.tuns.sh:28963](iw4x://bscott-mw2-dom-hard.tuns.sh:28963) | Hard bots |
+| Team Deathmatch  | [bscott-mw2-tdm.tuns.sh:28961](iw4x://bscott-mw2-tdm.tuns.sh:28961)           |               |
+| Search & Destroy | [bscott-mw2-sd.tuns.sh:28962](iw4x://bscott-mw2-sd.tuns.sh:28962)             |               |
+
+You can connect to these servers by using the in-game console with the `connect` command, i.e. `connect bscott-mw2-dom.tuns.sh:28960`. The in-game UI might not allow you to type the full hostname and port to favorite, so you'll have to add these entries to the `favorites.json` file manually. *TODO: add full path to this file*

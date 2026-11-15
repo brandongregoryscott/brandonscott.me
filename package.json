@@ -1,26 +1,30 @@
 {
-    "author": "Brandon Scott <contact@brandonscott.me>",
-    "dependencies": {
-        "@11ty/eleventy": "3.1.2",
-        "jsx-async-runtime": "1.0.3",
-        "markdown-it-attrs": "5.0.1"
-    },
-    "description": "",
-    "devDependencies": {
-        "@types/node": "22.13.14",
-        "chokidar": "4.0.3",
-        "serve": "14.2.4",
-        "tsx": "4.20.3"
-    },
-    "license": "Apache-2.0",
-    "main": "index.js",
-    "name": "11ty-tsx",
-    "scripts": {
-        "build": "tsx node_modules/@11ty/eleventy/cmd.cjs --config=eleventy.config.ts",
-        "clean": "rm -rf _site",
-        "serve": "tsx node_modules/@11ty/eleventy/cmd.cjs --config=eleventy.config.ts --serve",
-        "start": "node server.js"
-    },
+    "name": "brandonscott.me",
+    "private": true,
     "type": "module",
-    "version": "1.0.0"
+    "scripts": {
+        "dev": "astro dev",
+        "check": "astro check",
+        "build": "astro build",
+        "preview": "astro preview"
+    },
+    "dependencies": {
+        "astro": "^7.4.12",
+        "@astrojs/mdx": "^8.1.6",
+        "@astrojs/react": "^7.1.9",
+        "react": "^19.3.1",
+        "react-dom": "^19.3.1"
+    },
+    "devDependencies": {
+        "@astrojs/check": "^0.9.12",
+        "@types/react": "^19.0.0",
+        "@types/react-dom": "^19.0.0",
+        "typescript": "^6.0.3"
+    },
+    "author": "Brandon Scott <contact@brandonscott.me>",
+    "description": "Personal website and writing by Brandon Scott.",
+    "license": "Apache-2.0",
+    "engines": {
+        "node": ">=24.17.0"
+    }
 }

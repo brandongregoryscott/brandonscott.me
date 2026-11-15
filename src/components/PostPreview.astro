@@ -1,0 +1,43 @@
+---
+import type { CollectionEntry } from "astro:content";
+
+interface Props {
+    post: CollectionEntry<"posts">;
+}
+
+const { post } = Astro.props;
+---
+
+<article class="post-preview flex-column gap-md">
+    <div class="flex-row gap-md align-items-center post-preview-heading">
+        <h2>
+            <a href={`/posts/${post.id}/`}>{post.data.title}</a>
+        </h2>
+        <time datetime={post.data.date.toISOString()}>
+            {post.data.date.toLocaleDateString("en-US", {
+                dateStyle: "medium",
+                timeZone: "UTC",
+            })}
+        </time>
+    </div>
+    <p>{post.data.description}</p>
+</article>
+
+<style>
+    .post-preview {
+        padding-block: 16px;
+        border-bottom: 1px solid var(--color-slate-gray);
+    }
+
+    .post-preview-heading {
+        flex-wrap: wrap;
+    }
+
+    h2 {
+        font-size: 1.25rem;
+    }
+
+    time {
+        font-size: 0.9rem;
+    }
+</style>

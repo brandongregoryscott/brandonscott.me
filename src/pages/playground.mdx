@@ -1,0 +1,19 @@
+---
+layout: ../layouts/MarkdownLayout.astro
+title: Playground
+description: A small interactive reading time calculator inside a Markdown page.
+---
+
+import ReadingTime from "../components/ReadingTime";
+
+# A little room to experiment
+
+Most of what I publish here is writing. Sometimes an idea is easier to explore with something you can adjust yourself.
+
+## How long will it take to read?
+
+Try a different word count or reading speed to estimate the time you need for an article.
+
+<ReadingTime client:load />
+
+The estimate divides the word count by your reading speed and rounds up to the next minute. Real reading time will vary with the subject, code examples, and how often you stop to think.
