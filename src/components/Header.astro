@@ -10,14 +10,28 @@ const pathname = `${Astro.url.pathname.replace(/\/$/, "")}/`;
 
 <header class="header justify-content-space-between">
     <nav aria-label="Main navigation" class="flex-row gap-md">
-        {links.map(({ href, label }) => (
-            <a
-                href={href}
-                class:list={["link", { current: pathname === href }]}
-                aria-current={pathname === href ? "page" : undefined}>
-                <span>{label}</span>
-            </a>
-        ))}
+        {links.map(({ href, label }) => {
+            const isCurrentPage = pathname === href;
+            const isCurrentSection = href !== "/" && pathname.startsWith(href);
+
+            return (
+                <a
+                    href={href}
+                    class:list={[
+                        "link",
+                        { current: isCurrentPage || isCurrentSection },
+                    ]}
+                    aria-current={
+                        isCurrentPage
+                            ? "page"
+                            : isCurrentSection
+                              ? "location"
+                              : undefined
+                    }>
+                    <span>{label}</span>
+                </a>
+            );
+        })}
     </nav>
     <nav aria-label="Elsewhere" class="flex-row gap-md">
         <a class="link" href="/resume/">

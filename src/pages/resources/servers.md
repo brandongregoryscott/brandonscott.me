@@ -1,8 +1,10 @@
 ---
 title: Servers
-layout: ../layouts/MarkdownLayout.astro
+layout: ../../layouts/MarkdownLayout.astro
 contentClass: prose
 ---
+
+[← Resources](/resources/)
 
 # Servers
 

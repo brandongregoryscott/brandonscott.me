@@ -6,4 +6,4 @@ contentClass: prose
 
 # Resources
 
-- [Servers](/servers/)
+- [Servers](/resources/servers/)
