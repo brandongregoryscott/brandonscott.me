@@ -96,3 +96,7 @@ The npm lockfile records the dependency tree. After dependency updates, run `npm
 ## Deployment
 
 GitHub Actions runs type checking and a static build for pull requests. Pushes to `main` also publish `dist/` to GitHub Pages. To deploy, merge into `main` or run the deployment workflow manually.
+
+Edit `.github/workflows/deploy.mts` to change CI/CD. Workflows use TypeScript and `gagen`, following the same build and deploy jobs described above. After editing, run `npm run ci:generate` and commit both the source and `.github/workflows/deploy.generated.yml`. The YAML is generated and should not be edited manually.
+
+Run `npm run ci:check` to type-check the workflow source and verify the generated YAML is current; CI runs this check too. Action references are pinned to commit hashes in the generated YAML. To refresh those pins, run `npm run ci:generate -- --update-pins`.
