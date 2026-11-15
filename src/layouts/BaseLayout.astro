@@ -1,0 +1,38 @@
+---
+import Header from "../components/Header.astro";
+import "../styles/reset.css";
+import "../styles/index.css";
+import "../styles/utilities.css";
+
+interface Props {
+    title?: string;
+    description?: string;
+    contentClass?: string;
+}
+
+const {
+    title = "Brandon Scott",
+    description = "Software engineer, open source contributor, and builder.",
+    contentClass = "prose",
+} = Astro.props;
+---
+
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta name="description" content={description} />
+        <title>{title === 'Brandon Scott' ? title : `${title} · Brandon Scott`}</title>
+        <link rel="icon" href="/media/favicon.ico" />
+    </head>
+    <body>
+        <a class="skip-link" href="#content">
+            Skip to content
+        </a>
+        <Header />
+        <main id="content" class:list={["main-layout-content", contentClass]}>
+            <slot />
+        </main>
+    </body>
+</html>

@@ -1,0 +1,18 @@
+---
+import { getCollection } from "astro:content";
+import BaseLayout from "../layouts/BaseLayout.astro";
+import PostPreview from "../components/PostPreview.astro";
+
+const posts = (await getCollection("posts")).sort(
+    (a, b) => b.data.date.valueOf() - a.data.date.valueOf()
+);
+---
+
+<BaseLayout contentClass="post-list">
+    <h1 class="page-heading">Writing</h1>
+    <div class="flex-column gap-xl">
+        {posts.map((post) => (
+            <PostPreview post={post} />
+        ))}
+    </div>
+</BaseLayout>

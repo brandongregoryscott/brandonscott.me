@@ -1,0 +1,83 @@
+---
+const links = [
+    { href: "/", label: "Home" },
+    { href: "/about/", label: "About" },
+    { href: "/projects/", label: "Projects" },
+    { href: "/resources/", label: "Resources" },
+];
+const pathname = `${Astro.url.pathname.replace(/\/$/, "")}/`;
+---
+
+<header class="header justify-content-space-between">
+    <nav aria-label="Main navigation" class="flex-row gap-md">
+        {links.map(({ href, label }) => {
+            const isCurrentPage = pathname === href;
+            const isCurrentSection = href !== "/" && pathname.startsWith(href);
+
+            return (
+                <a
+                    href={href}
+                    class:list={[
+                        "link",
+                        { current: isCurrentPage || isCurrentSection },
+                    ]}
+                    aria-current={
+                        isCurrentPage
+                            ? "page"
+                            : isCurrentSection
+                              ? "location"
+                              : undefined
+                    }>
+                    <span>{label}</span>
+                </a>
+            );
+        })}
+    </nav>
+    <nav aria-label="Elsewhere" class="flex-row gap-md">
+        <a class="link" href="/resume/">
+            Resume
+        </a>
+        <a
+            class="link external"
+            href="https://www.linkedin.com/in/brandongregoryscott/">
+            LinkedIn
+        </a>
+        <a class="link external" href="https://github.com/brandongregoryscott">
+            GitHub
+        </a>
+        <a class="link" href="mailto:contact@brandonscott.me">
+            Email
+        </a>
+    </nav>
+</header>
+
+<style>
+    .header {
+        display: flex;
+        position: sticky;
+        top: 0;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 8px;
+        padding: 16px;
+        background-color: var(--color-background);
+        box-shadow: var(--color-black) 0px 1px 8px -2px;
+        z-index: 1;
+    }
+
+    nav {
+        flex-wrap: wrap;
+    }
+
+    @media (max-width: 600px) {
+        .header {
+            position: static;
+            gap: 16px;
+        }
+
+        nav {
+            width: 100%;
+            gap: 12px;
+        }
+    }
+</style>
