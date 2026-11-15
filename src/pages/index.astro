@@ -9,7 +9,6 @@ const posts = (await getCollection("posts")).sort(
 ---
 
 <BaseLayout contentClass="post-list">
-    <h1 class="page-heading">Writing</h1>
     <div class="flex-column gap-xl">
         {posts.map((post) => (
             <PostPreview post={post} />
