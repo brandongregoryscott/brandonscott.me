@@ -117,6 +117,16 @@ code, pre, .monospace { font-family: var(--font-family-monospace); }
     th, td { border-color: var(--color-border); text-align: left; }
 }
 hr { border: 0; border-top: 1px solid var(--color-border); width: 100%; margin-block: 20px; }
+.prose a[href], .project-list > p a[href] {
+    color: var(--color-text-link);
+    text-decoration: underline;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 3px;
+}
+.prose a[href]:hover, .project-list > p a[href]:hover {
+    color: var(--color-text-link-active);
+    text-decoration-thickness: 2px;
+}
 table { border-collapse: collapse; }
 th, td {
     padding: 8px;

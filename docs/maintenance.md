@@ -63,4 +63,4 @@ import ReadingTime from '../../components/ReadingTime';
 <ReadingTime client:load />
 ```
 
-`src/pages/playground.mdx` provides a working React example. Theme selection uses an Astro component with a browser script; its saved preference is also applied in the document head before rendering.
+`src/pages/playground.mdx` provides a working React example. The footer theme control is another React island, hydrated with `client:load`. Its saved preference is also applied by a small script in the document head before rendering to prevent a theme flash.

@@ -1,6 +1,6 @@
 ---
 import Header from "../components/Header.astro";
-import ThemeControl from "../components/ThemeControl.astro";
+import ThemeControl from "../components/ThemeControl";
 import "../styles/reset.css";
 import "../styles/index.css";
 import "../styles/utilities.css";
@@ -46,7 +46,7 @@ const {
         </main>
         <footer class="site-settings">
             {import.meta.env.DEV && <a href="/components/">Components</a>}
-            <ThemeControl />
+            <ThemeControl client:load />
         </footer>
     </body>
 </html>
