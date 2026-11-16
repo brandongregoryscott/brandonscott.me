@@ -11,25 +11,21 @@ npm run dev
 Open the URL printed by Astro, normally http://localhost:4321. The Node version is pinned in `.nvmrc`.
 
 - `npm run check` checks Astro and TypeScript.
-- `npm run lint` checks ESLint rules; `npm run lint:fix` applies automatic fixes.
-- `npm run format` checks formatting; `npm run format:fix` formats source and documentation.
 - `npm run build` generates the static site in `dist/`.
 - `npm run preview` serves that build locally.
 
-ESLint rules are copied from [the shared config](https://github.com/brandongregoryscott/eslint-config) (`~/eslint-config/eslint.config.mjs`) into `eslint.config.mjs`, with local Astro support and the workflow TypeScript project included. Update the copy when adopting shared rule changes. Prettier uses the shared preferences plus `prettier-plugin-astro`. Generated output and the archived prototype are excluded from both tools. CI runs lint and formatting checks before building.
-
 ## Repository structure
 
-| Location                | Purpose                                                                     |
-| ----------------------- | --------------------------------------------------------------------------- |
-| `src/pages/`            | File-based routes: `.astro`, Markdown, or MDX                               |
-| `src/content/posts/`    | Articles, loaded through the posts collection                               |
-| `src/content.config.ts` | Collection loader and frontmatter schema                                    |
-| `src/layouts/`          | Shared document shells and Markdown layouts                                 |
-| `src/components/`       | Astro and React components                                                  |
-| `src/styles/`           | Shared styles; component styles can also live beside components             |
-| `public/`               | Files served as-is: `public/media/example.png` becomes `/media/example.png` |
-| `astro.config.mjs`      | Site configuration and the React/MDX integrations                           |
+| Location | Purpose |
+| --- | --- |
+| `src/pages/` | File-based routes: `.astro`, Markdown, or MDX |
+| `src/content/posts/` | Articles, loaded through the posts collection |
+| `src/content.config.ts` | Collection loader and frontmatter schema |
+| `src/layouts/` | Shared document shells and Markdown layouts |
+| `src/components/` | Astro and React components |
+| `src/styles/` | Shared styles; component styles can also live beside components |
+| `public/` | Files served as-is: `public/media/example.png` becomes `/media/example.png` |
+| `astro.config.mjs` | Site configuration and the React/MDX integrations |
 
 The résumé uses its own layout and stylesheet. `/components/` is a development-only component sheet; its route and link are excluded from production builds using `import.meta.env.DEV`.
 
@@ -62,7 +58,7 @@ Standalone pages go in `src/pages/`. For Markdown pages, include `title` and `la
 For example, an MDX article in `src/content/posts/` can include:
 
 ```mdx
-import { ReadingTime } from "../../components/ReadingTime";
+import ReadingTime from '../../components/ReadingTime';
 
 <ReadingTime client:load />
 ```
