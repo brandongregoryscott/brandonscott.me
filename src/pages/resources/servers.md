@@ -20,11 +20,11 @@ _\*Vibe coded, but should work just fine._
 
 Requires the [IW4x](https://iw4x.io/) client.
 
-| Type             | Hostname                                                                                 | Notes         |
-|------------------|------------------------------------------------------------------------------------------|---------------|
-| Domination       | [bscott-mw2-dom.tuns.sh:28960](iw4x://bscott-mw2-dom.tuns.sh:28960)           |               |
+| Type             | Hostname                                                                      | Notes     |
+| ---------------- | ----------------------------------------------------------------------------- | --------- |
+| Domination       | [bscott-mw2-dom.tuns.sh:28960](iw4x://bscott-mw2-dom.tuns.sh:28960)           |           |
 | Domination       | [bscott-mw2-dom-hard.tuns.sh:28963](iw4x://bscott-mw2-dom-hard.tuns.sh:28963) | Hard bots |
-| Team Deathmatch  | [bscott-mw2-tdm.tuns.sh:28961](iw4x://bscott-mw2-tdm.tuns.sh:28961)           |               |
-| Search & Destroy | [bscott-mw2-sd.tuns.sh:28962](iw4x://bscott-mw2-sd.tuns.sh:28962)             |               |
+| Team Deathmatch  | [bscott-mw2-tdm.tuns.sh:28961](iw4x://bscott-mw2-tdm.tuns.sh:28961)           |           |
+| Search & Destroy | [bscott-mw2-sd.tuns.sh:28962](iw4x://bscott-mw2-sd.tuns.sh:28962)             |           |
 
-You can connect to these servers by using the in-game console with the `connect` command, i.e. `connect bscott-mw2-dom.tuns.sh:28960`. The in-game UI might not allow you to type the full hostname and port to favorite, so you'll have to add these entries to the `favorites.json` file manually. *TODO: add full path to this file*
+You can connect to these servers by using the in-game console with the `connect` command, i.e. `connect bscott-mw2-dom.tuns.sh:28960`. The in-game UI might not allow you to type the full hostname and port to favorite, so you'll have to add these entries to the `favorites.json` file manually. _TODO: add full path to this file_

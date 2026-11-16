@@ -6,7 +6,7 @@ contentClass: project-list
 
 ### walledgarden [site](https://walledgarden.club) [repo](https://github.com/brandongregoryscott/walledgarden)
 
-A small virtual desktop web application with a media player for my musical project, *[walled garden](https://walledgarden.bandcamp.com)*. Built using [98.css](https://jdan.github.io/98.css) with some slight modifications and additions to get close to the Windows 98 desktop look and feel.
+A small virtual desktop web application with a media player for my musical project, _[walled garden](https://walledgarden.bandcamp.com)_. Built using [98.css](https://jdan.github.io/98.css) with some slight modifications and additions to get close to the Windows 98 desktop look and feel.
 
 ---
 
