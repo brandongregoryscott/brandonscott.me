@@ -1,6 +1,6 @@
 ---
 import Header from "../components/Header.astro";
-import ThemeControl from "../components/ThemeControl";
+import { ThemeControl } from "../components/ThemeControl";
 import "../styles/reset.css";
 import "../styles/index.css";
 import "../styles/utilities.css";
@@ -32,7 +32,10 @@ const {
         <script is:inline>
             try {
                 const theme = localStorage.getItem("site-theme");
-                if (theme === "light" || theme === "dark") document.documentElement.dataset.theme = theme;
+
+                if (theme === "light" || theme === "dark") {
+                    document.documentElement.dataset.theme = theme;
+                }
             } catch {}
         </script>
     </head>

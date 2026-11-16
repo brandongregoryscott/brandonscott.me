@@ -43,10 +43,10 @@ The Yeoman generator ships with two commands - one for generating the plugin, an
 
 This command will open an interactive prompt for basic information about the plugin.
 
--   **Your name:** Used for authoring information in the `package.json` and source files.
--   **Plugin ID:** Unique name for your plugin, which should be all lowercase and separated by dashes.
--   **Contains custom ESLint rules:** Yes. You'll want your plugin to actually do something!
--   **Contains custom ESLint processors:** No. For most use-cases and the scope of this article, you won't need to write a custom processor.
+- **Your name:** Used for authoring information in the `package.json` and source files.
+- **Plugin ID:** Unique name for your plugin, which should be all lowercase and separated by dashes.
+- **Contains custom ESLint rules:** Yes. You'll want your plugin to actually do something!
+- **Contains custom ESLint processors:** No. For most use-cases and the scope of this article, you won't need to write a custom processor.
 
 Your final configuration should look something like this:
 
@@ -56,10 +56,10 @@ Once the plugin has been scaffolded out, we can run an additional generator for 
 
 `yo eslint:rule`
 
--   **Your name:** Used for authoring information at the top of the rule source file.
--   **Publishing:** Unless you're contributing a new rule to the core [ESLint](https://github.com/eslint/eslint) repository, select the plugin option.
--   **Rule ID:** Unique name for your rule, which should be all lowercase and separated by dashes. If your rule is disallowing something, prefix the rule with `no-`.
--   **Example failing code:** A short snippet of code that will be used to scaffold out a unit test. This code should report an error when your rule is implemented.
+- **Your name:** Used for authoring information at the top of the rule source file.
+- **Publishing:** Unless you're contributing a new rule to the core [ESLint](https://github.com/eslint/eslint) repository, select the plugin option.
+- **Rule ID:** Unique name for your rule, which should be all lowercase and separated by dashes. If your rule is disallowing something, prefix the rule with `no-`.
+- **Example failing code:** A short snippet of code that will be used to scaffold out a unit test. This code should report an error when your rule is implemented.
 
 ![yo eslint rule configuration](/media/yo-eslint-rule-configuration.png)
 
@@ -343,8 +343,8 @@ Writing your own ESLint plugin and custom rules can be a powerful way to enforce
 
 #### Additional resources
 
--   View the source code for my own extension, [eslint-plugin-collation](https://github.com/brandongregoryscott/eslint-plugin-collation)
--   [Yeoman](https://yeoman.io/), a code generation tool
--   [generator-eslint](https://github.com/eslint/generator-eslint), the Yeoman generator for ESLint plugins and rules
--   [Yalc](https://github.com/wclr/yalc), a tool for testing out npm packages locally
--   [ESLint Developer Guide > Working with Rules](https://eslint.org/docs/latest/developer-guide/working-with-rules)
+- View the source code for my own extension, [eslint-plugin-collation](https://github.com/brandongregoryscott/eslint-plugin-collation)
+- [Yeoman](https://yeoman.io/), a code generation tool
+- [generator-eslint](https://github.com/eslint/generator-eslint), the Yeoman generator for ESLint plugins and rules
+- [Yalc](https://github.com/wclr/yalc), a tool for testing out npm packages locally
+- [ESLint Developer Guide > Working with Rules](https://eslint.org/docs/latest/developer-guide/working-with-rules)

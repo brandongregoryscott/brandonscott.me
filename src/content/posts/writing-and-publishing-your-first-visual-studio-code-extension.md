@@ -258,7 +258,7 @@ With the steps and examples provided in this article, you should have everything
 
 #### Resources and more examples
 
--   View the source code for the [kazoo](https://github.com/brandongregoryscott/kazoo) extension mentioned throughout
--   [TypeScript](https://www.typescriptlang.org/) website
--   [Yo](https://www.npmjs.com/package/yo) (Yeoman) on npm
--   [generator-code](https://www.npmjs.com/package/generator-code) (VS Code extension generator) on npm
+- View the source code for the [kazoo](https://github.com/brandongregoryscott/kazoo) extension mentioned throughout
+- [TypeScript](https://www.typescriptlang.org/) website
+- [Yo](https://www.npmjs.com/package/yo) (Yeoman) on npm
+- [generator-code](https://www.npmjs.com/package/generator-code) (VS Code extension generator) on npm

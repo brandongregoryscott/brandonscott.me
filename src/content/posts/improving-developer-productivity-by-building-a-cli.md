@@ -80,12 +80,12 @@ This solution is better — it removes the duplicated code above, but it will st
 
 ### What is the difference between bash and other languages?
 
--   **Functions cannot return a value, only an exit code.** Think of each function as its own executable program: when you run and shutdown `dotnet`, it does not return anything, just a numeric code representing the execution as a success or failure (generally 0 is a successful run/shutdown, and non-zero represents a failure.)
-    -   _There are some 'workarounds' for this behavior, but I personally find them undesirable and more confusing._
--   **There are multiple ways to write an 'if' block or test a condition.** `if`, the `test` command, `[[condition]]` and `[ condition ]` are all ways to 'test' a condition in Bash, but the [double brackets](https://tldp.org/LDP/abs/html/testconstructs.html#DBLBRACKETS) support logical operators such as `&&`, `||`, `<`, and `>` while the single brackets do not. Technically, brackets are not necessary when writing an `if` block. See the referenced documentation for further examples.
--   **Variables are referenced with a preceding `$`, whereas they are declared without one.** If you notice `DOTNET_SOLUTION_PATH` is declared early on without the `$`, but needs to be accessed with the `$` or the literal string "DOTNET_SOLUTION_PATH" will be used.
--   **Bash has some built-in "special" variables such as `$?` , which returns the exit value of last executed command.**
-    -   _I'm sure there are other languages with special variables, and some could argue language constants and enumerations could be considered special variables._
+- **Functions cannot return a value, only an exit code.** Think of each function as its own executable program: when you run and shutdown `dotnet`, it does not return anything, just a numeric code representing the execution as a success or failure (generally 0 is a successful run/shutdown, and non-zero represents a failure.)
+    - _There are some 'workarounds' for this behavior, but I personally find them undesirable and more confusing._
+- **There are multiple ways to write an 'if' block or test a condition.** `if`, the `test` command, `[[condition]]` and `[ condition ]` are all ways to 'test' a condition in Bash, but the [double brackets](https://tldp.org/LDP/abs/html/testconstructs.html#DBLBRACKETS) support logical operators such as `&&`, `||`, `<`, and `>` while the single brackets do not. Technically, brackets are not necessary when writing an `if` block. See the referenced documentation for further examples.
+- **Variables are referenced with a preceding `$`, whereas they are declared without one.** If you notice `DOTNET_SOLUTION_PATH` is declared early on without the `$`, but needs to be accessed with the `$` or the literal string "DOTNET_SOLUTION_PATH" will be used.
+- **Bash has some built-in "special" variables such as `$?` , which returns the exit value of last executed command.**
+    - _I'm sure there are other languages with special variables, and some could argue language constants and enumerations could be considered special variables._
 
 There's more to cover, but these are some of the things I noticed when trying to remember how Bash worked to write examples for this post. It's worth noting that this makes sense, and isn't necessarily a bash on Bash: Bash is not a programming language, it is a command shell that can be used to write scripts. It can be useful for automating repetitive tasks you perform on the command line for creating files, changing directories, receiving and forwarding input from other programs or commands, etc. It shouldn't be used as a general purpose programming language.
 
@@ -105,9 +105,9 @@ Note: There is another file not shown called 'main.js' (arbitrary) which acts as
 
 This program is broken up in a very similar way to the Bash script:
 
--   It loops over an array of common file patterns where a dotnet solution file might be found.
--   It exits early if no solution file can be found.
--   The solution path is set as a variable and passed along to the dotnet restore command.
+- It loops over an array of common file patterns where a dotnet solution file might be found.
+- It exits early if no solution file can be found.
+- The solution path is set as a variable and passed along to the dotnet restore command.
 
 While at first glance this example looks longer and more complex, it does have some advantages over Bash. For one, you can easily write unit tests to prove this functionality works.
 
@@ -159,8 +159,8 @@ With that piece covered, you should have everything you need to get started buil
 
 ### Resources and more examples
 
--   View the source code for the [AndcultureCode.Cli](https://github.com/AndcultureCode/AndcultureCode.Cli) mentioned earlier
--   [Full repository](https://github.com/brandongregoryscott/medium-example-cli) containing the examples in this post
--   [ShellJS](https://www.npmjs.com/package/shelljs) on npm
--   [Commander](https://www.npmjs.com/package/commander) on npm
--   [Jest](https://www.npmjs.com/package/jest) on npm
+- View the source code for the [AndcultureCode.Cli](https://github.com/AndcultureCode/AndcultureCode.Cli) mentioned earlier
+- [Full repository](https://github.com/brandongregoryscott/medium-example-cli) containing the examples in this post
+- [ShellJS](https://www.npmjs.com/package/shelljs) on npm
+- [Commander](https://www.npmjs.com/package/commander) on npm
+- [Jest](https://www.npmjs.com/package/jest) on npm

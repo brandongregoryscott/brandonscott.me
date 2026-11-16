@@ -50,7 +50,10 @@ const { post } = Astro.props;
         line-height: 1.25;
         font-weight: 700;
     }
-    h2 a { color: var(--color-text); text-decoration: none; }
+    h2 a {
+        color: var(--color-text);
+        text-decoration: none;
+    }
     h2 a:hover {
         text-decoration: underline;
         text-decoration-color: var(--color-text-link);
@@ -63,9 +66,17 @@ const { post } = Astro.props;
         font-size: 0.7rem;
         white-space: nowrap;
     }
-    p { max-width: 88ch; font-size: 0.89rem; line-height: 1.85; }
+    p {
+        max-width: 88ch;
+        font-size: 0.89rem;
+        line-height: 1.85;
+    }
     @media (max-width: 760px) {
-        h2 { font-size: 1.45rem; }
-        p { font-size: 0.82rem; }
+        h2 {
+            font-size: 1.45rem;
+        }
+        p {
+            font-size: 0.82rem;
+        }
     }
 </style>

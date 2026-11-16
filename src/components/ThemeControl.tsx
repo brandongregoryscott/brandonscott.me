@@ -1,21 +1,24 @@
-import { useEffect, useState, type ChangeEvent } from "react";
+import type { ChangeEvent } from "react";
+import { useEffect, useRef } from "react";
 
-type Theme = "system" | "light" | "dark";
+type Theme = "dark" | "light" | "system";
 
-export default function ThemeControl() {
-    const [theme, setTheme] = useState<Theme>("system");
+function ThemeControl() {
+    const selectRef = useRef<HTMLSelectElement>(null);
 
     useEffect(() => {
         const savedTheme = document.documentElement.dataset.theme;
-        if (savedTheme === "light" || savedTheme === "dark") {
-            setTheme(savedTheme);
+
+        if (
+            selectRef.current != null &&
+            (savedTheme === "light" || savedTheme === "dark")
+        ) {
+            selectRef.current.value = savedTheme;
         }
     }, []);
 
     const handleChangeTheme = (event: ChangeEvent<HTMLSelectElement>) => {
         const theme = event.target.value as Theme;
-
-        setTheme(theme);
 
         document.documentElement.dataset.theme = theme;
 
@@ -26,6 +29,7 @@ export default function ThemeControl() {
         try {
             if (theme === "system") {
                 localStorage.removeItem("site-theme");
+
                 return;
             }
 
@@ -37,10 +41,11 @@ export default function ThemeControl() {
         <label className="theme-control">
             Theme
             <select
-                id="theme"
                 aria-label="Color theme"
-                value={theme}
-                onChange={handleChangeTheme}>
+                defaultValue="system"
+                id="theme"
+                onChange={handleChangeTheme}
+                ref={selectRef}>
                 <option value="system">System</option>
                 <option value="light">Light</option>
                 <option value="dark">Dark</option>
@@ -48,3 +53,5 @@ export default function ThemeControl() {
         </label>
     );
 }
+
+export { ThemeControl };

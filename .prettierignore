@@ -1,0 +1,7 @@
+node_modules/
+dist/
+.astro/
+_site/
+astro-prototype/
+package-lock.json
+.github/workflows/*.generated.yml
