@@ -5,9 +5,15 @@ title: Resume
 
 **PROFESSIONAL EXPERIENCE**
 
+**Infracost – Remote**
+
+<div class="flex-row justify-content-space-between"><span>Senior Software Engineer</span><span>October 2025 – Present</span></div>
+
+<br />
+
 **Designbase – Remote**
 
-<div class="flex-row justify-content-space-between"><span>Founding Engineer</span><span>July 2023 – Present</span></div>
+<div class="flex-row justify-content-space-between"><span>Founding Engineer</span><span>July 2023 – September 2025</span></div>
 
 <br />
 
